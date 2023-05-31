@@ -27,7 +27,7 @@ public class ProductDaoDataSource implements IProductDao {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + ProductDaoDataSource.TABLE_NAME
-				+ " (NAME, DESCRIPTION, PRICE, QUANTITY) VALUES (?, ?, ?, ?)";
+				+ " (Nome, Descrizione, Prezzo, QuantitaDisponibile) VALUES (?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
@@ -58,7 +58,7 @@ public class ProductDaoDataSource implements IProductDao {
 
 		ProductBean bean = new ProductBean();
 
-		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE CODE = ?";
+		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE ID = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -68,11 +68,11 @@ public class ProductDaoDataSource implements IProductDao {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setCode(rs.getInt("CODE"));
-				bean.setName(rs.getString("NAME"));
-				bean.setDescription(rs.getString("DESCRIPTION"));
-				bean.setPrice(rs.getInt("PRICE"));
-				bean.setQuantity(rs.getInt("QUANTITY"));
+				bean.setCode(rs.getInt("ID"));
+				bean.setName(rs.getString("Nome"));
+				bean.setDescription(rs.getString("Descrizione"));
+				bean.setPrice(rs.getInt("Prezzo"));
+				bean.setQuantity(rs.getInt("QuantitaDisponibile"));
 			}
 
 		} finally {
@@ -94,7 +94,7 @@ public class ProductDaoDataSource implements IProductDao {
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE CODE = ?";
+		String deleteSQL = "DELETE FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE ID = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -137,11 +137,11 @@ public class ProductDaoDataSource implements IProductDao {
 			while (rs.next()) {
 				ProductBean bean = new ProductBean();
 
-				bean.setCode(rs.getInt("CODE"));
-				bean.setName(rs.getString("NAME"));
-				bean.setDescription(rs.getString("DESCRIPTION"));
-				bean.setPrice(rs.getInt("PRICE"));
-				bean.setQuantity(rs.getInt("QUANTITY"));
+				bean.setCode(rs.getInt("ID"));
+				bean.setName(rs.getString("Nome"));
+				bean.setDescription(rs.getString("Descrizione"));
+				bean.setPrice(rs.getInt("Prezzo"));
+				bean.setQuantity(rs.getInt("QuantitaDisponibile"));
 				products.add(bean);
 			}
 
