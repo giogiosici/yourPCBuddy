@@ -1,5 +1,6 @@
 package control;
 
+import java.io.PrintWriter;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,8 +35,14 @@ public class PageServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+		response.setContentType("text/html");
 
+        PrintWriter out = response.getWriter();
+        out.println("<html>");
+        out.println("<head><title>Hello World Servlet</title></head>");
+        out.println("<body>");
+        out.println("<h1>Hello, World!</h1>");
+        out.println("</body>");
+        out.println("</html>");
+    }
 }
