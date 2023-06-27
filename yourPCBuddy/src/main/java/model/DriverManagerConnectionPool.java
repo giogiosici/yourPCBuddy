@@ -21,6 +21,7 @@ public class DriverManagerConnectionPool  {
 	public DriverManagerConnectionPool() {
 		freeDbConnections = new LinkedList<Connection>();
 	}
+	private static DriverManagerConnectionPool instance;
 	
 	private synchronized Connection createDBConnection() throws SQLException {
 		Connection newConnection = null;
@@ -56,6 +57,12 @@ public class DriverManagerConnectionPool  {
 
 		return connection;
 	}
+	public static synchronized DriverManagerConnectionPool getInstance() {
+        if (instance == null) {
+            instance = new DriverManagerConnectionPool();
+        }
+        return instance;
+    }
 
 	public synchronized void releaseConnection(Connection connection) throws SQLException {
 		if(connection != null) freeDbConnections.add(connection);

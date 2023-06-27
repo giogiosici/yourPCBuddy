@@ -13,8 +13,8 @@
 
 	    <label for="password">Password:</label>
 		<input type="password" id="password" name="password" required><br><br>
-		<input type="submit" value="login">
+		<input type="submit" value="login">		
   </form>
-  
+  <p>Non sei registrato? Registrati <a href="RegisterPage.jsp">qui</a></p>
 </body>
 </html>

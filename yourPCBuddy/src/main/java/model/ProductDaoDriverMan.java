@@ -98,7 +98,7 @@ public class ProductDaoDriverMan implements IProductDao {
 			connection = dmcp.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setInt(1, code);
-
+			System.out.println("becienz");
 			result = preparedStatement.executeUpdate();
 
 		} finally {
