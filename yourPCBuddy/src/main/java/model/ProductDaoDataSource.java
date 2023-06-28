@@ -39,7 +39,7 @@ public class ProductDaoDataSource implements IProductDao {
 
 			preparedStatement.executeUpdate();
 
-			connection.commit();
+			//connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -102,7 +102,7 @@ public class ProductDaoDataSource implements IProductDao {
 			preparedStatement.setInt(1, code);
 
 			result = preparedStatement.executeUpdate();
-			connection.commit();
+			//connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)

@@ -39,7 +39,7 @@ public class ProductDaoDriverMan implements IProductDao {
 
 			preparedStatement.executeUpdate();
 
-			connection.commit();
+			//connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -98,9 +98,9 @@ public class ProductDaoDriverMan implements IProductDao {
 			connection = dmcp.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setInt(1, code);
-			System.out.println("becienz");
+			
 			result = preparedStatement.executeUpdate();
-
+			connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)

@@ -15,6 +15,12 @@
 		<input type="password" id="password" name="password" required><br><br>
 		<input type="submit" value="login">		
   </form>
+  <% String errorMessage = (String) request.getAttribute("errorMessage");
+   if (errorMessage != null && !errorMessage.isEmpty()) { %>
+    <div class="error-message">
+        <%= errorMessage %>
+    </div>
+<% } %>
   <p>Non sei registrato? Registrati <a href="RegisterPage.jsp">qui</a></p>
 </body>
 </html>

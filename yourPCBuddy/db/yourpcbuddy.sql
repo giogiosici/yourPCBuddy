@@ -58,6 +58,7 @@ FOREIGN KEY (OrdineID) REFERENCES Ordini(ID),
 FOREIGN KEY (UtenteID) REFERENCES Utenti(ID)
 );
 
+INSERT INTO Utenti (Nome,Email,Password) values ("root","admin@gmail.com","admin");
 INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile) values (1,"Intel i7-13200","Processore",200.00,10);
 INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile) values (2,"Ryzen 5 5600g","Processore",180.00,5);
 /*INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile)  values ();

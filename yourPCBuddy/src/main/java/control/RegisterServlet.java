@@ -54,16 +54,20 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         try {
 			if (isUsernameExists(name)) {
 			    // Il nome utente esiste già nel database
-			    // Puoi gestire l'errore, ad esempio mostrando un messaggio di errore sulla pagina di registrazione
 			    response.sendRedirect("RegisterPage.jsp?error=username_exists");
 			    return; // Termina l'esecuzione della servlet
+			}
+		   if (isEmailExists(email)) {
+			    // L'email esiste già nel database
+			    response.sendRedirect("RegisterPage.jsp?error=email_exists");
+				    return; // Termina l'esecuzione della servlet
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -92,7 +96,13 @@ public class RegisterServlet extends HttpServlet {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, username);
             ResultSet resultSet = statement.executeQuery();
-            return resultSet.next(); // Restituisce true se il nome utente esiste già nel database, altrimenti false
-        
+            return resultSet.next(); // Restituisce true se il nome utente esiste già nel database, altrimenti false 
+	}
+        private boolean isEmailExists(String email) throws SQLException {
+            String query = "SELECT * FROM Utenti WHERE Email = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.next(); // Restituisce true se l'email esiste già nel database, altrimenti false 
 	}
 }

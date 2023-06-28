@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/loginServlet")
 public class Login extends HttpServlet {
@@ -28,7 +29,7 @@ public class Login extends HttpServlet {
         
         if(login.equalsIgnoreCase("root") && pwd.equals("admin")) {
             request.getSession().setAttribute("uname", login);
-            response.sendRedirect("welcomeServlet");
+            response.sendRedirect("./product");
             return;
         } 
         else {
@@ -36,31 +37,25 @@ public class Login extends HttpServlet {
             try {
             	DriverManagerConnectionPool connectionPool = DriverManagerConnectionPool.getInstance();
             	connection = connectionPool.getConnection();
-            	String query = "SELECT * FROM Utenti WHERE Nome = ?";
+            	String query = "SELECT * FROM Utenti WHERE (Nome,Password) = (?, ?)";
             	statement = connection.prepareStatement(query);
             	statement.setString(1, login);
+            	statement.setString(2, pwd);
             	logincheck=statement.executeQuery();
-        			if(logincheck.next()) {
-        				response.setContentType("text/html");
-        				PrintWriter out = response.getWriter();
-        			       out.println("<!doctype html>");
-        			       out.println("<html><body>");
-        			       out.println("<h2>DB check</h2>");
-        			       out.println("<p style='color: green;'>");
-        			       out.println("Database</p>");
-        			       out.println("</body></html>");
-            		}
-        			else {
-        				response.setContentType("text/html");
-        				PrintWriter out = response.getWriter();
-     			       out.println("<!doctype html>");
-     			       out.println("<html><body>");
-     			       out.println("<h2>DB check</h2>");
-     			       out.println("<p style='color: green;'>");
-     			       out.println("Database no</p>");
-     			       out.println("</body></html>");
-        			}
-        				
+    			if(logincheck.next()) {
+    				HttpSession session = request.getSession();
+                    int userId = logincheck.getInt("ID");
+                    String name = logincheck.getString("Nome");
+                    session.setAttribute("userId", userId);
+                    session.setAttribute("username", name);
+                    response.sendRedirect("index.jsp");
+                    return;
+                } else {
+                    // Autenticazione fallita, mostra un messaggio di errore
+                    request.setAttribute("errorMessage", "Credenziali di accesso non valide");
+                    request.getRequestDispatcher("LoginScreen.jsp").forward(request, response);
+                    return;
+                }	
             }
             catch (SQLException e) {
                 e.printStackTrace();
