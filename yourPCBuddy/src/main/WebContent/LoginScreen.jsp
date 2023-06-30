@@ -7,7 +7,7 @@
 <title>Login Page</title>
 </head>
 <body>
-<form action="loginServlet" method="POST">
+<form action="loginServlet" method="post">
 		<label for="username">Username:</label>
 		<input type="text" id="username" name="username" required><br><br>
 

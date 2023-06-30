@@ -9,14 +9,19 @@ public class ProductBean implements Serializable {
 	int code;
 	String name;
 	String description;
+	String image;
 	int price;
 	int quantity;
+	int CategoriaID;
+	
 
 	public ProductBean() {
 		code = -1;
 		name = "";
+		image="";
 		description = "";
 		quantity = 0;
+		CategoriaID=0;
 	}
 
 	public int getCode() {
@@ -58,10 +63,26 @@ public class ProductBean implements Serializable {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	
+	public int getCategoriaID() {
+		return CategoriaID;
+	}
 
+	public void setCategoriaID(int CategoriaID) {
+		this.CategoriaID = CategoriaID;
+	}
+	
+	public String getImage() {
+		return image;
+	}
+	
+	public void setImage(String image) {
+		this.image=image;
+	}
+	
 	@Override
 	public String toString() {
-		return name + " (" + code + "), " + price + " " + quantity + ". " + description;
+		return name + " (" + code + "), " + price + " " + quantity + ". " + description + CategoriaID + image;
 	}
 
 }

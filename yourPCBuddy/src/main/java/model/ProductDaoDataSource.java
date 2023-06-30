@@ -7,8 +7,10 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.sql.DataSource;
 
+@MultipartConfig
 public class ProductDaoDataSource implements IProductDao {
 	
 	private static final String TABLE_NAME = "product";
@@ -27,7 +29,7 @@ public class ProductDaoDataSource implements IProductDao {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + ProductDaoDataSource.TABLE_NAME
-				+ " (Nome, Descrizione, Prezzo, QuantitaDisponibile) VALUES (?, ?, ?, ?)";
+				+ " (Nome, Descrizione, Prezzo, QuantitaDisponibile, CategoriaID, Immagine) VALUES (?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
@@ -36,6 +38,8 @@ public class ProductDaoDataSource implements IProductDao {
 			preparedStatement.setString(2, product.getDescription());
 			preparedStatement.setInt(3, product.getPrice());
 			preparedStatement.setInt(4, product.getQuantity());
+			preparedStatement.setInt(5, product.getCategoriaID());
+			preparedStatement.setString(6, product.getImage());
 
 			preparedStatement.executeUpdate();
 
@@ -73,6 +77,8 @@ public class ProductDaoDataSource implements IProductDao {
 				bean.setDescription(rs.getString("Descrizione"));
 				bean.setPrice(rs.getInt("Prezzo"));
 				bean.setQuantity(rs.getInt("QuantitaDisponibile"));
+				bean.setCategoriaID(rs.getInt("CategoriaID"));
+				bean.setImage(rs.getString("Immagine"));
 			}
 
 		} finally {
@@ -142,6 +148,8 @@ public class ProductDaoDataSource implements IProductDao {
 				bean.setDescription(rs.getString("Descrizione"));
 				bean.setPrice(rs.getInt("Prezzo"));
 				bean.setQuantity(rs.getInt("QuantitaDisponibile"));
+				bean.setCategoriaID(rs.getInt("CategoriaID"));
+				bean.setImage(rs.getString("Immagine"));
 				products.add(bean);
 			}
 

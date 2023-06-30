@@ -24,13 +24,15 @@
 </head>
 
 <body>
-	<h2>Products</h2>
+	<h2>Prodotti</h2>
 	<a href="product">List</a>
 	<table border="1">
 		<tr>
-			<th>Code <a href="product?sort=code">Sort</a></th>
-			<th>Name <a href="product?sort=name">Sort</a></th>
-			<th>Description <a href="product?sort=description">Sort</a></th>
+			<th>Codice <a href="product?sort=code">Sort</a></th>
+			<th>Nome <a href="product?sort=name">Sort</a></th>
+			<th>Descrizione <a href="product?sort=description">Sort</a></th>
+			<th>Categoria <a href="product?sort=CategoriaID">Sort</a></th>
+			<th>Immagine <a href="product?sort=image">Sort</a></th>
 			<th>Action</th>
 		</tr>
 		<%
@@ -38,11 +40,15 @@
 				Iterator<?> it = products.iterator();
 				while (it.hasNext()) {
 					ProductBean bean = (ProductBean) it.next();
+					String imagePath = "Images\\" + bean.getImage();
+				
 		%>
 		<tr>
 			<td><%=bean.getCode()%></td>
 			<td><%=bean.getName()%></td>
 			<td><%=bean.getDescription()%></td>
+			<td><%=bean.getCategoriaID()%></td>
+			<td><img src="<%= imagePath %>"></td>
 			<td><a href="product?driver=drivermanager&action=delete&id=<%=bean.getCode()%>">Delete</a><br>
 				<a href="product?driver=drivermanager&action=read&id=<%=bean.getCode()%>">Details</a><br>
 				<a href="product?driver=drivermanager&action=addC&id=<%=bean.getCode()%>">Add to cart</a>
@@ -53,24 +59,26 @@
 			} else {
 		%>
 		<tr>
-			<td colspan="6">No products available</td>
+			<td colspan="6">Nessun prodotto disponibile</td>
 		</tr>
 		<%
 			}
 		%>
 	</table>
 	
-	<h2>Details</h2>
+	
 	<%
 		if (product != null) {
 	%>
+	<h2>Dettagli</h2>
 	<table border="1">
 		<tr>
-			<th>Code</th>
-			<th>Name</th>
-			<th>Description</th>
-			<th>Price</th>
-			<th>Quantity</th>
+			<th>Codice</th>
+			<th>Nome</th>
+			<th>Descrizione</th>
+			<th>Prezzo</th>
+			<th>Quantità</th>
+			<th>CategoriaID</th>
 		</tr>
 		<tr>
 			<td><%=product.getCode()%></td>
@@ -78,28 +86,35 @@
 			<td><%=product.getDescription()%></td>
 			<td><%=product.getPrice()%></td>
 			<td><%=product.getQuantity()%></td>
+			<td><%=product.getCategoriaID()%></td>
 		</tr>
 	</table>
 	<%
 		}
 	%>
-	<h2>Insert</h2>
-	<form action="product" method="post">
+	<h2>Inserimento</h2>
+	<form action="product" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="action" value="insert"> 
 		
-		<label for="name">Name:</label><br> 
-		<input name="name" type="text" maxlength="20" required placeholder="enter name"><br> 
+		<label for="name">Nome:</label><br> 
+		<input name="name" type="text" maxlength="20" required placeholder="Inserisci nome"><br> 
 		
-		<label for="description">Description:</label><br>
-		<textarea name="description" maxlength="100" rows="3" required placeholder="enter description"></textarea><br>
+		<label for="description">Descrizione:</label><br>
+		<textarea name="description" maxlength="100" rows="3" required placeholder="inserisci descrizione"></textarea><br>
 		
-		<label for="price">Price:</label><br> 
+		<label for="price">Prezzo:</label><br> 
 		<input name="price" type="number" min="0" value="0" required><br>
 
-		<label for="quantity">Quantity:</label><br> 
+		<label for="quantity">Quantità:</label><br> 
 		<input name="quantity" type="number" min="1" value="1" required><br>
-
-		<input type="submit" value="Add"><input type="reset" value="Reset">
+		
+		<label for="CategoriaID">CategoriaID:</label><br> 
+		<input name="CategoriaID" type="number" min="1" value="0" required><br>
+		
+		<label for="image">Immagine:</label><br>
+  		<input type="file" name="image" accept="image/*" required><br>
+  
+		<input type="submit" value="Aggiungi"><input type="reset" value="Reset"> 
 	</form>
 	<% if(cart != null) { %>
 		<h2>Cart</h2>

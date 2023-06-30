@@ -19,7 +19,6 @@ import javax.servlet.http.HttpSession;
 public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
  
         String login = request.getParameter("username");
         String pwd = request.getParameter("password");
