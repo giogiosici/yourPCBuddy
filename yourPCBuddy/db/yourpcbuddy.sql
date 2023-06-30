@@ -60,8 +60,8 @@ FOREIGN KEY (UtenteID) REFERENCES Utenti(ID)
 );
 
 INSERT INTO Utenti (Nome,Email,Password) values ("root","admin@gmail.com","admin");
-INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values (1,"Intel i7-13200","Processore",200.00,10,1,"C:\\\Users\\\giogi\\\git\\\yourPCBuddy\\\yourPCBuddy\\\src\\\main\\\WebContent\\\Images\\\i7-13.png");
-INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values (2,"Ryzen 5 5600g","Processore",180.00,5,1,"C:\\\Users\\\giogi\\\git\\\yourPCBuddy\\\yourPCBuddy\\\src\\\main\\\WebContent\\\Images\\\r5-50.png");
+INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values (1,"Intel i7-13200","Processore",200.00,10,1,"i7-13.png");
+INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values (2,"Ryzen 5 5600g","Processore",180.00,5,1,"r5-50.png");
 /*INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile)  values ();
 INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile) values ();
 INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile)  values ();

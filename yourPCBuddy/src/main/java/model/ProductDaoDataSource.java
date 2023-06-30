@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
-
 import javax.servlet.annotation.MultipartConfig;
 import javax.sql.DataSource;
 
@@ -164,5 +163,4 @@ public class ProductDaoDataSource implements IProductDao {
 		}
 		return products;
 	}
-
 }

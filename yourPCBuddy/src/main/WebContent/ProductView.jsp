@@ -40,7 +40,7 @@
 				Iterator<?> it = products.iterator();
 				while (it.hasNext()) {
 					ProductBean bean = (ProductBean) it.next();
-					String imagePath = "Images\\" + bean.getImage();
+					
 				
 		%>
 		<tr>
@@ -48,7 +48,8 @@
 			<td><%=bean.getName()%></td>
 			<td><%=bean.getDescription()%></td>
 			<td><%=bean.getCategoriaID()%></td>
-			<td><img src="<%= imagePath %>"></td>
+			<td><img src="Images/<%=bean.getImage()%>" width="200"></td>
+			
 			<td><a href="product?driver=drivermanager&action=delete&id=<%=bean.getCode()%>">Delete</a><br>
 				<a href="product?driver=drivermanager&action=read&id=<%=bean.getCode()%>">Details</a><br>
 				<a href="product?driver=drivermanager&action=addC&id=<%=bean.getCode()%>">Add to cart</a>

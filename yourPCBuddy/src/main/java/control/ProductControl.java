@@ -1,14 +1,16 @@
 package control;
 import model.ProductBean;
+
 import model.ProductDaoDataSource;
 import model.Cart;
+
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.UUID;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,14 +22,28 @@ import model.IProductDao;
 /**
  * Servlet implementation class ProductControl
  */
+ @WebServlet("/ProductControl")
 public class ProductControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public ProductControl() {
 		super();
 	}
+	private String getFileName(Part part) {
+	    String contentDisposition = part.getHeader("content-disposition");
+	    String[] tokens = contentDisposition.split(";");
+
+	    for (String token : tokens) {
+	        if (token.trim().startsWith("filename")) {
+	            return token.substring(token.indexOf('=') + 1).trim().replace("\"", "");
+	        }
+	    }
+
+	    return null;
+	}
 
 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		
 		String isDriverManager = request.getParameter("driver");
 		if(isDriverManager == null || isDriverManager.equals("")) {
@@ -68,16 +84,15 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 					int price = Integer.parseInt(request.getParameter("price"));
 					int quantity = Integer.parseInt(request.getParameter("quantity"));
 					int CategoriaID = Integer.parseInt(request.getParameter("CategoriaID"));
-					Part filePart = request.getPart("image");
-					String image = filePart.getSubmittedFileName();
-		            
-		            // Percorso di salvataggio del file dell'immagine sul server
-		            String uploadPath = "C:\\Users\\giogi\\git\\yourPCBuddy\\yourPCBuddy\\src\\main\\WebContent\\Images";// Specifica il percorso di upload desiderato
-		            
-		            // Salva il file dell'immagine sul server
-		            filePart.write(uploadPath + "\\" + image);
-
-
+					
+					
+					//upload immagine
+					Part imagePart = request.getPart("image");
+			        String image = getFileName(imagePart); // Ottieni il nome dell'immagine
+			        String imagePath = getServletContext().getRealPath("/Images/") + File.separator + image; // Percorso per salvare l'immagine
+					
+			        imagePart.write(imagePath);
+			        
 					ProductBean bean = new ProductBean();
 					bean.setName(name);
 					bean.setDescription(description);
@@ -85,6 +100,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 					bean.setQuantity(quantity);
 					bean.setCategoriaID(CategoriaID);
 					bean.setImage(image);
+					
 					productDao.doSave(bean);
 				}
 			}			

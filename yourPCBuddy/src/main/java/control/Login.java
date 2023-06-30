@@ -2,12 +2,10 @@ package control;
 
 import model.DriverManagerConnectionPool;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Connection;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,8 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/loginServlet")
+@WebServlet("/Login")
 public class Login extends HttpServlet {
+
+
 	protected void doPost(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
  
@@ -28,7 +28,7 @@ public class Login extends HttpServlet {
         
         if(login.equalsIgnoreCase("root") && pwd.equals("admin")) {
             request.getSession().setAttribute("uname", login);
-            response.sendRedirect("./product");
+            request.getRequestDispatcher("./product").forward(request, response);
             return;
         } 
         else {
@@ -79,9 +79,5 @@ public class Login extends HttpServlet {
         dispatcher.forward(request, response);*/
 	}
 
-	/*protected void doPost(HttpServletRequest request, 
-			HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}*/
 
 }
