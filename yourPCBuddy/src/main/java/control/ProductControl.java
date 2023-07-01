@@ -92,7 +92,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			        String image = getFileName(imagePart); // Ottieni il nome dell'immagine
 			        String saveDirectory = "C:/Users/giogi/git/yourPCBuddy/yourPCBuddy/src/main/WebContent/Images";
 			        String imagePath = saveDirectory + File.separator + image; // Percorso per salvare l'immagine
-					System.out.println(imagePath);
+					
 			        imagePart.write(imagePath);
 			        
 					ProductBean bean = new ProductBean();
