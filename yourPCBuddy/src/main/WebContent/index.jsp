@@ -34,6 +34,11 @@
         <img src="./Images/<%= bean.getImage() %>" alt="Immagine" width="100" />
         <p><%=bean.getName()%></p>
         <p><%= String.format("%.2f", bean.getPrice()) %></p>
+        <form action="CartServlet" method="POST">
+    <input type="hidden" name="action" value="addC">
+    <input type="hidden" name="id" value="<%=bean.getCode()%>">
+    <input type="submit" value="Aggiungi al carrello">
+</form>
     <% } %>
 <% } else { %>
     <p>Nessuna immagine disponibile</p>

@@ -2,8 +2,6 @@ package control;
 import model.ProductBean;
 
 import model.ProductDaoDataSource;
-import model.Cart;
-
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -42,7 +40,7 @@ public class ProductControl extends HttpServlet {
 	    return null;
 	}
 
-protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
 		String isDriverManager = request.getParameter("driver");
@@ -55,23 +53,12 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 			productDao = new ProductDaoDataSource(ds);
 		
-		Cart cart = (Cart)request.getSession().getAttribute("cart");
-		if(cart == null) {
-			cart = new Cart();
-			request.getSession().setAttribute("cart", cart);
-		}
 		
 		String action = request.getParameter("action");
 
 		try {
 			if (action != null) {
-				if (action.equalsIgnoreCase("addC")) {
-					int id = Integer.parseInt(request.getParameter("id"));
-					cart.addProduct(productDao.doRetrieveByKey(id));
-				} else if (action.equalsIgnoreCase("deleteC")) {
-					int id = Integer.parseInt(request.getParameter("id"));
-					cart.deleteProduct(productDao.doRetrieveByKey(id));
-				} else if (action.equalsIgnoreCase("read")) {
+				if (action.equalsIgnoreCase("read")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					request.removeAttribute("product");
 					request.setAttribute("product", productDao.doRetrieveByKey(id));
@@ -110,8 +97,6 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			System.out.println("Error:" + e.getMessage());
 		}
 
-		request.getSession().setAttribute("cart", cart);
-		request.setAttribute("cart", cart);
 		
 		
 		String sort = request.getParameter("sort");
@@ -127,9 +112,9 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		dispatcher.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		doPost(request, response);
 	}
 
 }

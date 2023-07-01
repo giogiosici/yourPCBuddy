@@ -50,7 +50,6 @@ public class ProductBean implements Serializable {
 	}
 
 	public float getPrice() {
-		System.out.println(price);
 		return price;
 	}
 

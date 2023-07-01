@@ -10,12 +10,11 @@
 	
 	ProductBean product = (ProductBean) request.getAttribute("product");
 	
-	Cart cart = (Cart) request.getAttribute("cart");
 %>
 
 <!DOCTYPE html>
 <html>
-<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.ProductBean, model.Cart"%>
+<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.ProductBean"%>
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -25,14 +24,13 @@
 
 <body>
 	<h2>Prodotti</h2>
-	<a href="product">List</a>
 	<table border="1">
 		<tr>
-			<th>Codice <a href="product?sort=code">Sort</a></th>
-			<th>Nome <a href="product?sort=name">Sort</a></th>
-			<th>Descrizione <a href="product?sort=description">Sort</a></th>
-			<th>Categoria <a href="product?sort=CategoriaID">Sort</a></th>
-			<th>Immagine <a href="product?sort=image">Sort</a></th>
+			<th>Codice</th>
+			<th>Nome <a href="product?sort=name">Ordina</a></th>
+			<th>Descrizione</th>
+			<th>Categoria <a href="product?sort=CategoriaID">Ordina</a></th>
+			<th>Immagine</th>
 			<th>Action</th>
 		</tr>
 		<%
@@ -49,11 +47,21 @@
 			<td><%=bean.getDescription()%></td>
 			<td><%=bean.getCategoriaID()%></td>
 			<td><img src="Images/<%=bean.getImage()%>" width="200"></td>
-			
-			<td><a href="product?driver=drivermanager&action=delete&id=<%=bean.getCode()%>">Delete</a><br>
-				<a href="product?driver=drivermanager&action=read&id=<%=bean.getCode()%>">Details</a><br>
-				<a href="product?driver=drivermanager&action=addC&id=<%=bean.getCode()%>">Add to cart</a>
-				</td>
+			<td>
+        		<form action="product" method="post">
+           			<input type="hidden" name="driver" value="drivermanager">
+            		<input type="hidden" name="action" value="delete">
+           			<input type="hidden" name="id" value="<%=bean.getCode()%>">
+           			<button type="submit">Delete</button>
+       			</form>
+        	<br>
+        		<form action="product" method="post">
+           			<input type="hidden" name="driver" value="drivermanager">
+            		<input type="hidden" name="action" value="read">
+            		<input type="hidden" name="id" value="<%=bean.getCode()%>">
+           			 <button type="submit">Details</button>
+        		</form>
+   			</td>
 		</tr>
 		<%
 				}
@@ -85,7 +93,7 @@
 			<td><%=product.getCode()%></td>
 			<td><%=product.getName()%></td>
 			<td><%=product.getDescription()%></td>
-			<td><%=product.getPrice()%></td>
+			<td><%= String.format("%.2f", product.getPrice()) %></td>
 			<td><%=product.getQuantity()%></td>
 			<td><%=product.getCategoriaID()%></td>
 		</tr>
@@ -117,22 +125,6 @@
   
 		<input type="submit" value="Aggiungi"><input type="reset" value="Reset"> 
 	</form>
-	<% if(cart != null) { %>
-		<h2>Cart</h2>
-		<table border="1">
-		<tr>
-			<th>Name</th>
-			<th>Action</th>
-		</tr>
-		<% List<ProductBean> prodcart = cart.getProducts(); 	
-		   for(ProductBean beancart: prodcart) {
-		%>
-		<tr>
-			<td><%=beancart.getName()%></td>
-			<td><a href="product?action=deleteC&id=<%=beancart.getCode()%>">Delete from cart</a></td>
-		</tr>
-		<%} %>
-	</table>		
-	<% } %>	
+	
 </body>
 </html>
