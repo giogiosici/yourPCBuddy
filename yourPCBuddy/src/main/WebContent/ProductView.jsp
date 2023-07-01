@@ -40,7 +40,7 @@
 				Iterator<?> it = products.iterator();
 				while (it.hasNext()) {
 					ProductBean bean = (ProductBean) it.next();
-					
+					String imagePath = "Images\\" + bean.getImage();
 				
 		%>
 		<tr>
@@ -104,7 +104,7 @@
 		<textarea name="description" maxlength="100" rows="3" required placeholder="inserisci descrizione"></textarea><br>
 		
 		<label for="price">Prezzo:</label><br> 
-		<input name="price" type="number" min="0" value="0" required><br>
+		<input name="price" type="number"  step="0.01" min="0.00" value="0" required><br>
 
 		<label for="quantity">Quantità:</label><br> 
 		<input name="quantity" type="number" min="1" value="1" required><br>

@@ -1,8 +1,9 @@
 <%@ page import="model.IProductDao" %>
 <%@ page import="model.ProductDaoDataSource" %>
 <%@ page import="model.ProductBean" %>
-
+<%@ page import="java.util.*" %>
 <%@ page import="java.util.Collection" %>
+<%@ page import="javax.sql.DataSource" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -21,5 +22,22 @@
 <img src="./Images/PCBuddy.png" alt="logo sito">
 <p>Benvenuti su yourPCBuddy</p>
 </div>
+<div class=prodotti align="center">
+	<%		IProductDao productDao = null;
+	DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+	productDao = new ProductDaoDataSource(ds);
+	Collection<ProductBean> products = productDao.doRetrieveProducts(); %>
+  
+  <h2>Prodotti</h2>
+<% if (products != null && !products.isEmpty()) { %>
+    <% for (ProductBean bean : products) { %>
+        <img src="./Images/<%= bean.getImage() %>" alt="Immagine" width="100" />
+        <p><%=bean.getName()%></p>
+        <p><%= String.format("%.2f", bean.getPrice()) %></p>
+    <% } %>
+<% } else { %>
+    <p>Nessuna immagine disponibile</p>
+<% } %>
+</div>	
 </body>
 </html>

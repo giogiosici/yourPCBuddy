@@ -10,7 +10,7 @@ public class ProductBean implements Serializable {
 	String name;
 	String description;
 	String image;
-	int price;
+	float price;
 	int quantity;
 	int CategoriaID;
 	
@@ -22,6 +22,7 @@ public class ProductBean implements Serializable {
 		description = "";
 		quantity = 0;
 		CategoriaID=0;
+		price=(float) 0.00;
 	}
 
 	public int getCode() {
@@ -48,11 +49,12 @@ public class ProductBean implements Serializable {
 		this.description = description;
 	}
 
-	public int getPrice() {
+	public float getPrice() {
+		System.out.println(price);
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
 

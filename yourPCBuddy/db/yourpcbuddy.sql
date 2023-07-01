@@ -2,11 +2,6 @@ DROP DATABASE IF EXISTS yourpcbuddy;
 CREATE DATABASE yourpcbuddy;
 USE yourpcbuddy;
 
--- Tabella Categorie
---  ID INT PRIMARY KEY,
- -- Nome VARCHAR(255)
- -- );
-
 
 -- Tabella product
 DROP TABLE IF EXISTS product;
@@ -15,7 +10,7 @@ CREATE TABLE product (
   ID INT AUTO_INCREMENT PRIMARY KEY,
   Nome VARCHAR(255),
   Descrizione TEXT,
-  Prezzo DECIMAL(10.2),
+  Prezzo DECIMAL(10,2),
   QuantitaDisponibile INT,
   CategoriaID INT NOT NULL,
   Immagine varchar(255)
@@ -60,7 +55,7 @@ FOREIGN KEY (UtenteID) REFERENCES Utenti(ID)
 );
 
 INSERT INTO Utenti (Nome,Email,Password) values ("root","admin@gmail.com","admin");
-INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values (1,"Intel i7-13200","Processore",200.00,10,1,"i7-13.png");
+INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values (1,"Intel i7-13200","Processore",200.50,10,1,"i7-13.png");
 INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values (2,"Ryzen 5 5600g","Processore",180.00,5,1,"r5-50.png");
 /*INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile)  values ();
 INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile) values ();

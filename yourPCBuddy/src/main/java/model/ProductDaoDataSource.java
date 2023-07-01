@@ -23,7 +23,7 @@ public class ProductDaoDataSource implements IProductDao {
 	
 	@Override
 	public synchronized void doSave(ProductBean product) throws SQLException {
-
+		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -35,11 +35,11 @@ public class ProductDaoDataSource implements IProductDao {
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, product.getName());
 			preparedStatement.setString(2, product.getDescription());
-			preparedStatement.setInt(3, product.getPrice());
+			preparedStatement.setFloat(3, product.getPrice());
 			preparedStatement.setInt(4, product.getQuantity());
 			preparedStatement.setInt(5, product.getCategoriaID());
 			preparedStatement.setString(6, product.getImage());
-
+			
 			preparedStatement.executeUpdate();
 
 			//connection.commit();
@@ -74,10 +74,11 @@ public class ProductDaoDataSource implements IProductDao {
 				bean.setCode(rs.getInt("ID"));
 				bean.setName(rs.getString("Nome"));
 				bean.setDescription(rs.getString("Descrizione"));
-				bean.setPrice(rs.getInt("Prezzo"));
+				bean.setPrice(rs.getFloat("Prezzo"));
 				bean.setQuantity(rs.getInt("QuantitaDisponibile"));
 				bean.setCategoriaID(rs.getInt("CategoriaID"));
 				bean.setImage(rs.getString("Immagine"));
+				
 			}
 
 		} finally {
@@ -90,7 +91,7 @@ public class ProductDaoDataSource implements IProductDao {
 			}
 		}
 		return bean;
-	}
+	} 
 
 	@Override
 	public synchronized boolean doDelete(int code) throws SQLException {
@@ -145,7 +146,46 @@ public class ProductDaoDataSource implements IProductDao {
 				bean.setCode(rs.getInt("ID"));
 				bean.setName(rs.getString("Nome"));
 				bean.setDescription(rs.getString("Descrizione"));
-				bean.setPrice(rs.getInt("Prezzo"));
+				bean.setPrice(rs.getFloat("Prezzo"));
+				bean.setQuantity(rs.getInt("QuantitaDisponibile"));
+				bean.setCategoriaID(rs.getInt("CategoriaID"));
+				bean.setImage(rs.getString("Immagine"));
+				products.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return products;
+	}
+	public synchronized Collection<ProductBean> doRetrieveProducts() throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<ProductBean> products = new LinkedList<ProductBean>();
+
+		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME;
+
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				ProductBean bean = new ProductBean();
+
+				bean.setCode(rs.getInt("ID"));
+				bean.setName(rs.getString("Nome"));
+				bean.setDescription(rs.getString("Descrizione"));
+				bean.setPrice(rs.getFloat("Prezzo"));
 				bean.setQuantity(rs.getInt("QuantitaDisponibile"));
 				bean.setCategoriaID(rs.getInt("CategoriaID"));
 				bean.setImage(rs.getString("Immagine"));

@@ -30,7 +30,7 @@ public class ProductControl extends HttpServlet {
 		super();
 	}
 	private String getFileName(Part part) {
-	    String contentDisposition = part.getHeader("content-disposition");
+	    String contentDisposition = part.getHeader("content-disposition"); 
 	    String[] tokens = contentDisposition.split(";");
 
 	    for (String token : tokens) {
@@ -81,16 +81,18 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 				} else if (action.equalsIgnoreCase("insert")) {
 					String name = request.getParameter("name");
 					String description = request.getParameter("description");
-					int price = Integer.parseInt(request.getParameter("price"));
+					float price = Float.parseFloat(request.getParameter("price"));
 					int quantity = Integer.parseInt(request.getParameter("quantity"));
 					int CategoriaID = Integer.parseInt(request.getParameter("CategoriaID"));
+					
 					
 					
 					//upload immagine
 					Part imagePart = request.getPart("image");
 			        String image = getFileName(imagePart); // Ottieni il nome dell'immagine
-			        String imagePath = getServletContext().getRealPath("/Images/") + File.separator + image; // Percorso per salvare l'immagine
-					
+			        String saveDirectory = "C:/Users/giogi/git/yourPCBuddy/yourPCBuddy/src/main/WebContent/Images";
+			        String imagePath = saveDirectory + File.separator + image; // Percorso per salvare l'immagine
+					System.out.println(imagePath);
 			        imagePart.write(imagePath);
 			        
 					ProductBean bean = new ProductBean();
