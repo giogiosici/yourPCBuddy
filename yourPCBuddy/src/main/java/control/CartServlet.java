@@ -1,6 +1,9 @@
 package control;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -9,9 +12,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import model.Cart;
+import model.DriverManagerConnectionPool;
 import model.IProductDao;
 import model.ProductDaoDataSource;
 
@@ -21,22 +26,31 @@ import model.ProductDaoDataSource;
 @WebServlet("/CartServlet")
 public class CartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private Connection connection=null;  
+	ResultSet cartCheck=null;
+    PreparedStatement statement = null;
+    
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CartServlet() {
+	public void init() throws ServletException {
+        super.init();
+        try {
+        	DriverManagerConnectionPool connectionPool = DriverManagerConnectionPool.getInstance();
+        	connection = connectionPool.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+	}
+	
+	public CartServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	/*protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("a maronn ").append(request.getContextPath());
-	}*/
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -64,7 +78,10 @@ public class CartServlet extends HttpServlet {
 			if (action != null) {
 				if (action.equalsIgnoreCase("addC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
-					cart.addProduct(productDao.doRetrieveByKey(id));
+						
+						
+			/*else*/ cart.addProduct(productDao.doRetrieveByKey(id));
+
 				} else if (action.equalsIgnoreCase("deleteC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					cart.deleteProduct(productDao.doRetrieveByKey(id));	
@@ -90,4 +107,6 @@ public class CartServlet extends HttpServlet {
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/CartView.jsp");
 		dispatcher.forward(request, response);
 	}
+	
+
 }

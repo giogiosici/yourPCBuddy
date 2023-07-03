@@ -52,14 +52,14 @@
            			<input type="hidden" name="driver" value="drivermanager">
             		<input type="hidden" name="action" value="delete">
            			<input type="hidden" name="id" value="<%=bean.getCode()%>">
-           			<button type="submit">Delete</button>
+           			<input type="submit" value="Rimuovi">
        			</form>
         	<br>
         		<form action="product" method="post">
            			<input type="hidden" name="driver" value="drivermanager">
             		<input type="hidden" name="action" value="read">
             		<input type="hidden" name="id" value="<%=bean.getCode()%>">
-           			 <button type="submit">Details</button>
+           			<input type="submit" value="Dettagli">
         		</form>
    			</td>
 		</tr>

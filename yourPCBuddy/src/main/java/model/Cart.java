@@ -1,7 +1,7 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.*;
 
 public class Cart {
 
@@ -27,4 +27,14 @@ public class Cart {
 	public List<ProductBean> getProducts() {
 		return  products;
 	}
+	public boolean isEmpty() {
+	    return products.isEmpty();
+	}
+	public boolean isInCart(ProductBean product) {
+		for(ProductBean prod : products) {
+			if(prod.getCode() == product.getCode())
+				return true;
+		}
+		return false;
+	}				
 }

@@ -14,7 +14,7 @@ CREATE TABLE product (
   QuantitaDisponibile INT,
   CategoriaID INT NOT NULL,
   Immagine varchar(255)
-  -- FOREIGN KEY (CategoriaID) REFERENCES Categorie(ID)
+  
 );
 
 
