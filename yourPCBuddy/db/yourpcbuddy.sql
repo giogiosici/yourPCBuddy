@@ -7,7 +7,7 @@ USE yourpcbuddy;
 DROP TABLE IF EXISTS product;
 
 CREATE TABLE product (
-  ID INT AUTO_INCREMENT PRIMARY KEY,
+  ID INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   Nome VARCHAR(255),
   Descrizione TEXT,
   Prezzo DECIMAL(10,2),
@@ -55,15 +55,14 @@ FOREIGN KEY (UtenteID) REFERENCES Utenti(ID)
 );
 
 INSERT INTO Utenti (Nome,Email,Password) values ("root","admin@gmail.com","admin");
-INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values (1,"Intel i7-13200","Processore",200.50,10,1,"i7-13.png");
-INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values (2,"Ryzen 5 5600g","Processore",180.00,5,1,"r5-50.png");
-/*INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile)  values ();
-INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile) values ();
-INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile)  values ();
-INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile)  values ();
-INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile)  values ();
-INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile)  values ();
-INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile)  values ();
-INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile)  values ();
-INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile)  values ();
-INSERT INTO product (ID,Nome,Descrizione,Prezzo,QuantitaDisponibile)  values ();*/
+INSERT INTO product (Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values ("Intel i3-12300","Processore",200.00,10,1,"i3-12.png");
+INSERT INTO product (Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values ("Intel i7-13200","Processore",200.50,10,1,"i7-13.png");
+INSERT INTO product (Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values ("Ryzen 5 5600g","Processore",180.00,5,1,"r5-50.png");
+INSERT INTO product (Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values ("Intel i3-13100","Processore",180.00,10,1,"i3-13.png");
+INSERT INTO product (Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values ("Ryzen 7 5700g","Processore",210.00,5,1,"r7-50.png");
+INSERT INTO product (Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values ("Intel i5-13600","Processore",190.00,10,1,"i5-13.png");
+INSERT INTO product (Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values ("Ryzen 9 5900x","Processore",230.00,5,1,"r9-50.png");
+INSERT INTO product (Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values ("Intel i7-12700","Processore",200.00,10,1,"i7-12.png");
+INSERT INTO product (Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values ("Ryzen 3 4300g","Processore",150.00,5,1,"r3-40.png");
+INSERT INTO product (Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values ("Ryzen 5 4600g","Processore",180.00,5,1,"r5-40.png");
+INSERT INTO product (Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values ("Intel i5-12500 4700g","Processore",200.00,5,1,"i5-12.png");

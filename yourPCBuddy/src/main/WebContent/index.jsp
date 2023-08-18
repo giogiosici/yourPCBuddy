@@ -14,9 +14,15 @@
 <title>yourPCBuddy</title>
 </head>
 <body>
-	<form action="LoginScreen.jsp" method="POST">
-		<input type="submit" value="accedi o registrati">
-	</form>
+<% if (session.getAttribute("username") != null) { %>
+    <form action="LogoutServlet" method="POST">
+        <input type="submit" value="Logout">
+    </form>
+<% } else { %>
+    <form action="LoginScreen.jsp" method="POST">
+        <input type="submit" value="Accedi o registrati">
+    </form>
+<% } %>
 	<form action="CartServlet" method="post">
 		<input type="submit" value="carrello">
 	</form>

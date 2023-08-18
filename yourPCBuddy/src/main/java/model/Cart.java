@@ -4,7 +4,9 @@ package model;
 import java.util.*;
 
 public class Cart {
-
+	
+	double totalPrice=0;
+	
 	private List<ProductBean> products;
 	
 	public Cart() {
@@ -36,5 +38,14 @@ public class Cart {
 				return true;
 		}
 		return false;
-	}				
+	}
+
+	
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	
+	public double getTotalPrice() {
+		return totalPrice;
+	}
 }

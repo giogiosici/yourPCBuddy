@@ -1,5 +1,8 @@
 package control;
 
+import model.ProductBean;
+import model.IProductDao;
+import model.Cart;
 import model.DriverManagerConnectionPool;
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -26,6 +29,7 @@ public class Login extends HttpServlet {
         PreparedStatement statement = null;
         Connection connection = null;
         
+        
         if(login.equalsIgnoreCase("root") && pwd.equals("admin")) {
             request.getSession().setAttribute("uname", login);
             request.getRequestDispatcher("./product").forward(request, response);
@@ -47,6 +51,7 @@ public class Login extends HttpServlet {
                     String name = logincheck.getString("Nome");
                     session.setAttribute("userId", userId);
                     session.setAttribute("username", name);
+                    
                     response.sendRedirect("index.jsp");
                     return;
                 } else {

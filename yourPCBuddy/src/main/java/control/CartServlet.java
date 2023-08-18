@@ -77,10 +77,9 @@ public class CartServlet extends HttpServlet {
 		try {
 			if (action != null) {
 				if (action.equalsIgnoreCase("addC")) {
-					int id = Integer.parseInt(request.getParameter("id"));
-						
-						
+					int id = Integer.parseInt(request.getParameter("id"));			
 			/*else*/ cart.addProduct(productDao.doRetrieveByKey(id));
+	
 
 				} else if (action.equalsIgnoreCase("deleteC")) {
 					int id = Integer.parseInt(request.getParameter("id"));

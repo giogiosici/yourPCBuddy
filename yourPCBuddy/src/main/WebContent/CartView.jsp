@@ -86,6 +86,7 @@
                        double quantity = quantityValue != null ? Double.parseDouble(quantityValue) : 1;
                        double price = beancart.getPrice();
                        totalPrice += price * quantity;
+                       cart.setTotalPrice(totalPrice);
                    }
                    out.println(String.format(Locale.US, "%.2f", totalPrice));
                 %>
