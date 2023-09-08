@@ -15,6 +15,7 @@ public interface IProductDao {
 	public Collection<ProductBean> doRetrieveAll(String order) throws SQLException;
 	
 	public Collection<ProductBean> doRetrieveProducts() throws SQLException;
+
 }
 
 

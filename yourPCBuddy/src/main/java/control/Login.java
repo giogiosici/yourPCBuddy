@@ -25,6 +25,7 @@ public class Login extends HttpServlet {
  
         String login = request.getParameter("username");
         String pwd = request.getParameter("password");
+        Boolean isLogged=false;
         ResultSet logincheck=null;
         PreparedStatement statement = null;
         Connection connection = null;
@@ -49,11 +50,13 @@ public class Login extends HttpServlet {
     				HttpSession session = request.getSession();
                     int userId = logincheck.getInt("ID");
                     String name = logincheck.getString("Nome");
+                    isLogged = true;
                     session.setAttribute("userId", userId);
                     session.setAttribute("username", name);
-                    
+                    session.setAttribute("isLogged", true);
                     response.sendRedirect("index.jsp");
                     return;
+                    
                 } else {
                     // Autenticazione fallita, mostra un messaggio di errore
                     request.setAttribute("errorMessage", "Credenziali di accesso non valide");
@@ -83,6 +86,5 @@ public class Login extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
         dispatcher.forward(request, response);*/
 	}
-
 
 }

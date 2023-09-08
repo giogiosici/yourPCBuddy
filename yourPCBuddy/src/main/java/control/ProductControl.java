@@ -1,5 +1,7 @@
 package control;
+
 import model.ProductBean;
+import model.IProductDao;
 
 import model.ProductDaoDataSource;
 import java.io.File;
@@ -15,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.sql.DataSource;
 
-import model.IProductDao;
 @MultipartConfig
 /**
  * Servlet implementation class ProductControl

@@ -31,7 +31,10 @@ CREATE TABLE Ordini (
   ID INT AUTO_INCREMENT PRIMARY KEY ,
   UtenteID INT,
   DataOra DATETIME,
-  FOREIGN KEY (UtenteID) REFERENCES Utenti(ID)
+  CarrelloID INT,
+  FOREIGN KEY (UtenteID) REFERENCES Utenti(ID)-- ,
+  -- FOREIGN KEY (CarrelloID) REFERENCES Carrello(ID)
+  
 );
 
 -- Tabella DettagliOrdine
@@ -45,16 +48,15 @@ CREATE TABLE DettagliOrdine (
 );
 CREATE TABLE Carrello(
 ID INT AUTO_INCREMENT PRIMARY KEY ,
-PrezzoTotale INT,
+-- PrezzoTotale Decimal(10,2),
 ProdottoID INT,
 UtenteID INT,
-OrdineID INT,
 FOREIGN KEY (ProdottoID) REFERENCES product(ID),
-FOREIGN KEY (OrdineID) REFERENCES Ordini(ID),
 FOREIGN KEY (UtenteID) REFERENCES Utenti(ID)
 );
 
 INSERT INTO Utenti (Nome,Email,Password) values ("root","admin@gmail.com","admin");
+INSERT INTO Utenti (Nome,Email,Password) values ("pippo","pippofranco@gmail.com","franco");
 INSERT INTO product (Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values ("Intel i3-12300","Processore",200.00,10,1,"i3-12.png");
 INSERT INTO product (Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values ("Intel i7-13200","Processore",200.50,10,1,"i7-13.png");
 INSERT INTO product (Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values ("Ryzen 5 5600g","Processore",180.00,5,1,"r5-50.png");

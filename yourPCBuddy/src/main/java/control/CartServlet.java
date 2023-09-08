@@ -19,7 +19,8 @@ import model.Cart;
 import model.DriverManagerConnectionPool;
 import model.IProductDao;
 import model.ProductDaoDataSource;
-
+import model.CartDaoDataSource;
+import model.CartDao;
 /**
  * Servlet implementation class CartServlet
  */
@@ -29,7 +30,6 @@ public class CartServlet extends HttpServlet {
 	private Connection connection=null;  
 	ResultSet cartCheck=null;
     PreparedStatement statement = null;
-    
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -65,6 +65,7 @@ public class CartServlet extends HttpServlet {
 
 			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 			productDao = new ProductDaoDataSource(ds);
+		Boolean isLogged=(Boolean)request.getSession().getAttribute("isLogged");
 		
 		Cart cart = (Cart)request.getSession().getAttribute("cart");
 		if(cart == null) {
@@ -79,11 +80,20 @@ public class CartServlet extends HttpServlet {
 				if (action.equalsIgnoreCase("addC")) {
 					int id = Integer.parseInt(request.getParameter("id"));			
 			/*else*/ cart.addProduct(productDao.doRetrieveByKey(id));
-	
+						if(isLogged) {
+							int userId = (int)request.getSession().getAttribute("userId");
+							CartDao cartDao = new CartDaoDataSource(ds);
+					        cartDao.cartSave(userId, id);
+						}
 
 				} else if (action.equalsIgnoreCase("deleteC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
-					cart.deleteProduct(productDao.doRetrieveByKey(id));	
+					cart.deleteProduct(productDao.doRetrieveByKey(id));
+						if(isLogged) {
+							int userId = (int)request.getSession().getAttribute("userId");
+							CartDao cartDao = new CartDaoDataSource(ds);
+							cartDao.cartDelete(userId, id);
+						}
 					}
 			}
 		} catch (SQLException e) {
