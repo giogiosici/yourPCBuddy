@@ -99,20 +99,22 @@ public class CartDaoDataSource  implements CartDao{
 				PID.add(ProductID);
 			}
 		
-			String PIDinfo= "SELECT * FROM product WHERE ID = ? ";
-			
+			String PIDinfo = "SELECT * FROM product WHERE ID = ?";
 			productStatement = connection.prepareStatement(PIDinfo);
-			for(int ProductID : PID)
-					productStatement.setInt(1, ProductID);
-			ResultSet rsProducts = productStatement.executeQuery();
-			while (rsProducts.next()) {
-				ProductBean bean = new ProductBean();
 
-				bean.setCode(rsProducts.getInt("ID"));
-				bean.setName(rsProducts.getString("Nome"));
-				bean.setPrice(rsProducts.getFloat("Prezzo"));
-				bean.setImage(rsProducts.getString("Immagine"));
-				products.add(bean);
+			for (int ProductID : PID) {
+			    productStatement.setInt(1, ProductID);
+			    ResultSet rsProducts = productStatement.executeQuery();
+			    
+			    while (rsProducts.next()) {
+			        ProductBean bean = new ProductBean();
+
+			        bean.setCode(rsProducts.getInt("ID"));
+			        bean.setName(rsProducts.getString("Nome"));
+			        bean.setPrice(rsProducts.getFloat("Prezzo"));
+			        bean.setImage(rsProducts.getString("Immagine"));
+			        products.add(bean);
+			    }
 			}
 			
 		} finally {
@@ -126,8 +128,14 @@ public class CartDaoDataSource  implements CartDao{
 					connection.close();
 			}
 		}
-		//for(ProductBean bean : products)
-		//System.out.println("carrello in db " + products);
+		for (ProductBean product : products) {
+		    System.out.println("ID: " + product.getCode());
+		    System.out.println("Nome: " + product.getName());
+		    System.out.println("Prezzo: " + product.getPrice());
+		    System.out.println("Immagine: " + product.getImage());
+		    // Aggiungi ulteriori attributi se necessario
+		    System.out.println("-----------------------------");
+		}
 		return products;
 	}
 }

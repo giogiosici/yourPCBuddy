@@ -48,7 +48,7 @@ public class Cart {
 	public double getTotalPrice() {
 		return totalPrice;
 	}
-	public void addProduct(Collection<ProductBean> product) {
+	public void addProducts(Collection<ProductBean> product) {
 		products.addAll(product);
 	}
 	

@@ -78,23 +78,33 @@ public class CartServlet extends HttpServlet {
 				cart = new Cart();
 				request.getSession().setAttribute("cart", cart);
 		}
-			
-		/*if (isLogged) {
+			System.out.println("isLogged =" + isLogged);
+		if (isLogged) {
 			// Recupera la lista dei prodotti nel carrello
 			try {
 				
-				Collection<ProductBean>productsInCart = cartDao.doRetrieveProducts(userId);
-				cart.addProduct(cartDao.doRetrieveProducts(userId));
-				
-				// Imposta l'attributo nella richiesta
-				request.setAttribute("products", productsInCart);
+				Collection<ProductBean> productsInCart = cartDao.doRetrieveProducts(userId);
+		        
+		        // Crea una lista temporanea per i prodotti nel carrello
+		        Collection<ProductBean> productsToAdd = new ArrayList<>();
+		        
+		        // Itera attraverso i prodotti recuperati e aggiungili alla lista temporanea
+		        for (ProductBean product : productsInCart) {
+		            productsToAdd.add(product);
+		        }
+		        
+		        // Aggiungi tutti i prodotti dalla lista temporanea al carrello
+		        cart.addProducts(productsToAdd);
+		        
+		        // Imposta l'attributo nella richiesta
+		        request.setAttribute("products", productsInCart);
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-			}*/
+			}
 		String action = request.getParameter("action");
 
 		try {

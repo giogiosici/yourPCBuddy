@@ -54,7 +54,7 @@ public class Login extends HttpServlet {
                     String name = logincheck.getString("Nome");
                     boolean isLogged = true; // Imposta isLogged a true
                     getServletContext().setAttribute("isLogged", isLogged); // Aggiorna il contesto dell'applicazione
-
+                    
                     session.setAttribute("userId", userId);
                     session.setAttribute("username", name);
                  // Dopo che l'utente ha effettuato il login con successo
