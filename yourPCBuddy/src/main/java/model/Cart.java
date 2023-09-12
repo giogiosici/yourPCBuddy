@@ -48,4 +48,8 @@ public class Cart {
 	public double getTotalPrice() {
 		return totalPrice;
 	}
+	public void addProduct(Collection<ProductBean> product) {
+		products.addAll(product);
+	}
+	
 }

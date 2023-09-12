@@ -51,6 +51,7 @@ ID INT AUTO_INCREMENT PRIMARY KEY ,
 -- PrezzoTotale Decimal(10,2),
 ProdottoID INT,
 UtenteID INT,
+QuantitaProdotto INT,
 FOREIGN KEY (ProdottoID) REFERENCES product(ID),
 FOREIGN KEY (UtenteID) REFERENCES Utenti(ID)
 );

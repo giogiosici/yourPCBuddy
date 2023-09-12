@@ -1,5 +1,7 @@
 package control;
 
+import java.util.*;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,6 +23,7 @@ import model.IProductDao;
 import model.ProductDaoDataSource;
 import model.CartDaoDataSource;
 import model.CartDao;
+import model.ProductBean;
 /**
  * Servlet implementation class CartServlet
  */
@@ -30,6 +33,7 @@ public class CartServlet extends HttpServlet {
 	private Connection connection=null;  
 	ResultSet cartCheck=null;
     PreparedStatement statement = null;
+    
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -65,33 +69,50 @@ public class CartServlet extends HttpServlet {
 
 			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 			productDao = new ProductDaoDataSource(ds);
-		Boolean isLogged=(Boolean)request.getSession().getAttribute("isLogged");
-		
-		Cart cart = (Cart)request.getSession().getAttribute("cart");
-		if(cart == null) {
-			cart = new Cart();
-			request.getSession().setAttribute("cart", cart);
+			Boolean isLogged=(Boolean) getServletContext().getAttribute("isLogged");
+			CartDao cartDao = new CartDaoDataSource(ds);
+			Cart cart = (Cart)request.getSession().getAttribute("cart");
+			Integer userId = (Integer)request.getSession().getAttribute("userId");
+			
+			if(cart == null){
+				cart = new Cart();
+				request.getSession().setAttribute("cart", cart);
 		}
-		
+			
+		/*if (isLogged) {
+			// Recupera la lista dei prodotti nel carrello
+			try {
+				
+				Collection<ProductBean>productsInCart = cartDao.doRetrieveProducts(userId);
+				cart.addProduct(cartDao.doRetrieveProducts(userId));
+				
+				// Imposta l'attributo nella richiesta
+				request.setAttribute("products", productsInCart);
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			}*/
 		String action = request.getParameter("action");
 
 		try {
 			if (action != null) {
 				if (action.equalsIgnoreCase("addC")) {
-					int id = Integer.parseInt(request.getParameter("id"));			
+					int id = Integer.parseInt(request.getParameter("id"));
 			/*else*/ cart.addProduct(productDao.doRetrieveByKey(id));
 						if(isLogged) {
-							int userId = (int)request.getSession().getAttribute("userId");
-							CartDao cartDao = new CartDaoDataSource(ds);
-					        cartDao.cartSave(userId, id);
+							
+							//double TotalPrice =cart.getTotalPrice();
+					        cartDao.cartSave(/*TotalPrice, */userId, id);
 						}
 
 				} else if (action.equalsIgnoreCase("deleteC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					cart.deleteProduct(productDao.doRetrieveByKey(id));
 						if(isLogged) {
-							int userId = (int)request.getSession().getAttribute("userId");
-							CartDao cartDao = new CartDaoDataSource(ds);
+							//int userId = (int)request.getSession().getAttribute("userId");
 							cartDao.cartDelete(userId, id);
 						}
 					}

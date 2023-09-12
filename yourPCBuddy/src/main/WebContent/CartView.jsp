@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
 <%
     Collection<?> products = (Collection<?>) request.getAttribute("products");
     if (products == null) {
-        response.sendRedirect("./CartServlet");
+        System.out.println("porcaccio dio");
+    	//response.sendRedirect("./CartServlet");
         return;
     }
     
@@ -43,7 +46,9 @@
 </script>
 </head>
 <body>
-
+<form action="index.jsp" method="POST">
+        <input type="submit" value="home">
+        </form>
 <div class="cart" align="center">
 <% if (cart != null && !cart.isEmpty()) { %>
     <h2>Carrello</h2>
@@ -53,12 +58,12 @@
             <th>Nome</th>
             <th>Prezzo</th>
             <th>Quantità</th>
-            <th>Action</th>
+            <th></th>
         </tr>
         <% List<ProductBean> prodcart = cart.getProducts(); 
            for (ProductBean beancart: prodcart) {
             %>
-        
+  
             <tr>
                 <td><img src="./Images/<%= beancart.getImage() %>" alt="Immagine" width="100" /></td>
                 <td><%=beancart.getName()%></td>

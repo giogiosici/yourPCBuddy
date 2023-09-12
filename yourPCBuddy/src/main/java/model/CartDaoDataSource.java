@@ -13,7 +13,7 @@ public class CartDaoDataSource  implements CartDao{
 	}
 
 	@Override
-	public void cartSave(int userId, int productId) throws SQLException {
+	public void cartSave(/*double totalPrice, */int userId, int productId) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -23,6 +23,7 @@ public class CartDaoDataSource  implements CartDao{
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
+			//preparedStatement.setDouble(1,totalPrice);
 			preparedStatement.setInt(1, productId);
             preparedStatement.setInt(2, userId);
             preparedStatement.executeUpdate();
@@ -70,20 +71,64 @@ public class CartDaoDataSource  implements CartDao{
 	}
 
 	@Override
-	public ProductBean doRetrieveByKey(int code) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Collection<ProductBean> doRetrieveAll(String order) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<ProductBean> doRetrieveProducts() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public synchronized Collection<ProductBean> doRetrieveProducts(int UID) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		PreparedStatement productStatement=null;
+		List<Integer> PID = new ArrayList<>();
+		
+		Collection<ProductBean> products = new LinkedList<ProductBean>();
+
+		String selectPID = "SELECT ProdottoID FROM " + CartDaoDataSource.TABLE_NAME +" WHERE UtenteID = ?";
+
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectPID);
+			preparedStatement.setInt(1,UID);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				int ProductID = rs.getInt("ProdottoID");
+				PID.add(ProductID);
+			}
+		
+			String PIDinfo= "SELECT * FROM product WHERE ID = ? ";
+			
+			productStatement = connection.prepareStatement(PIDinfo);
+			for(int ProductID : PID)
+					productStatement.setInt(1, ProductID);
+			ResultSet rsProducts = productStatement.executeQuery();
+			while (rsProducts.next()) {
+				ProductBean bean = new ProductBean();
+
+				bean.setCode(rsProducts.getInt("ID"));
+				bean.setName(rsProducts.getString("Nome"));
+				bean.setPrice(rsProducts.getFloat("Prezzo"));
+				bean.setImage(rsProducts.getString("Immagine"));
+				products.add(bean);
+			}
+			
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+				if (productStatement != null)
+					productStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		//for(ProductBean bean : products)
+		//System.out.println("carrello in db " + products);
+		return products;
 	}
 }
+

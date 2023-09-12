@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 
 @WebListener
 public class MainContext implements ServletContextListener {
+	
 
 	public void contextInitialized(ServletContextEvent sce) {
 		ServletContext context = sce.getServletContext();
@@ -25,7 +26,7 @@ public class MainContext implements ServletContextListener {
 		} catch (NamingException e) {
 			System.out.println("Error:" + e.getMessage());
 		}		
-
+		context.setAttribute("isLogged", false);
 		context.setAttribute("DataSource", ds);
 		System.out.println("DataSource creation...."+ds.toString());
 		

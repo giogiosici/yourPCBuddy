@@ -3,6 +3,8 @@ package control;
 import model.ProductBean;
 import model.IProductDao;
 import model.Cart;
+import model.CartDao;
+import model.CartDaoDataSource;
 import model.DriverManagerConnectionPool;
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -25,7 +27,7 @@ public class Login extends HttpServlet {
  
         String login = request.getParameter("username");
         String pwd = request.getParameter("password");
-        Boolean isLogged=false;
+        
         ResultSet logincheck=null;
         PreparedStatement statement = null;
         Connection connection = null;
@@ -50,10 +52,14 @@ public class Login extends HttpServlet {
     				HttpSession session = request.getSession();
                     int userId = logincheck.getInt("ID");
                     String name = logincheck.getString("Nome");
-                    isLogged = true;
+                    boolean isLogged = true; // Imposta isLogged a true
+                    getServletContext().setAttribute("isLogged", isLogged); // Aggiorna il contesto dell'applicazione
+
                     session.setAttribute("userId", userId);
                     session.setAttribute("username", name);
-                    session.setAttribute("isLogged", true);
+                 // Dopo che l'utente ha effettuato il login con successo
+                    
+                    //vorrei mettere il carrello al login
                     response.sendRedirect("index.jsp");
                     return;
                     
