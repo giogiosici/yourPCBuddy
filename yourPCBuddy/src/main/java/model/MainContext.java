@@ -27,6 +27,7 @@ public class MainContext implements ServletContextListener {
 			System.out.println("Error:" + e.getMessage());
 		}		
 		context.setAttribute("isLogged", false);
+		context.setAttribute("cartLoaded", false);
 		context.setAttribute("DataSource", ds);
 		System.out.println("DataSource creation...."+ds.toString());
 		

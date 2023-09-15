@@ -12,6 +12,7 @@ public class ProductBean implements Serializable {
 	String image;
 	float price;
 	int quantity;
+	int cartQuantity;
 	int CategoriaID;
 	
 
@@ -21,6 +22,7 @@ public class ProductBean implements Serializable {
 		image="";
 		description = "";
 		quantity = 0;
+		
 		CategoriaID=0;
 		price=(float) 0.00;
 	}
@@ -80,6 +82,7 @@ public class ProductBean implements Serializable {
 	public void setImage(String image) {
 		this.image=image;
 	}
+
 	
 	@Override
 	public String toString() {

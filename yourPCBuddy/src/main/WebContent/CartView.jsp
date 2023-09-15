@@ -21,29 +21,25 @@
 <meta charset="UTF-8">
 <title>Carrello</title>
 <script>
-    function updateTotalPrice(input) {
-        var quantity = parseFloat(input.value);
-        var price = parseFloat(input.parentNode.previousElementSibling.innerHTML);
-        var totalPriceElement = document.getElementById('totalPrice');
-        var totalPrice = parseFloat(totalPriceElement.innerHTML);
-        var previousQuantity = parseFloat(input.getAttribute('data-previous-quantity')) || 1;
-        
-        // Aggiorna il prezzo totale rimuovendo il prezzo corrispondente alla quantità precedente
-        var previousPrice = price * previousQuantity;
-        totalPrice -= previousPrice;
-        
-        // Aggiorna il prezzo totale con il nuovo valore
-        var newPrice = price * quantity;
-        totalPrice += newPrice;
-        
-        // Aggiorna l'attributo 'data-previous-quantity' con la nuova quantità
-        input.setAttribute('data-previous-quantity', quantity);
-        
-        totalPriceElement.innerHTML = totalPrice.toFixed(2); // Aggiorna il prezzo totale con 2 decimali
-        
-        
-    }
+	function updateTotalPrice(input) {
+    	var quantity = parseFloat(input.value);
+    	var price = parseFloat(input.parentNode.previousElementSibling.innerHTML);
+    	var totalPriceElement = document.getElementById('totalPrice');
+    	var totalPrice = parseFloat(totalPriceElement.innerHTML);
+
+    // Calcola il prezzo totale senza considerare la quantità
+    	var previousPrice = parseFloat(input.getAttribute('data-previous-price')) || 0;
+    	totalPrice -= previousPrice;
+
+	    var newPrice = price * quantity;
+    	totalPrice += newPrice;
+
+    // Aggiorna l'attributo 'data-previous-price' con il nuovo prezzo
+   		input.setAttribute('data-previous-price', newPrice);
+    	totalPriceElement.innerHTML = totalPrice.toFixed(2);
+}
 </script>
+
 </head>
 <body>
 <form action="index.jsp" method="POST">
@@ -69,14 +65,24 @@
                 <td><%=beancart.getName()%></td>
                 <td><%= String.format(Locale.US, "%.2f", beancart.getPrice()) %></td>
                 <td>
-                    <input name="quantity_<%= beancart.getCode() %>" type="number" min="1" value="1" style="width: 50px;" onchange="updateTotalPrice(this)">
+                    <%=beancart.getQuantity()%>
                 </td>
                 <td>
                     <form action="CartServlet" method="POST">
                         <input type="hidden" name="action" value="deleteC">
                         <input type="hidden" name="id" value="<%=beancart.getCode()%>">
+                        <input type="hidden" name="quantity" value="<%=beancart.getQuantity()%>">
                         <input type="submit" value="Rimuovi">
                     </form>
+                    
+                    <form action="CartServlet" method="POST">
+    					<input type="hidden" name="action" value="addC">
+    					<input type="hidden" name="id" value="<%=beancart.getCode()%>">
+    					<input type="hidden" name="quantity" value="<%=beancart.getQuantity()%>">
+    					
+    					<input type="submit" value="Aggiungi">
+					</form>
+					
                 </td>
             </tr>
         <% } %>
@@ -85,13 +91,11 @@
             <td colspan="4"><strong>Prezzo Totale</strong></td>
             <td align="right"><span id="totalPrice">
                 <% double totalPrice = 0;
-                   for (ProductBean beancart: prodcart) {
-                       String quantityParam = "quantity_" + beancart.getCode();
-                       String quantityValue = request.getParameter(quantityParam);
-                       double quantity = quantityValue != null ? Double.parseDouble(quantityValue) : 1;
-                       double price = beancart.getPrice();
-                       totalPrice += price * quantity;
-                       cart.setTotalPrice(totalPrice);
+                for (ProductBean beancart : prodcart) {
+                    double quantity = beancart.getQuantity();
+                    double price = beancart.getPrice();
+                    totalPrice += price * quantity;
+                    cart.setTotalPrice(totalPrice);
                    }
                    out.println(String.format(Locale.US, "%.2f", totalPrice));
                 %>

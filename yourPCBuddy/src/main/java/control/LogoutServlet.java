@@ -35,8 +35,9 @@ public class LogoutServlet extends HttpServlet {
             session.removeAttribute("userId");
             session.removeAttribute("username");
             boolean isLogged = false; // Imposta isLogged a false
+            boolean cartLoaded = false;
             getServletContext().setAttribute("isLogged", isLogged); // Aggiorna il contesto dell'applicazione
-            
+            getServletContext().setAttribute("cartLoaded", cartLoaded);
             
             
             // Invalida la sessione

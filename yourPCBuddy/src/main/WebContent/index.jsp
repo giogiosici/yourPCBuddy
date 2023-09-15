@@ -44,20 +44,34 @@
         <p><%=bean.getName()%></p>
         <p><%= String.format("%.2f", bean.getPrice()) %></p>
         <form action="CartServlet" method="POST" class="IndexProduct">
-    			<input type="hidden" name="action" value="addC">
-    			<input type="hidden" name="id" value="<%=bean.getCode()%>">
-    		<input type="submit" value="Aggiungi al carrello">
-		</form>
+            <input type="hidden" name="action" value="addC">
+            <input type="hidden" name="id" value="<%=bean.getCode()%>">
+            <input type="hidden" name="quantity" id="quantity_<%=bean.getCode()%>" value="1">
+            <input type="submit" value="Aggiungi al carrello">
+        </form>
     <% } %>
 <% } else { %>
     <p>Nessun prodotto disponibile</p>
 <% } %>
+
 <script>
 $(document).ready(function() {
     $('.IndexProduct').submit(function(e) {
         e.preventDefault(); // Previene l'invio predefinito del form
 
         var formData = $(this).serialize(); // Ottiene i dati del form serializzati
+        
+        // Trova il campo "quantity" associato a questo form
+        var quantityField = $('#quantity_' + $(this).find('input[name="id"]').val());
+
+        // Ottieni il valore corrente del campo "quantity" e convertilo in un numero intero
+        var currentQuantity = parseInt(quantityField.val());
+
+        // Incrementa il valore di "quantity" di 1
+        var newQuantity = currentQuantity + 1;
+
+        // Imposta il nuovo valore di "quantity" nel campo
+        quantityField.val(newQuantity);
 
         // Invia la richiesta AJAX al tuo form di destinazione
         $.ajax({
@@ -74,6 +88,7 @@ $(document).ready(function() {
     });
 });
 </script>
+
 
 
 </div>	

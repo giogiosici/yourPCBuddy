@@ -5,11 +5,9 @@ import java.util.List;
 
 public interface CartDao {
 	
-	public void cartSave(/*double totalPrice, */int userId, int productId) throws SQLException;
+	public void cartSave(int userId, int productId, int quantity) throws SQLException;
 
 	public boolean cartDelete(int UID, int PID) throws SQLException;
-
-	//public Collection <ProductBean> doRetrieveProduct(int PID) throws SQLException;
 	
 	public Collection<ProductBean> doRetrieveAll(String order) throws SQLException;
 	

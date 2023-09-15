@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.*;
 import javax.sql.DataSource;
 
+
 public class CartDaoDataSource  implements CartDao{
 	private static final String TABLE_NAME = "Carrello";
 	private DataSource ds = null;
@@ -13,32 +14,78 @@ public class CartDaoDataSource  implements CartDao{
 	}
 
 	@Override
-	public void cartSave(/*double totalPrice, */int userId, int productId) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+	public void cartSave(int userId, int productId, int quantity) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO " + CartDaoDataSource.TABLE_NAME
-				+ " (ProdottoID, UtenteID) VALUES (?, ?)"; //ci vuole prezzo totale
+	    // Query per verificare se il prodotto è già nel carrello
+	    String selectSQL = "SELECT * FROM " + CartDaoDataSource.TABLE_NAME
+	            + " WHERE ProdottoID = ? AND UtenteID = ?";
 
-		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL);
-			//preparedStatement.setDouble(1,totalPrice);
-			preparedStatement.setInt(1, productId);
-            preparedStatement.setInt(2, userId);
-            preparedStatement.executeUpdate();
+	    // Query per l'inserimento di un nuovo record nel carrello
+	    String insertSQL = "INSERT INTO " + CartDaoDataSource.TABLE_NAME
+	            + " (ProdottoID, UtenteID, QuantitaProdotto) VALUES (?, ?, ?)";
 
-			//connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
-}
+	    // Query per l'aggiornamento della quantità del prodotto esistente nel carrello
+	    String updateSQL = "UPDATE " + CartDaoDataSource.TABLE_NAME
+	            + " SET QuantitaProdotto = QuantitaProdotto + ? WHERE ProdottoID = ? AND UtenteID = ?";
+
+	    try {
+	        connection = ds.getConnection();
+	        connection.setAutoCommit(false); // Disabilita l'autocommit
+
+	        // Verifica se il prodotto è già nel carrello
+	        preparedStatement = connection.prepareStatement(selectSQL);
+	        preparedStatement.setInt(1, productId);
+	        preparedStatement.setInt(2, userId);
+	        ResultSet resultSet = preparedStatement.executeQuery();
+
+	        if (resultSet.next()) {
+	            // Il prodotto è già nel carrello, quindi aggiorna la quantità
+	            preparedStatement.close(); // Chiudi la query precedente
+
+	            preparedStatement = connection.prepareStatement(updateSQL);
+	            preparedStatement.setInt(1, quantity);
+	            System.out.println("quantita update cartDataSource " + quantity);
+	            preparedStatement.setInt(2, productId);
+	            preparedStatement.setInt(3, userId);
+	            preparedStatement.executeUpdate();
+	        } else {
+	        	System.out.println("else cartDaoDataSource");
+	            // Il prodotto non è nel carrello, quindi inseriscilo
+	            preparedStatement.close(); // Chiudi la query precedente
+
+	            preparedStatement = connection.prepareStatement(insertSQL);
+	            preparedStatement.setInt(1, productId);
+	            preparedStatement.setInt(2, userId);
+	            preparedStatement.setInt(3, quantity);
+	            preparedStatement.executeUpdate();
+	            System.out.println("fine else " + quantity);
+	        }
+	        System.out.println("fine try cartDaoDataSource " + quantity);
+	        connection.commit(); // Esegui il commit delle operazioni nel database
+	    } catch (SQLException e) {
+	        if (connection != null) {
+	            try {
+	                connection.rollback(); // Esegui il rollback in caso di errore
+	                
+	            } catch (SQLException ex) {
+	                ex.printStackTrace();
+	            }
+	        }
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	            if (connection != null)
+	                connection.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+
 
 
 	@Override
@@ -83,6 +130,7 @@ public class CartDaoDataSource  implements CartDao{
 		PreparedStatement productStatement=null;
 		List<Integer> PID = new ArrayList<>();
 		
+		
 		Collection<ProductBean> products = new LinkedList<ProductBean>();
 
 		String selectPID = "SELECT ProdottoID FROM " + CartDaoDataSource.TABLE_NAME +" WHERE UtenteID = ?";
@@ -99,23 +147,27 @@ public class CartDaoDataSource  implements CartDao{
 				PID.add(ProductID);
 			}
 		
-			String PIDinfo = "SELECT * FROM product WHERE ID = ?";
+			String PIDinfo = "SELECT p.*, c.QuantitaProdotto FROM product p JOIN Carrello c ON p.ID = c.ProdottoID WHERE c.UtenteID = ?";
+
 			productStatement = connection.prepareStatement(PIDinfo);
+			productStatement.setInt(1, UID);
 
-			for (int ProductID : PID) {
-			    productStatement.setInt(1, ProductID);
-			    ResultSet rsProducts = productStatement.executeQuery();
+			ResultSet rsProducts = productStatement.executeQuery();
+
+			while (rsProducts.next()) {
+			    ProductBean bean = new ProductBean();
+
+			    bean.setCode(rsProducts.getInt("ID"));
+			    bean.setName(rsProducts.getString("Nome"));
+			    bean.setPrice(rsProducts.getFloat("Prezzo"));
+			    bean.setImage(rsProducts.getString("Immagine"));
 			    
-			    while (rsProducts.next()) {
-			        ProductBean bean = new ProductBean();
+			    // Popola il campo quantity
+			    bean.setQuantity(rsProducts.getInt("QuantitaProdotto"));
 
-			        bean.setCode(rsProducts.getInt("ID"));
-			        bean.setName(rsProducts.getString("Nome"));
-			        bean.setPrice(rsProducts.getFloat("Prezzo"));
-			        bean.setImage(rsProducts.getString("Immagine"));
-			        products.add(bean);
-			    }
+			    products.add(bean);
 			}
+
 			
 		} finally {
 			try {
@@ -128,14 +180,7 @@ public class CartDaoDataSource  implements CartDao{
 					connection.close();
 			}
 		}
-		for (ProductBean product : products) {
-		    System.out.println("ID: " + product.getCode());
-		    System.out.println("Nome: " + product.getName());
-		    System.out.println("Prezzo: " + product.getPrice());
-		    System.out.println("Immagine: " + product.getImage());
-		    // Aggiungi ulteriori attributi se necessario
-		    System.out.println("-----------------------------");
-		}
+		
 		return products;
 	}
 }

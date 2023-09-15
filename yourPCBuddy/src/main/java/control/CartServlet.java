@@ -70,6 +70,7 @@ public class CartServlet extends HttpServlet {
 			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 			productDao = new ProductDaoDataSource(ds);
 			Boolean isLogged=(Boolean) getServletContext().getAttribute("isLogged");
+			Boolean cartLoaded=(Boolean) getServletContext().getAttribute("cartLoaded");
 			CartDao cartDao = new CartDaoDataSource(ds);
 			Cart cart = (Cart)request.getSession().getAttribute("cart");
 			Integer userId = (Integer)request.getSession().getAttribute("userId");
@@ -78,8 +79,8 @@ public class CartServlet extends HttpServlet {
 				cart = new Cart();
 				request.getSession().setAttribute("cart", cart);
 		}
-			System.out.println("isLogged =" + isLogged);
-		if (isLogged) {
+			
+		if (isLogged && !cartLoaded) {
 			// Recupera la lista dei prodotti nel carrello
 			try {
 				
@@ -95,7 +96,7 @@ public class CartServlet extends HttpServlet {
 		        
 		        // Aggiungi tutti i prodotti dalla lista temporanea al carrello
 		        cart.addProducts(productsToAdd);
-		        
+		        getServletContext().setAttribute("cartLoaded", true);
 		        // Imposta l'attributo nella richiesta
 		        request.setAttribute("products", productsInCart);
 				
@@ -111,18 +112,22 @@ public class CartServlet extends HttpServlet {
 			if (action != null) {
 				if (action.equalsIgnoreCase("addC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
+					int quantity=Integer.parseInt(request.getParameter("quantity"));
+					
 			/*else*/ cart.addProduct(productDao.doRetrieveByKey(id));
+			System.out.println("quantità no login " + quantity);
 						if(isLogged) {
-							
+							System.out.println("quanità se loggato " + quantity);
 							//double TotalPrice =cart.getTotalPrice();
-					        cartDao.cartSave(/*TotalPrice, */userId, id);
+					        cartDao.cartSave(userId, id,quantity);
 						}
 
 				} else if (action.equalsIgnoreCase("deleteC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
+					int quantity=Integer.parseInt(request.getParameter("quantity"));
 					cart.deleteProduct(productDao.doRetrieveByKey(id));
 						if(isLogged) {
-							//int userId = (int)request.getSession().getAttribute("userId");
+							
 							cartDao.cartDelete(userId, id);
 						}
 					}
