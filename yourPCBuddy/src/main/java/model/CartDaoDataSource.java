@@ -88,39 +88,72 @@ public class CartDaoDataSource  implements CartDao{
 
 
 
-	@Override
-	public boolean cartDelete(int UID, int PID) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+	public void cartDelete(int UID, int PID, int quantity) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
 
-		int result = 0;
+	    
 
-		String deleteSQL = "DELETE FROM " + CartDaoDataSource.TABLE_NAME + " WHERE UtenteID = ? AND ProdottoID = ?";
+	    String deleteSQL = "DELETE FROM " + CartDaoDataSource.TABLE_NAME + " WHERE UtenteID = ? AND ProdottoID = ?";
 
-		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setInt(1, UID);
-			preparedStatement.setInt(2,PID);
+	    String updateSQL = "UPDATE " + CartDaoDataSource.TABLE_NAME
+	            + " SET QuantitaProdotto = ? WHERE ProdottoID = ? AND UtenteID = ?";
 
-			result = preparedStatement.executeUpdate();
-			//connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
-		return (result != 0);
+	    try {
+	        connection = ds.getConnection();
+	        if (quantity > 1) {
+	            // Se la quantità è maggiore di 1, decrementa la quantità nel database di 1 unità
+	            preparedStatement = connection.prepareStatement(updateSQL);
+	            preparedStatement.setInt(1, quantity - 1); // Decrementa la quantità di 1
+	            preparedStatement.setInt(2, PID);
+	            preparedStatement.setInt(3, UID);
+	            preparedStatement.executeUpdate();
+	        } else {
+	            // Se la quantità è 1 o inferiore, elimina il prodotto dal carrello
+	            preparedStatement = connection.prepareStatement(deleteSQL);
+	            preparedStatement.setInt(1, UID);
+	            preparedStatement.setInt(2, PID);
+
+	            preparedStatement.executeUpdate();
+	            // connection.commit();
+	        }
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            if (connection != null)
+	                connection.close();
+	        }
+	    }
 	}
 
-	@Override
-	public Collection<ProductBean> doRetrieveAll(String order) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public void cartDelAll(int UID, int PID) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+
+	    
+
+	    String deleteSQL = "DELETE FROM " + CartDaoDataSource.TABLE_NAME + " WHERE UtenteID = ? AND ProdottoID = ?";
+
+	    try {
+	        connection = ds.getConnection();
+	            preparedStatement = connection.prepareStatement(deleteSQL);
+	            preparedStatement.setInt(1, UID);
+	            preparedStatement.setInt(2, PID);
+
+	            preparedStatement.executeUpdate();
+	            // connection.commit();
+	        
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            if (connection != null)
+	                connection.close();
+	        }
+	    }
 	}
 
 	@Override
@@ -182,6 +215,12 @@ public class CartDaoDataSource  implements CartDao{
 		}
 		
 		return products;
+	}
+
+	@Override
+	public Collection<ProductBean> doRetrieveAll(String order) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
 

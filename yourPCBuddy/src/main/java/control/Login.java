@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet {
@@ -24,7 +25,8 @@ public class Login extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
- 
+		
+		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
         String login = request.getParameter("username");
         String pwd = request.getParameter("password");
         
@@ -58,8 +60,24 @@ public class Login extends HttpServlet {
                     session.setAttribute("username", name);
                     
                  // Dopo che l'utente ha effettuato il login con successo
-                    
-                    //vorrei mettere il carrello al login
+
+                    // Salva il carrello non autenticato nel database
+                    Cart cart = (Cart) session.getAttribute("cart");
+                    if (cart != null && !cart.isEmpty()) {
+                        // Ottieni l'ID dell'utente loggato
+                        
+
+                        // Salva il carrello non autenticato nel database
+                        CartDao cartDao = new CartDaoDataSource(ds);
+                        for (ProductBean product : cart.getProducts()) {
+                            int productId = product.getCode();
+                            int quantity = product.getQuantity();
+                            cartDao.cartSave(userId, productId, quantity);
+                        }
+
+                        // Ora che il carrello è stato salvato nel database, puoi rimuovere il carrello non autenticato dalla sessione
+                        session.removeAttribute("cart");
+                    }
                     response.sendRedirect("index.jsp");
                     return;
                     

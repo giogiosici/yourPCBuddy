@@ -112,23 +112,28 @@ public class CartServlet extends HttpServlet {
 			if (action != null) {
 				if (action.equalsIgnoreCase("addC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
-					int quantity=Integer.parseInt(request.getParameter("quantity"));
+					
 					
 			/*else*/ cart.addProduct(productDao.doRetrieveByKey(id));
-			System.out.println("quantità no login " + quantity);
-						if(isLogged) {
-							System.out.println("quanità se loggato " + quantity);
-							//double TotalPrice =cart.getTotalPrice();
-					        cartDao.cartSave(userId, id,quantity);
-						}
+			int quantity = 1; // Imposta sempre la quantità a 1
+			if (isLogged) {
+			    cartDao.cartSave(userId, id, quantity);
+			}
+
 
 				} else if (action.equalsIgnoreCase("deleteC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					int quantity=Integer.parseInt(request.getParameter("quantity"));
 					cart.deleteProduct(productDao.doRetrieveByKey(id));
 						if(isLogged) {
-							
-							cartDao.cartDelete(userId, id);
+								cartDao.cartDelete(userId, id, quantity);								
+						}
+					}
+				else if (action.equalsIgnoreCase("delAllC")) {
+					int id = Integer.parseInt(request.getParameter("id"));
+					cart.delAll(productDao.doRetrieveByKey(id));
+						if(isLogged) {
+								cartDao.cartDelAll(userId, id);								
 						}
 					}
 			}

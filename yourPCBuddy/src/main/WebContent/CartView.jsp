@@ -21,6 +21,7 @@
 <meta charset="UTF-8">
 <title>Carrello</title>
 <script>
+	
 	function updateTotalPrice(input) {
     	var quantity = parseFloat(input.value);
     	var price = parseFloat(input.parentNode.previousElementSibling.innerHTML);
@@ -77,10 +78,14 @@
                     
                     <form action="CartServlet" method="POST">
     					<input type="hidden" name="action" value="addC">
-    					<input type="hidden" name="id" value="<%=beancart.getCode()%>">
-    					<input type="hidden" name="quantity" value="<%=beancart.getQuantity()%>">
-    					
+    					<input type="hidden" name="id" value="<%=beancart.getCode()%>">	
     					<input type="submit" value="Aggiungi">
+					</form>
+					
+					<form action="CartServlet" method="POST">
+    					<input type="hidden" name="action" value="delAllC">
+    					<input type="hidden" name="id" value="<%=beancart.getCode()%>">
+    					<input type="submit" value="Rimuovi tutto">
 					</form>
 					
                 </td>

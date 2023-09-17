@@ -43,7 +43,18 @@ public class Cart {
 				products.remove(prod);
 				else
 					prod.setQuantity(prod.getQuantity() - 1);
-				break;
+				return;
+			}
+		}
+ 	}
+	public void delAll(ProductBean product) {
+		for(ProductBean prod : products) {
+			if(prod.getCode() == product.getCode()) {
+				
+				products.remove(prod);
+				
+				
+				return;
 			}
 		}
  	}

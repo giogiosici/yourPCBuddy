@@ -47,6 +47,7 @@
             <input type="hidden" name="action" value="addC">
             <input type="hidden" name="id" value="<%=bean.getCode()%>">
             <input type="hidden" name="quantity" id="quantity_<%=bean.getCode()%>" value="1">
+            
             <input type="submit" value="Aggiungi al carrello">
         </form>
     <% } %>
@@ -63,7 +64,7 @@ $(document).ready(function() {
         
         // Trova il campo "quantity" associato a questo form
         var quantityField = $('#quantity_' + $(this).find('input[name="id"]').val());
-
+		
         // Ottieni il valore corrente del campo "quantity" e convertilo in un numero intero
         var currentQuantity = parseInt(quantityField.val());
 
