@@ -54,11 +54,6 @@ public class CartServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String isDriverManager = request.getParameter("driver");
 		if(isDriverManager == null || isDriverManager.equals("")) {
@@ -145,14 +140,6 @@ public class CartServlet extends HttpServlet {
 		request.setAttribute("cart", cart);
 		
 		
-		String sort = request.getParameter("sort");
-
-		try {
-			request.removeAttribute("products");
-			request.setAttribute("products", productDao.doRetrieveAll(sort));
-		} catch (SQLException e) {
-			System.out.println("Error:" + e.getMessage());
-		}
 
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/CartView.jsp");
 		dispatcher.forward(request, response);

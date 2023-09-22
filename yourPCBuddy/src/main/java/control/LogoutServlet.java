@@ -34,6 +34,7 @@ public class LogoutServlet extends HttpServlet {
             // Rimuovi gli attributi della sessione
             session.removeAttribute("userId");
             session.removeAttribute("username");
+            session.removeAttribute("cart");
             boolean isLogged = false; // Imposta isLogged a false
             boolean cartLoaded = false;
             getServletContext().setAttribute("isLogged", isLogged); // Aggiorna il contesto dell'applicazione
@@ -45,7 +46,7 @@ public class LogoutServlet extends HttpServlet {
         }
         
         // Reindirizza l'utente alla pagina di login o a un'altra pagina appropriata
-        response.sendRedirect("index.jsp");
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 }
 

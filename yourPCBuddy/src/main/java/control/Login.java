@@ -45,7 +45,7 @@ public class Login extends HttpServlet {
             try {
             	DriverManagerConnectionPool connectionPool = DriverManagerConnectionPool.getInstance();
             	connection = connectionPool.getConnection();
-            	String query = "SELECT * FROM Utenti WHERE (Nome,Password) = (?, ?)";
+            	String query = "SELECT * FROM Utenti WHERE (Username,Password) = (?, ?)";
             	statement = connection.prepareStatement(query);
             	statement.setString(1, login);
             	statement.setString(2, pwd);
@@ -53,11 +53,11 @@ public class Login extends HttpServlet {
     			if(logincheck.next()) {
     				HttpSession session = request.getSession();
                     int userId = logincheck.getInt("ID");
-                    String name = logincheck.getString("Nome");
+                    String username = logincheck.getString("Username");
                     boolean isLogged = true; // Imposta isLogged a true
                     getServletContext().setAttribute("isLogged", isLogged); // Aggiorna il contesto dell'applicazione
                     session.setAttribute("userId", userId);
-                    session.setAttribute("username", name);
+                    session.setAttribute("username", username);
                     
                  // Dopo che l'utente ha effettuato il login con successo
 
@@ -76,14 +76,24 @@ public class Login extends HttpServlet {
                         }
 
                         // Ora che il carrello è stato salvato nel database, puoi rimuovere il carrello non autenticato dalla sessione
-                        session.removeAttribute("cart");
+                        //session.removeAttribute("cart");
                     }
-                    response.sendRedirect("index.jsp");
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
                     return;
                     
                 } else {
                     // Autenticazione fallita, mostra un messaggio di errore
-                    request.setAttribute("errorMessage", "Credenziali di accesso non valide");
+                	 String errorMessage = "Credenziali di accesso non valide";
+                	    request.setAttribute("errorMessage", errorMessage);
+
+                	    // Esegui uno script JavaScript per mostrare l'alert con SweetAlert2
+                	    String script = "Swal.fire({ " +
+                	            "title: 'Errore', " +
+                	            "text: '" + errorMessage + "', " +
+                	            "icon: 'error', " +
+                	            "confirmButtonText: 'OK' " +
+                	            "});";
+                	    request.setAttribute("errorScript", script);
                     request.getRequestDispatcher("LoginScreen.jsp").forward(request, response);
                     return;
                 }	
@@ -106,9 +116,6 @@ public class Login extends HttpServlet {
                 }
             }
         }
-        /*request.setAttribute("error", Boolean.TRUE);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-        dispatcher.forward(request, response);*/
 	}
 
 }

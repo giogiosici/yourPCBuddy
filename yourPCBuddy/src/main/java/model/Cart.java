@@ -26,7 +26,7 @@ public class Cart {
             if (prod.getCode() == product.getCode()) {
                 // Il prodotto è già nel carrello, quindi incrementa la quantità
                 prod.setQuantity(prod.getQuantity() + 1);
-                System.out.println("cart.java " + prod.getQuantity());
+                
                 return;
             }
         }

@@ -18,12 +18,27 @@ CREATE TABLE product (
 );
 
 
+
 -- Tabella Utenti
 CREATE TABLE Utenti (
   ID INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  Nome VARCHAR(255),
+  Nome varchar(255),
+  Cognome varchar(255),
+  Username VARCHAR(255),
   Email VARCHAR(255),
-  Password VARCHAR(255)
+  Password VARCHAR(255),
+  Indirizzo varchar(255)
+);
+
+-- Tabella Carrello
+
+CREATE TABLE Carrello(
+ID INT AUTO_INCREMENT PRIMARY KEY ,
+ProdottoID INT,
+UtenteID INT,
+QuantitaProdotto INT,
+FOREIGN KEY (ProdottoID) REFERENCES product(ID),
+FOREIGN KEY (UtenteID) REFERENCES Utenti(ID)
 );
 
 -- Tabella Ordini
@@ -32,8 +47,8 @@ CREATE TABLE Ordini (
   UtenteID INT,
   DataOra DATETIME,
   CarrelloID INT,
-  FOREIGN KEY (UtenteID) REFERENCES Utenti(ID)-- ,
-  -- FOREIGN KEY (CarrelloID) REFERENCES Carrello(ID)
+  FOREIGN KEY (UtenteID) REFERENCES Utenti(ID),
+  FOREIGN KEY (CarrelloID) REFERENCES Carrello(ID)
   
 );
 
@@ -46,18 +61,10 @@ CREATE TABLE DettagliOrdine (
   FOREIGN KEY (OrdineID) REFERENCES Ordini(ID),
   FOREIGN KEY (ProdottoID) REFERENCES product(ID)
 );
-CREATE TABLE Carrello(
-ID INT AUTO_INCREMENT PRIMARY KEY ,
--- PrezzoTotale Decimal(10,2),
-ProdottoID INT,
-UtenteID INT,
-QuantitaProdotto INT,
-FOREIGN KEY (ProdottoID) REFERENCES product(ID),
-FOREIGN KEY (UtenteID) REFERENCES Utenti(ID)
-);
 
-INSERT INTO Utenti (Nome,Email,Password) values ("root","admin@gmail.com","admin");
-INSERT INTO Utenti (Nome,Email,Password) values ("pippo","pippofranco@gmail.com","franco");
+
+INSERT INTO Utenti (Username,Email,Password) values ("root","admin@gmail.com","admin");
+INSERT INTO Utenti (Username,Email,Password) values ("pippo","pippofranco@gmail.com","franco");
 INSERT INTO product (Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values ("Intel i3-12300","Processore",200.00,10,1,"i3-12.png");
 INSERT INTO product (Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values ("Intel i7-13200","Processore",200.50,10,1,"i7-13.png");
 INSERT INTO product (Nome,Descrizione,Prezzo,QuantitaDisponibile,CategoriaID, Immagine) values ("Ryzen 5 5600g","Processore",180.00,5,1,"r5-50.png");

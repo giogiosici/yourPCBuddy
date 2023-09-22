@@ -46,12 +46,11 @@ public class CartDaoDataSource  implements CartDao{
 
 	            preparedStatement = connection.prepareStatement(updateSQL);
 	            preparedStatement.setInt(1, quantity);
-	            System.out.println("quantita update cartDataSource " + quantity);
 	            preparedStatement.setInt(2, productId);
 	            preparedStatement.setInt(3, userId);
 	            preparedStatement.executeUpdate();
 	        } else {
-	        	System.out.println("else cartDaoDataSource");
+	        	
 	            // Il prodotto non è nel carrello, quindi inseriscilo
 	            preparedStatement.close(); // Chiudi la query precedente
 
@@ -60,9 +59,9 @@ public class CartDaoDataSource  implements CartDao{
 	            preparedStatement.setInt(2, userId);
 	            preparedStatement.setInt(3, quantity);
 	            preparedStatement.executeUpdate();
-	            System.out.println("fine else " + quantity);
+	            
 	        }
-	        System.out.println("fine try cartDaoDataSource " + quantity);
+	        
 	        connection.commit(); // Esegui il commit delle operazioni nel database
 	    } catch (SQLException e) {
 	        if (connection != null) {
@@ -217,10 +216,5 @@ public class CartDaoDataSource  implements CartDao{
 		return products;
 	}
 
-	@Override
-	public Collection<ProductBean> doRetrieveAll(String order) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
 
