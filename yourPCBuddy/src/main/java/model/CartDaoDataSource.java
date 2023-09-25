@@ -193,6 +193,7 @@ public class CartDaoDataSource  implements CartDao{
 			    bean.setName(rsProducts.getString("Nome"));
 			    bean.setPrice(rsProducts.getFloat("Prezzo"));
 			    bean.setImage(rsProducts.getString("Immagine"));
+
 			    
 			    // Popola il campo quantity
 			    bean.setQuantity(rsProducts.getInt("QuantitaProdotto"));
