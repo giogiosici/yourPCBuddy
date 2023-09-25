@@ -1,9 +1,6 @@
 package control;
 
 import model.ProductBean;
-import model.User;
-import model.PADaoDataSource;
-import model.PADao;
 import model.IProductDao;
 import model.Cart;
 import model.CartDao;
@@ -36,7 +33,7 @@ public class Login extends HttpServlet {
         ResultSet logincheck=null;
         PreparedStatement statement = null;
         Connection connection = null;
-        PADao paDao = new PADaoDataSource(ds);
+        
         
         if(login.equalsIgnoreCase("root") && pwd.equals("admin")) {
             request.getSession().setAttribute("uname", login);
@@ -61,8 +58,7 @@ public class Login extends HttpServlet {
                     getServletContext().setAttribute("isLogged", isLogged); // Aggiorna il contesto dell'applicazione
                     session.setAttribute("userId", userId);
                     session.setAttribute("username", username);
-                    User user = paDao.RetrieveUserData(userId);
-                    session.setAttribute("user", user);
+                    
                  // Dopo che l'utente ha effettuato il login con successo
 
                     // Salva il carrello non autenticato nel database
