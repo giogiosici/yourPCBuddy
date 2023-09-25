@@ -46,19 +46,20 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String name = request.getParameter("name");
+		String name = request.getParameter("nome");
+		String surname = request.getParameter("cognome");
+		String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         try {
-			if (isUsernameExists(name)) {
+			if (isUsernameExists(username)) {
 			    // Il nome utente esiste già nel database
-			    response.sendRedirect("RegisterPage.jsp?error=username_exists");
+				request.getRequestDispatcher("RegisterPage.jsp?error=username_exists").forward(request, response);
 			    return; // Termina l'esecuzione della servlet
 			}
 		   if (isEmailExists(email)) {
 			    // L'email esiste già nel database
-			    response.sendRedirect("RegisterPage.jsp?error=email_exists");
+			   request.getRequestDispatcher("RegisterPage.jsp?error=email_exists").forward(request, response);
 				    return; // Termina l'esecuzione della servlet
 			}
 		} catch (SQLException e) {
@@ -69,11 +70,13 @@ public class RegisterServlet extends HttpServlet {
 			e.printStackTrace();
 		}
         try {	
-            String insertQuery = "INSERT INTO Utenti (Nome, Email, Password) VALUES (?, ?, ?)";
+            String insertQuery = "INSERT INTO Utenti (Nome, Cognome, Username, Email, Password) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(insertQuery);
             statement.setString(1, name);
-            statement.setString(2, email);
-            statement.setString(3, password);
+            statement.setString(2, surname);
+            statement.setString(3, username);
+            statement.setString(4, email);
+            statement.setString(5, password);
             statement.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
@@ -84,7 +87,7 @@ public class RegisterServlet extends HttpServlet {
 	}
 		
         private boolean isUsernameExists(String username) throws SQLException {
-            String query = "SELECT * FROM Utenti WHERE Nome = ?";
+            String query = "SELECT * FROM Utenti WHERE Username = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, username);
             ResultSet resultSet = statement.executeQuery();

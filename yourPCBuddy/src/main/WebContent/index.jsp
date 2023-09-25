@@ -10,6 +10,7 @@
 <html>
 <head>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="./Scripts/IndexScript.js"></script>
 <meta charset="ISO-8859-1">
 <title>yourPCBuddy</title>
 </head>
@@ -17,6 +18,9 @@
 <% if (session.getAttribute("username") != null) { %>
     <form action="LogoutServlet" method="POST">
         <input type="submit" value="Logout">
+    </form>
+    <form action="PersonalAreaServlet" method="POST">
+        <input type="submit" value="Area Personale">
     </form>
 <% } else { %>
     <form action="LoginScreen.jsp" method="POST">
@@ -44,36 +48,16 @@
         <p><%=bean.getName()%></p>
         <p><%= String.format("%.2f", bean.getPrice()) %></p>
         <form action="CartServlet" method="POST" class="IndexProduct">
-    			<input type="hidden" name="action" value="addC">
-    			<input type="hidden" name="id" value="<%=bean.getCode()%>">
-    		<input type="submit" value="Aggiungi al carrello">
-		</form>
+            <input type="hidden" name="action" value="addC">
+            <input type="hidden" name="id" value="<%=bean.getCode()%>">
+            <input type="hidden" name="quantity" id="quantity_<%=bean.getCode()%>" value="1">
+            
+            <input type="submit" value="Aggiungi al carrello">
+        </form>
     <% } %>
 <% } else { %>
     <p>Nessun prodotto disponibile</p>
 <% } %>
-<script>
-$(document).ready(function() {
-    $('.IndexProduct').submit(function(e) {
-        e.preventDefault(); // Previene l'invio predefinito del form
-
-        var formData = $(this).serialize(); // Ottiene i dati del form serializzati
-
-        // Invia la richiesta AJAX al tuo form di destinazione
-        $.ajax({
-            url: 'CartServlet',
-            type: 'POST',
-            data: formData,
-            success: function(response) {
-                // Gestisci la risposta del server, se necessario
-            },
-            error: function(xhr, status, error) {
-                // Gestisci gli errori, se necessario
-            }
-        });
-    });
-});
-</script>
 
 
 </div>	

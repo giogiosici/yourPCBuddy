@@ -1,49 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <%
-    Collection<?> products = (Collection<?>) request.getAttribute("products");
-    if (products == null) {
-        response.sendRedirect("./CartServlet");
-        return;
-    }
+    
     
     ProductBean product = (ProductBean) request.getAttribute("product");
     
     Cart cart = (Cart) request.getAttribute("cart");
+ 
+    // Ottieni il valore di isLogged dal ServletContext
+    Boolean isLogged = (Boolean) getServletContext().getAttribute("isLogged");
+
 %>
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.ProductBean, model.Cart"%>
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="./Scripts/CartScript.js"></script>
 <meta charset="UTF-8">
 <title>Carrello</title>
-<script>
-    function updateTotalPrice(input) {
-        var quantity = parseFloat(input.value);
-        var price = parseFloat(input.parentNode.previousElementSibling.innerHTML);
-        var totalPriceElement = document.getElementById('totalPrice');
-        var totalPrice = parseFloat(totalPriceElement.innerHTML);
-        var previousQuantity = parseFloat(input.getAttribute('data-previous-quantity')) || 1;
-        
-        // Aggiorna il prezzo totale rimuovendo il prezzo corrispondente alla quantità precedente
-        var previousPrice = price * previousQuantity;
-        totalPrice -= previousPrice;
-        
-        // Aggiorna il prezzo totale con il nuovo valore
-        var newPrice = price * quantity;
-        totalPrice += newPrice;
-        
-        // Aggiorna l'attributo 'data-previous-quantity' con la nuova quantità
-        input.setAttribute('data-previous-quantity', quantity);
-        
-        totalPriceElement.innerHTML = totalPrice.toFixed(2); // Aggiorna il prezzo totale con 2 decimali
-        
-        
-    }
-</script>
+
 </head>
 <body>
-
+<form action="index.jsp" method="POST">
+        <input type="submit" value="home">
+        </form>
+ <% if (session.getAttribute("username") != null) { %>
+    <form action="LogoutServlet" method="POST">
+        <input type="submit" value="Logout">
+    </form>
+    <form action="PersonalAreaServlet" method="POST">
+        <input type="submit" value="Area Personale">
+    </form>
+    <% } else { %>
+    <form action="LoginScreen.jsp" method="POST">
+        <input type="submit" value="Accedi o registrati">
+    </form>
+<% } %>
 <div class="cart" align="center">
 <% if (cart != null && !cart.isEmpty()) { %>
     <h2>Carrello</h2>
@@ -53,25 +49,39 @@
             <th>Nome</th>
             <th>Prezzo</th>
             <th>Quantità</th>
-            <th>Action</th>
+            <th></th>
         </tr>
         <% List<ProductBean> prodcart = cart.getProducts(); 
            for (ProductBean beancart: prodcart) {
             %>
-        
+  
             <tr>
                 <td><img src="./Images/<%= beancart.getImage() %>" alt="Immagine" width="100" /></td>
                 <td><%=beancart.getName()%></td>
                 <td><%= String.format(Locale.US, "%.2f", beancart.getPrice()) %></td>
                 <td>
-                    <input name="quantity_<%= beancart.getCode() %>" type="number" min="1" value="1" style="width: 50px;" onchange="updateTotalPrice(this)">
+    				<%=beancart.getQuantity()%>
                 </td>
                 <td>
-                    <form action="CartServlet" method="POST">
+                    <form action="CartServlet" method="POST" class="removeFromCartForm">
                         <input type="hidden" name="action" value="deleteC">
                         <input type="hidden" name="id" value="<%=beancart.getCode()%>">
+                        <input type="hidden" name="quantity" value="<%=beancart.getQuantity()%>">
                         <input type="submit" value="Rimuovi">
                     </form>
+                    
+                    <form action="CartServlet" method="POST" class="addToCartForm">
+    					<input type="hidden" name="action" value="addC">
+    					<input type="hidden" name="id" value="<%=beancart.getCode()%>">	
+    					<input type="submit" value="Aggiungi">
+					</form>
+					
+					<form action="CartServlet" method="POST">
+    					<input type="hidden" name="action" value="delAllC">
+    					<input type="hidden" name="id" value="<%=beancart.getCode()%>">
+    					<input type="submit" value="Rimuovi tutto">
+					</form>
+					
                 </td>
             </tr>
         <% } %>
@@ -80,19 +90,47 @@
             <td colspan="4"><strong>Prezzo Totale</strong></td>
             <td align="right"><span id="totalPrice">
                 <% double totalPrice = 0;
-                   for (ProductBean beancart: prodcart) {
-                       String quantityParam = "quantity_" + beancart.getCode();
-                       String quantityValue = request.getParameter(quantityParam);
-                       double quantity = quantityValue != null ? Double.parseDouble(quantityValue) : 1;
-                       double price = beancart.getPrice();
-                       totalPrice += price * quantity;
-                       cart.setTotalPrice(totalPrice);
+                for (ProductBean beancart : prodcart) {
+                    double quantity = beancart.getQuantity();
+                    double price = beancart.getPrice();
+                    totalPrice += price * quantity;
+                    cart.setTotalPrice(totalPrice);
                    }
                    out.println(String.format(Locale.US, "%.2f", totalPrice));
                 %>
             </span></td>
         </tr>
     </table>
+    	<form action="OrderServlet" method="POST" onsubmit="return checkLogin()">
+    		<input type="submit" value="Procedi al checkout">
+		</form>
+	<script>
+    function checkLogin() {
+        var isLogged = <%= isLogged == null ? "false" : isLogged %>;
+
+        if (!isLogged) {
+            var customText = "Per proseguire, è necessario effettuare l'accesso.";
+
+            // Utilizza SweetAlert2 per mostrare un alert personalizzato
+            Swal.fire({
+                title: 'Attenzione!',
+                text: customText,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Annulla'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // L'utente ha fatto clic su "OK", quindi reindirizza alla pagina di login
+                    window.location.href = "LoginScreen.jsp";
+                }
+            });
+
+            return false; // Interrompi l'invio del modulo
+        }
+        return true; // Permetti l'invio del modulo
+    }
+</script>
 <% } else { %>
     <h2>Carrello</h2>
     <p>Non sono presenti elementi nel carrello</p>

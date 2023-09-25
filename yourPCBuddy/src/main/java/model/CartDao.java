@@ -5,14 +5,12 @@ import java.util.List;
 
 public interface CartDao {
 	
-	public void cartSave(int userId, int productId) throws SQLException;
+	public void cartSave(int userId, int productId, int quantity) throws SQLException;
 
-	public boolean cartDelete(int UID, int PID) throws SQLException;
-
-	public ProductBean doRetrieveByKey(int code) throws SQLException;
+	public void cartDelete(int UID, int PID, int quantity) throws SQLException;
 	
-	public Collection<ProductBean> doRetrieveAll(String order) throws SQLException;
+	public void cartDelAll(int UID, int PID) throws SQLException;
 	
-	public Collection<ProductBean> doRetrieveProducts() throws SQLException;
+	public Collection<ProductBean> doRetrieveProducts(int UID) throws SQLException;
 
 }

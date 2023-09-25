@@ -1,8 +1,13 @@
 package control;
 
 import model.ProductBean;
+import model.User;
+import model.PADaoDataSource;
+import model.PADao;
 import model.IProductDao;
 import model.Cart;
+import model.CartDao;
+import model.CartDaoDataSource;
 import model.DriverManagerConnectionPool;
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -15,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet {
@@ -22,14 +28,15 @@ public class Login extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
- 
+		
+		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
         String login = request.getParameter("username");
         String pwd = request.getParameter("password");
-        Boolean isLogged=false;
+        
         ResultSet logincheck=null;
         PreparedStatement statement = null;
         Connection connection = null;
-        
+        PADao paDao = new PADaoDataSource(ds);
         
         if(login.equalsIgnoreCase("root") && pwd.equals("admin")) {
             request.getSession().setAttribute("uname", login);
@@ -41,7 +48,7 @@ public class Login extends HttpServlet {
             try {
             	DriverManagerConnectionPool connectionPool = DriverManagerConnectionPool.getInstance();
             	connection = connectionPool.getConnection();
-            	String query = "SELECT * FROM Utenti WHERE (Nome,Password) = (?, ?)";
+            	String query = "SELECT * FROM Utenti WHERE (Username,Password) = (?, ?)";
             	statement = connection.prepareStatement(query);
             	statement.setString(1, login);
             	statement.setString(2, pwd);
@@ -49,17 +56,48 @@ public class Login extends HttpServlet {
     			if(logincheck.next()) {
     				HttpSession session = request.getSession();
                     int userId = logincheck.getInt("ID");
-                    String name = logincheck.getString("Nome");
-                    isLogged = true;
+                    String username = logincheck.getString("Username");
+                    boolean isLogged = true; // Imposta isLogged a true
+                    getServletContext().setAttribute("isLogged", isLogged); // Aggiorna il contesto dell'applicazione
                     session.setAttribute("userId", userId);
-                    session.setAttribute("username", name);
-                    session.setAttribute("isLogged", true);
-                    response.sendRedirect("index.jsp");
+                    session.setAttribute("username", username);
+                    User user = paDao.RetrieveUserData(userId);
+                    session.setAttribute("user", user);
+                 // Dopo che l'utente ha effettuato il login con successo
+
+                    // Salva il carrello non autenticato nel database
+                    Cart cart = (Cart) session.getAttribute("cart");
+                    if (cart != null && !cart.isEmpty()) {
+                        // Ottieni l'ID dell'utente loggato
+                        
+
+                        // Salva il carrello non autenticato nel database
+                        CartDao cartDao = new CartDaoDataSource(ds);
+                        for (ProductBean product : cart.getProducts()) {
+                            int productId = product.getCode();
+                            int quantity = product.getQuantity();
+                            cartDao.cartSave(userId, productId, quantity);
+                        }
+
+                        // Ora che il carrello è stato salvato nel database, puoi rimuovere il carrello non autenticato dalla sessione
+                        //session.removeAttribute("cart");
+                    }
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
                     return;
                     
                 } else {
                     // Autenticazione fallita, mostra un messaggio di errore
-                    request.setAttribute("errorMessage", "Credenziali di accesso non valide");
+                	 String errorMessage = "Credenziali di accesso non valide";
+                	    request.setAttribute("errorMessage", errorMessage);
+
+                	    // Esegui uno script JavaScript per mostrare l'alert con SweetAlert2
+                	    String script = "Swal.fire({ " +
+                	            "title: 'Errore', " +
+                	            "text: '" + errorMessage + "', " +
+                	            "icon: 'error', " +
+                	            "confirmButtonText: 'OK' " +
+                	            "});";
+                	    request.setAttribute("errorScript", script);
                     request.getRequestDispatcher("LoginScreen.jsp").forward(request, response);
                     return;
                 }	
@@ -82,9 +120,6 @@ public class Login extends HttpServlet {
                 }
             }
         }
-        /*request.setAttribute("error", Boolean.TRUE);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-        dispatcher.forward(request, response);*/
 	}
 
 }
