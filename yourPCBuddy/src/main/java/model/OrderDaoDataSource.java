@@ -115,8 +115,16 @@ public class OrderDaoDataSource implements OrderDao{
 	            orders.add(order);
 	        }
 	    } finally {
-	        // Chiudi le risorse (ResultSet, PreparedStatement, Connection)
-	        // Gestisci eventuali eccezioni di chiusura
+	    	try {
+	            if (resultSet != null)
+	                resultSet.close();
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	            if (connection != null)
+	                connection.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
 	    }
 
 	    return orders;
@@ -130,4 +138,32 @@ public class OrderDaoDataSource implements OrderDao{
 		
 	}
 
+	@Override
+	public void CartDelete(int UserId) throws SQLException {
+		Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+
+	    
+
+	    String deleteSQL = "DELETE FROM Carrello WHERE UtenteID = ?";
+
+	    try {
+	        connection = ds.getConnection();
+	            preparedStatement = connection.prepareStatement(deleteSQL);
+	            preparedStatement.setInt(1, UserId);
+	            
+
+	            preparedStatement.executeUpdate();
+	            // connection.commit();
+	        
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            if (connection != null)
+	                connection.close();
+	        }
+	    }
+	}
 }

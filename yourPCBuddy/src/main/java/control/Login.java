@@ -38,12 +38,7 @@ public class Login extends HttpServlet {
         Connection connection = null;
         PADao paDao = new PADaoDataSource(ds);
         
-        if(login.equalsIgnoreCase("root") && pwd.equals("admin")) {
-            request.getSession().setAttribute("uname", login);
-            request.getRequestDispatcher("./product").forward(request, response);
-            return;
-        } 
-        else {
+        
         	
             try {
             	DriverManagerConnectionPool connectionPool = DriverManagerConnectionPool.getInstance();
@@ -61,11 +56,12 @@ public class Login extends HttpServlet {
                     getServletContext().setAttribute("isLogged", isLogged); // Aggiorna il contesto dell'applicazione
                     session.setAttribute("userId", userId);
                     session.setAttribute("username", username);
-
                     User user = paDao.RetrieveUserData(userId);
                     session.setAttribute("user", user);
-
-                    
+                    if(userId==1) {
+                    	request.getRequestDispatcher("./product").forward(request, response);
+                    	return;
+                    }
                  // Dopo che l'utente ha effettuato il login con successo
 
                     // Salva il carrello non autenticato nel database
@@ -123,6 +119,6 @@ public class Login extends HttpServlet {
                 }
             }
         }
-	}
+	
 
 }

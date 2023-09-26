@@ -5,7 +5,6 @@ import java.util.*;
 
 public class Cart {
 	
-
 	
 	double totalPrice=0;
 	private int quantity;
@@ -20,8 +19,6 @@ public class Cart {
 		this.code=code;
 	}
 	
-
-
     public int getQuantity() {
         return quantity;
     }
@@ -40,25 +37,16 @@ public class Cart {
             if (prod.getCode() == product.getCode()) {
                 // Il prodotto è già nel carrello, quindi incrementa la quantità
                 prod.setQuantity(prod.getQuantity() + 1);
-
                 totalPrice += product.getPrice();
                 setTotalPrice(totalPrice);
                 return;
             }
-        
+        }
         // Se il prodotto non è nel carrello, aggiungilo con quantità 1
        
         product.setQuantity(1);
         totalPrice += product.getPrice();
         setTotalPrice(totalPrice);
-
-                
-                return;
-            }
-        
-        // Se il prodotto non è nel carrello, aggiungilo con quantità 1
-       
-        product.setQuantity(1);
         products.add(product);
     }
 	

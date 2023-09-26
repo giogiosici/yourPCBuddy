@@ -75,6 +75,7 @@ public class CartServlet extends HttpServlet {
 				request.getSession().setAttribute("cart", cart);
 		}
 			
+			
 		if (isLogged && !cartLoaded) {
 			// Recupera la lista dei prodotti nel carrello
 			try {
@@ -91,10 +92,12 @@ public class CartServlet extends HttpServlet {
 		        
 		        // Aggiungi tutti i prodotti dalla lista temporanea al carrello
 		        cart.addProducts(productsToAdd);
+		        
 		        getServletContext().setAttribute("cartLoaded", true);
 		        // Imposta l'attributo nella richiesta
 		        request.setAttribute("products", productsInCart);
-				
+				request.getSession().setAttribute("cart", cart);
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

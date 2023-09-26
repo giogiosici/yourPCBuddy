@@ -59,13 +59,63 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 
 		try {
 			if (action != null) {
-				if (action.equalsIgnoreCase("read")) {
+				if (action.equalsIgnoreCase("details")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					request.removeAttribute("product");
 					request.setAttribute("product", productDao.doRetrieveByKey(id));
 				} else if (action.equalsIgnoreCase("delete")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					productDao.doDelete(id);
+				
+				}	else if(action.equalsIgnoreCase("pdate")) { //aggiorna vicino al prodotto
+					int id = Integer.parseInt(request.getParameter("id"));
+				    ProductBean existingProduct = productDao.doRetrieveByKey(id);
+				    
+				    request.setAttribute("existingProduct", existingProduct);
+				    
+				} else if(action.equalsIgnoreCase("Annulla")) { //aggiorna vicino al prodotto
+					   
+					    
+					    request.setAttribute("existingProduct", null);
+				    
+				} else if (action.equalsIgnoreCase("update")) {
+					int id = Integer.parseInt(request.getParameter("id"));
+
+					
+					String name = request.getParameter("name");
+					String description = request.getParameter("description");
+					float price = Float.parseFloat(request.getParameter("price"));
+					int quantity = Integer.parseInt(request.getParameter("quantity"));
+					int CategoriaID = Integer.parseInt(request.getParameter("CategoriaID"));
+					
+					
+					
+					//upload immagine
+					Part imagePart = request.getPart("image");
+			        String image = getFileName(imagePart); // Ottieni il nome dell'immagine
+			        String saveDirectory = "C:/Users/giogi/git/yourPCBuddy/yourPCBuddy/src/main/WebContent/Images";
+			        String imagePath = saveDirectory + File.separator + image; // Percorso per salvare l'immagine
+					
+			        
+			        
+					ProductBean bean = new ProductBean();
+					bean.setCode(id);
+					bean.setName(name);
+					bean.setDescription(description);
+					bean.setPrice(price);
+					bean.setQuantity(quantity);
+					bean.setCategoriaID(CategoriaID);
+						if (imagePart != null && imagePart.getSize() > 0) { //se c'è una nuova immagine la aggiorni
+							imagePart.write(imagePath);
+							bean.setImage(image);
+						}
+						else {
+							ProductBean existingProduct = productDao.doRetrieveByKey(id);
+							bean.setImage(existingProduct.getImage());
+						}
+
+					productDao.doUpdate(bean);
+					
 				} else if (action.equalsIgnoreCase("insert")) {
 					String name = request.getParameter("name");
 					String description = request.getParameter("description");

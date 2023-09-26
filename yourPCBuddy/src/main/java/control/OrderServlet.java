@@ -68,6 +68,8 @@ public class OrderServlet extends HttpServlet {
 		Cart cart = (Cart)request.getSession().getAttribute("cart");
 		Integer userId = (Integer)request.getSession().getAttribute("userId");
 		List<ProductBean> OrderCart = cart.getProducts();
+		for(ProductBean orderBean : OrderCart)
+			System.out.println(orderBean.getQuantity());
 		
 		order.addProductsFromCart(OrderCart);
 		String cartJson=gson.toJson(cart);
@@ -82,7 +84,10 @@ public class OrderServlet extends HttpServlet {
 			if (action != null) {
 		        if (action.equalsIgnoreCase("Acquista")) {
 		            orderDao.OrderSave(userId, formattedDateTime, cartJson);
+		            orderDao.CartDelete(userId);
 		            
+		            //request.getSession().removeAttribute("cart");
+		            	            
 		            // Recupera gli ordini dell'utente
 		            List<Order> orders = orderDao.DoRetrieveOrders(userId);
 		            

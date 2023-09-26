@@ -120,6 +120,39 @@ public class ProductDaoDataSource implements IProductDao {
 		}
 		return (result != 0);
 	}
+	public synchronized void doUpdate(ProductBean product) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+
+	    String updateSQL = "UPDATE " + TABLE_NAME + " SET Nome = ?, Descrizione = ?, Prezzo = ?, QuantitaDisponibile = ?, CategoriaID = ?, Immagine = ? WHERE ID = ?";
+
+	    try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(updateSQL);
+	        preparedStatement.setString(1, product.getName());
+	        preparedStatement.setString(2, product.getDescription());
+	        preparedStatement.setFloat(3, product.getPrice());
+	        preparedStatement.setInt(4, product.getQuantity());
+	        preparedStatement.setInt(5, product.getCategoriaID());
+	        preparedStatement.setString(6, product.getImage());
+	        preparedStatement.setInt(7, product.getCode());
+	       
+
+	        preparedStatement.executeUpdate();
+	        
+	        
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            if (connection != null)
+	                connection.close();
+	        }
+	    }
+	    
+	}
+
 
 	@Override
 	public synchronized Collection<ProductBean> doRetrieveAll(String order) throws SQLException {
