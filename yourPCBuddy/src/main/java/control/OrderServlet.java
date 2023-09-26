@@ -85,8 +85,25 @@ public class OrderServlet extends HttpServlet {
 		        if (action.equalsIgnoreCase("Acquista")) {
 		            orderDao.OrderSave(userId, formattedDateTime, cartJson);
 		            orderDao.CartDelete(userId);
-		            
-		            //request.getSession().removeAttribute("cart");
+		            for (ProductBean orderBean : OrderCart) {
+		                int productId = orderBean.getCode(); // Sostituisci con il metodo corretto per ottenere l'ID del prodotto
+		                int quantityPurchased = orderBean.getQuantity(); // Ottieni la quantità acquistata
+
+		                // Ottieni il prodotto esistente dal database
+		                ProductBean existingProduct = productDao.doRetrieveByKey(productId);
+
+		                if (existingProduct != null) {
+		                    int currentQuantity = existingProduct.getQuantity();
+		                    int newQuantity = currentQuantity - quantityPurchased;
+
+		                    if (newQuantity >= 0) {
+		                        // Aggiorna la quantità disponibile nel database
+		                        existingProduct.setQuantity(newQuantity);
+		                        productDao.doUpdate(existingProduct);
+		                    }
+		                }
+		            }
+		            request.getSession().removeAttribute("cart");
 		            	            
 		            // Recupera gli ordini dell'utente
 		            List<Order> orders = orderDao.DoRetrieveOrders(userId);
@@ -103,10 +120,10 @@ public class OrderServlet extends HttpServlet {
 		
 		request.getRequestDispatcher("OrderView.jsp").forward(request, response);
 	
-	} catch (SQLException e) {
+		} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-	}
+		}	
 	}
 	
 }
