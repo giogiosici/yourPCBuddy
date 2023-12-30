@@ -45,6 +45,9 @@ public class LogoutServlet extends HttpServlet {
             session.invalidate();
         }
         
+        
+       
+        
         // Reindirizza l'utente alla pagina di login o a un'altra pagina appropriata
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
