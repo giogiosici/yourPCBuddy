@@ -1,4 +1,4 @@
-var error = "<%= request.getParameter("error") %>";
+var error = "<%= request.getParameter('error') %>";
 
   if (error === "username_exists") {
 	    Swal.fire({
@@ -16,6 +16,7 @@ var error = "<%= request.getParameter("error") %>";
 	        confirmButtonText: 'OK'
 	    });
 	}
+	
   function validateRegistration() {
     
     	var emailInput = document.getElementById("email").value;//validazione email
