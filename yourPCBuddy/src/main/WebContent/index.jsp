@@ -30,6 +30,9 @@
 	<form action="CartServlet" method="post">
 		<input type="submit" value="carrello">
 	</form>
+	<form action="CatalogServlet" method="post">
+		<input type="submit" value="Catalogo">
+	</form>
 <div align="center" class="header">
 <h1>yourPCBuddy</h1>
 <img src="./Images/PCBuddy.png" alt="logo sito">
@@ -60,6 +63,6 @@
 <% } %>
 
 
-</div>	
+</div>
 </body>
 </html>

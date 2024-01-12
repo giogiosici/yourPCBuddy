@@ -64,12 +64,12 @@ public class OrderServlet extends HttpServlet {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 			String formattedDateTime = now.format(formatter);
 			Gson gson = new Gson();
-		Order order = (Order) new Order();
-		Cart cart = (Cart)request.getSession().getAttribute("cart");
-		Integer userId = (Integer)request.getSession().getAttribute("userId");
-		List<ProductBean> OrderCart = cart.getProducts();
-		for(ProductBean orderBean : OrderCart)
-			System.out.println(orderBean.getQuantity());
+			Order order = (Order) new Order();
+			Cart cart = (Cart)request.getSession().getAttribute("cart");
+			Integer userId = (Integer)request.getSession().getAttribute("userId");
+			List<ProductBean> OrderCart = cart.getProducts();
+			for(ProductBean orderBean : OrderCart)
+				System.out.println(orderBean.getQuantity());
 		
 		order.addProductsFromCart(OrderCart);
 		String cartJson=gson.toJson(cart);

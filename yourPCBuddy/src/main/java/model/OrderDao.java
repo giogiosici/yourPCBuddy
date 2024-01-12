@@ -11,6 +11,6 @@ public interface OrderDao {
 	
 	public List<Order> DoRetrieveOrders(int UID) throws SQLException;
 	
-	public void DoRetrieveAllOrder() throws SQLException;
+	public List<Order> DoRetrieveAllOrder() throws SQLException;
 	
 }

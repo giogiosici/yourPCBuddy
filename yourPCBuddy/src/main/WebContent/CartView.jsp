@@ -26,7 +26,7 @@
 </head>
 <body>
 <form action="index.jsp" method="POST">
-        <input type="submit" value="home">
+        <input type="submit" value="Home">
         </form>
  <% if (session.getAttribute("username") != null) { %>
     <form action="LogoutServlet" method="POST">
