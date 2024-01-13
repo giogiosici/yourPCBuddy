@@ -73,7 +73,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 				    
 				    request.setAttribute("existingProduct", existingProduct);
 				    
-				} else if(action.equalsIgnoreCase("Annulla")) { //aggiorna vicino al prodotto
+				} else if(action.equalsIgnoreCase("Annulla")) { //annulla vicino al prodotto
 					   
 					    
 					    request.setAttribute("existingProduct", null);
@@ -87,6 +87,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					float price = Float.parseFloat(request.getParameter("price"));
 					int quantity = Integer.parseInt(request.getParameter("quantity"));
 					int CategoriaID = Integer.parseInt(request.getParameter("CategoriaID"));
+					String brand = request.getParameter("Marca");
+					
 					
 					
 					
@@ -105,6 +107,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					bean.setPrice(price);
 					bean.setQuantity(quantity);
 					bean.setCategoriaID(CategoriaID);
+					bean.setBrand(brand);
 						if (imagePart != null && imagePart.getSize() > 0) { //se c'è una nuova immagine la aggiorni
 							imagePart.write(imagePath);
 							bean.setImage(image);
@@ -122,6 +125,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					float price = Float.parseFloat(request.getParameter("price"));
 					int quantity = Integer.parseInt(request.getParameter("quantity"));
 					int CategoriaID = Integer.parseInt(request.getParameter("CategoriaID"));
+					String brand = request.getParameter("Marca"); 
 					
 					
 					
@@ -140,6 +144,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					bean.setQuantity(quantity);
 					bean.setCategoriaID(CategoriaID);
 					bean.setImage(image);
+					bean.setBrand(brand);
 					
 					productDao.doSave(bean);
 				}

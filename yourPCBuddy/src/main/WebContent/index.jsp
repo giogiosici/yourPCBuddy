@@ -53,9 +53,7 @@
         <form action="CartServlet" method="POST" class="IndexProduct">
             <input type="hidden" name="action" value="addC">
             <input type="hidden" name="id" value="<%=bean.getCode()%>">
-            <input type="hidden" name="quantity" id="quantity_<%=bean.getCode()%>" value="1">
-            
-            <input type="submit" value="Aggiungi al carrello">
+		    <input type="submit" value="Aggiungi al carrello">
         </form>
     <% } %>
 <% } else { %>

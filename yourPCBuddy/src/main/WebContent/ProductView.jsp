@@ -101,6 +101,7 @@
 	<table border="1">
 		<tr>
 			<th>Codice</th>
+			<th>Marca</th>
 			<th>Nome</th>
 			<th>immagine</th>
 			<th>Descrizione</th>
@@ -110,6 +111,7 @@
 		</tr>
 		<tr>
 			<td><%=product.getCode()%></td>
+			<td><%=product.getBrand()%></td>
 			<td><%=product.getName()%></td>
 			<td><img src="Images/<%=product.getImage()%>" width="100"></td>
 			<td><%=product.getDescription()%></td>
@@ -141,6 +143,9 @@
 		<label for="CategoriaID">CategoriaID:</label><br> 
 		<input name="CategoriaID" type="number" min="1" value="<%=existingProduct.getCategoriaID() %>" required><br>
 		
+		<label for="Marca">Marca:</label><br> 
+        <input name="Marca" type="text" maxlength="20" required placeholder="Inserisci marca" value="<%=existingProduct.getBrand()%>"><br>
+		
 		<label for="image">Immagine:</label><br>
   		<input type="file" name="image" accept="image/*"><br>
         
@@ -166,6 +171,9 @@
 		
 		<label for="CategoriaID">CategoriaID:</label><br> 
 		<input name="CategoriaID" type="number" min="1" value="0" required><br>
+		
+		<label for="Marca">Marca:</label><br> 
+		<input name="Marca" type="text" maxlength="20" required placeholder="Inserisci marca"><br> 
 		
 		<label for="image">Immagine:</label><br>
   		<input type="file" name="image" accept="image/*" required><br>

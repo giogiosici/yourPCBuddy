@@ -14,6 +14,7 @@ public class ProductBean implements Serializable {
 	int quantity;
 	int cartQuantity;
 	int CategoriaID;
+	String brand;
 	
 
 	public ProductBean() {
@@ -22,7 +23,7 @@ public class ProductBean implements Serializable {
 		image="";
 		description = "";
 		quantity = 0;
-		
+		brand = "";
 		CategoriaID=0;
 		price=(float) 0.00;
 	}
@@ -49,6 +50,15 @@ public class ProductBean implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 
 	public float getPrice() {
@@ -86,7 +96,7 @@ public class ProductBean implements Serializable {
 	
 	@Override
 	public String toString() {
-		return name + " (" + code + "), " + price + " " + quantity + ". " + description + CategoriaID + image;
+		return name + " (" + code + "), " + price + " " + quantity + ". " + description+ " " + brand + " " + CategoriaID + " " + image;
 	}
 
 }

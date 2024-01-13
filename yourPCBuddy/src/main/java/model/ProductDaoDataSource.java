@@ -28,7 +28,7 @@ public class ProductDaoDataSource implements IProductDao {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + ProductDaoDataSource.TABLE_NAME
-				+ " (Nome, Descrizione, Prezzo, QuantitaDisponibile, CategoriaID, Immagine) VALUES (?, ?, ?, ?, ?, ?)";
+				+ " (Nome, Descrizione, Prezzo, QuantitaDisponibile, CategoriaID, Immagine, Brand) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
@@ -39,6 +39,7 @@ public class ProductDaoDataSource implements IProductDao {
 			preparedStatement.setInt(4, product.getQuantity());
 			preparedStatement.setInt(5, product.getCategoriaID());
 			preparedStatement.setString(6, product.getImage());
+			preparedStatement.setString(7, product.getBrand());
 			
 			preparedStatement.executeUpdate();
 
@@ -78,7 +79,7 @@ public class ProductDaoDataSource implements IProductDao {
 				bean.setQuantity(rs.getInt("QuantitaDisponibile"));
 				bean.setCategoriaID(rs.getInt("CategoriaID"));
 				bean.setImage(rs.getString("Immagine"));
-				
+				bean.setBrand(rs.getString("Marca"));
 			}
 
 		} finally {
@@ -124,7 +125,7 @@ public class ProductDaoDataSource implements IProductDao {
 	    Connection connection = null;
 	    PreparedStatement preparedStatement = null;
 
-	    String updateSQL = "UPDATE " + TABLE_NAME + " SET Nome = ?, Descrizione = ?, Prezzo = ?, QuantitaDisponibile = ?, CategoriaID = ?, Immagine = ? WHERE ID = ?";
+	    String updateSQL = "UPDATE " + TABLE_NAME + " SET Nome = ?, Descrizione = ?, Prezzo = ?, QuantitaDisponibile = ?, CategoriaID = ?, Immagine = ?, Marca = ? WHERE ID = ?";
 
 	    try {
 	        connection = ds.getConnection();
@@ -135,7 +136,8 @@ public class ProductDaoDataSource implements IProductDao {
 	        preparedStatement.setInt(4, product.getQuantity());
 	        preparedStatement.setInt(5, product.getCategoriaID());
 	        preparedStatement.setString(6, product.getImage());
-	        preparedStatement.setInt(7, product.getCode());
+	        preparedStatement.setString(7, product.getBrand());
+	        preparedStatement.setInt(8, product.getCode());
 	       
 
 	        preparedStatement.executeUpdate();
@@ -183,6 +185,7 @@ public class ProductDaoDataSource implements IProductDao {
 				bean.setQuantity(rs.getInt("QuantitaDisponibile"));
 				bean.setCategoriaID(rs.getInt("CategoriaID"));
 				bean.setImage(rs.getString("Immagine"));
+				bean.setBrand(rs.getString("Marca"));
 				products.add(bean);
 			}
 
@@ -222,6 +225,7 @@ public class ProductDaoDataSource implements IProductDao {
 				bean.setQuantity(rs.getInt("QuantitaDisponibile"));
 				bean.setCategoriaID(rs.getInt("CategoriaID"));
 				bean.setImage(rs.getString("Immagine"));
+				bean.setBrand(rs.getString("Marca"));
 				products.add(bean);
 			}
 
