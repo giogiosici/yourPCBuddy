@@ -30,9 +30,10 @@
 
     <div class="prodotti" align="center">
         <h2>Catalogo</h2>
-        <% Collection<ProductBean> AllProducts = (Collection<ProductBean>) session.getAttribute("AllProducts"); %>
+        <% Collection<ProductBean> AllProducts = (Collection<ProductBean>) session.getAttribute("AllProducts");%>
         <% if (AllProducts != null && !AllProducts.isEmpty()) { %>
             <% for (ProductBean bean : AllProducts) { %>
+            <div class="schedaprodotto">
                 <a href="javascript:void(0);" onclick="redirectToProduct('<%= bean.getCode() %>')">
                     <img src="./Images/<%= bean.getImage() %>" alt="Immagine" width="100" />
                 </a>
@@ -43,6 +44,7 @@
                     <input type="hidden" name="id" value="<%=bean.getCode()%>">
                     <input type="submit" value="Aggiungi al carrello">
                 </form>
+                </div>
             <% } %>
         <% } else { %>
             <p>Nessun prodotto disponibile</p>

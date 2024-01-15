@@ -74,7 +74,6 @@ public class CartServlet extends HttpServlet {
 				request.getSession().setAttribute("cart", cart);
 		}
 			
-			
 		if (isLogged && !cartLoaded) {
 			// Recupera la lista dei prodotti nel carrello
 			try {
