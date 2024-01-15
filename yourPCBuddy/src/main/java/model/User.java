@@ -1,6 +1,7 @@
 package model;
 
 public class User {
+	private int id;
     private String nome;
     private String cognome;
     private String username;
@@ -13,6 +14,10 @@ public class User {
     }
 
     // Metodi getter e setter per ciascun campo
+    
+    public int getId() {
+    	return id;
+    }
     public String getNome() {
         return nome;
     }

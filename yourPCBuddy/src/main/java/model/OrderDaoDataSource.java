@@ -144,7 +144,7 @@ public class OrderDaoDataSource implements OrderDao{
 	        connection = ds.getConnection();
 
 	        // Query per recuperare gli ordini dell'utente specificato
-	        String selectSQL = "SELECT * FROM" + OrderDaoDataSource.TABLE_NAME;
+	        String selectSQL = "SELECT * FROM " + OrderDaoDataSource.TABLE_NAME;
 	    
 	        preparedStatement = connection.prepareStatement(selectSQL);
 	       

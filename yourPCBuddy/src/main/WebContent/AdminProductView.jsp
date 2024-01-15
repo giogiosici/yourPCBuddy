@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ page import="model.User" %>
 <%
+
+
+User user = (User) session.getAttribute("user");
+int flag = 0;
+if (user == null)
+	response.sendRedirect("LoginScreen.jsp");
 	Collection<?> products = (Collection<?>) request.getAttribute("products");
 	if(products == null) {
 		response.sendRedirect("./product");	

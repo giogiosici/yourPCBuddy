@@ -14,6 +14,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Connection;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -59,7 +61,7 @@ public class Login extends HttpServlet {
                     User user = paDao.RetrieveUserData(userId);
                     session.setAttribute("user", user);
                     if(userId==1) {
-                    	request.getRequestDispatcher("./product").forward(request, response);
+                    	request.getRequestDispatcher("AdminPage.jsp").forward(request, response);
                     	return;
                     }
                  // Dopo che l'utente ha effettuato il login con successo
@@ -84,7 +86,8 @@ public class Login extends HttpServlet {
                     request.getRequestDispatcher("index.jsp").forward(request, response);
                     return;
                     
-                } else {
+                } else{
+                	
                     // Autenticazione fallita, mostra un messaggio di errore
                 	 String errorMessage = "Credenziali di accesso non valide";
                 	    request.setAttribute("errorMessage", errorMessage);
@@ -118,6 +121,8 @@ public class Login extends HttpServlet {
                     e.printStackTrace();
                 }
             }
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/LoginScreen.jsp");
+    		dispatcher.forward(request, response);
         }
 	
 
