@@ -31,13 +31,17 @@ if (user == null)
 </head>
 
 <body>
-<form action="index.jsp" method="POST">
-        <input type="submit" value="home">
-        </form>
-
     <form action="LogoutServlet" method="POST">
         <input type="submit" value="Logout">
     </form>
+    
+    <form action="PersonalAreaServlet" method="POST">
+        <input type="submit" value="Area Personale">
+    </form>
+    
+    <form action="AdminOrderView.jsp" method="post">
+		<input type="submit" value="Ordini">
+	</form>
 	<h2>Prodotti</h2>
 	<table border="1">
 		<tr>

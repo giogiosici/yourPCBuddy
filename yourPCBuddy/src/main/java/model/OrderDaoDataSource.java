@@ -195,7 +195,7 @@ public class OrderDaoDataSource implements OrderDao{
 	}
 
 	@Override
-	public void CartDelete(int UserId) throws SQLException {
+	public void CartDelete(int UserId) throws SQLException {//svuota il carrello dopo l'ordine
 		Connection connection = null;
 	    PreparedStatement preparedStatement = null;
 

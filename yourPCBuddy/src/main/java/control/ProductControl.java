@@ -164,7 +164,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			System.out.println("Error:" + e.getMessage());
 		}
 
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ProductView.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AdminProductView.jsp");
 		dispatcher.forward(request, response);
 	}
 
