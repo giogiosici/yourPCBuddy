@@ -39,8 +39,10 @@ public class PersonalAreaServlet extends HttpServlet {
 		Integer userId = (Integer)request.getSession().getAttribute("userId");
 		PADao paDao = new PADaoDataSource(ds);
 		
-		if(userId==1)
+		if(userId==1) {
 			request.getRequestDispatcher("AdminPage.jsp").forward(request, response);
+		return;
+		}
 		
 		try {
 			String action = request.getParameter("action");

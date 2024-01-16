@@ -34,3 +34,34 @@ $(document).ready(function() {
         });
     });
 });
+
+/*=============== SEARCH BAR JS ===============*/
+const toggleSearch = (search, button) =>{
+   const searchBar = document.getElementById(search),
+         searchButton = document.getElementById(button)
+
+   searchButton.addEventListener('click', () =>{
+       // We add the show-search class, so that the search bar expands
+       searchBar.classList.toggle('show-search')
+   })
+}
+toggleSearch('search-bar', 'search-button')
+
+// Includi la funzione di ricerca JavaScript qui
+        function searchAndFilter() {
+            var searchQuery = document.getElementById('search-bar').querySelector('input[name="q"]').value.toLowerCase();
+
+            var products = document.querySelectorAll('.schedaProdotto');
+
+            products.forEach(function (product) {
+                var productName = product.querySelector('.product-name').innerText.toLowerCase();
+
+                if (productName.includes(searchQuery)) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        window.onload = searchAndFilter;

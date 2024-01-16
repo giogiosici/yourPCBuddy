@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS product;
 
 CREATE TABLE product (
   ID INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  Nome VARCHAR(255),
+  Nome VARCHAR(255) UNIQUE,
   Descrizione TEXT,
   Prezzo DECIMAL(10,2),
   QuantitaDisponibile INT,

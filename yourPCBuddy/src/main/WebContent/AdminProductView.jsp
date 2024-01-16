@@ -25,8 +25,10 @@ if (user == null)
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.ProductBean"%>
 
 <head>
+<script src="./Scripts/Search.js"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link href="ProductStyle.css" rel="stylesheet" type="text/css">
+	<link href="Styles/ProductStyle.css" rel="stylesheet" type="text/css">
+	
 	<title>yourPCBuddy</title>
 </head>
 
@@ -43,6 +45,16 @@ if (user == null)
 		<input type="submit" value="Ordini">
 	</form>
 	<h2>Prodotti</h2>
+	<div class="container">
+            <form class="search" id="search-bar">
+                <input type="search" placeholder="Type something..." name="q" class="search__input" onkeyup="searchAndFilter()">
+    
+                <div class="search__button" id="search-button">
+                    <i class="ri-search-2-line search__icon"></i>
+                    <i class="ri-close-line search__close"></i>
+                </div>
+            </form>
+        </div>
 	<table border="1">
 		<tr>
 			<th>Codice</th>
@@ -60,9 +72,9 @@ if (user == null)
 					String imagePath = "Images\\" + bean.getImage();
 				
 		%>
-		<tr>
+		<tr class="product-row">
 			<td><%=bean.getCode()%></td>
-			<td><%=bean.getName()%></td>
+			<td class="product-name"><%=bean.getName()%></td>
 			<td><%=bean.getDescription()%></td>
 			<td><%=bean.getCategoriaID()%></td>
 			<td><img src="Images/<%=bean.getImage()%>" width="100"></td>

@@ -5,6 +5,8 @@
 <html>
 <head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./Scripts/CatalogScript.js"></script>
+    
     <meta charset="UTF-8">
     <title>Catalogo</title>
 </head>
@@ -30,14 +32,24 @@
 
     <div class="prodotti" align="center">
         <h2>Catalogo</h2>
+        <div class="container">
+            <form class="search" id="search-bar">
+                <input type="search" placeholder="Type something..." name="q" class="search__input" onkeyup="searchAndFilter()">
+    
+                <div class="search__button" id="search-button">
+                    <i class="ri-search-2-line search__icon"></i>
+                    <i class="ri-close-line search__close"></i>
+                </div>
+            </form>
+        </div>
         <% Collection<ProductBean> AllProducts = (Collection<ProductBean>) session.getAttribute("AllProducts");%>
         <% if (AllProducts != null && !AllProducts.isEmpty()) { %>
             <% for (ProductBean bean : AllProducts) { %>
-            <div class="schedaprodotto">
+            <div class="schedaProdotto">
                 <a href="javascript:void(0);" onclick="redirectToProduct('<%= bean.getCode() %>')">
                     <img src="./Images/<%= bean.getImage() %>" alt="Immagine" width="100" />
                 </a>
-                <p><%=bean.getName()%></p>
+                <p class="product-name"><%=bean.getName()%></p>
                 <p><%= String.format("%.2f", bean.getPrice()) %></p>
                 <form action="CartServlet" method="POST" class="CatalogProduct">
                     <input type="hidden" name="action" value="addC">
@@ -50,11 +62,5 @@
             <p>Nessun prodotto disponibile</p>
         <% } %>
     </div>
-
-    <script>
-        function redirectToProduct(productId) {
-            window.location.href = 'PaginaProdotto.jsp?productId=' + productId;
-        }
-    </script>
 </body>
 </html>

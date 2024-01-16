@@ -28,7 +28,7 @@ public class ProductDaoDataSource implements IProductDao {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + ProductDaoDataSource.TABLE_NAME
-				+ " (Nome, Descrizione, Prezzo, QuantitaDisponibile, CategoriaID, Immagine, Brand) VALUES (?, ?, ?, ?, ?, ?, ?)";
+				+ " (Nome, Descrizione, Prezzo, QuantitaDisponibile, CategoriaID, Immagine, Marca) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
@@ -42,7 +42,6 @@ public class ProductDaoDataSource implements IProductDao {
 			preparedStatement.setString(7, product.getBrand());
 			
 			preparedStatement.executeUpdate();
-
 			//connection.commit();
 		} finally {
 			try {
