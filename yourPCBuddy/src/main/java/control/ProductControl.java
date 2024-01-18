@@ -155,11 +155,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 
 		
 		
-		String sort = request.getParameter("sort");
-
 		try {
 			request.removeAttribute("products");
-			request.setAttribute("products", productDao.doRetrieveAll(sort));
+			request.setAttribute("products", productDao.doRetrieveAll());
 		} catch (SQLException e) {
 			System.out.println("Error:" + e.getMessage());
 		}

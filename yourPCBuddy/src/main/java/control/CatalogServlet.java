@@ -48,7 +48,7 @@ public class CatalogServlet extends HttpServlet {
 			productDao = new ProductDaoDataSource(ds);
 			
 			try {
-				Collection<ProductBean> AllProducts = productDao.doRetrieveProducts();
+				Collection<ProductBean> AllProducts = productDao.doRetrieveAll();
 				HttpSession session = request.getSession();
 				session.setAttribute("AllProducts", AllProducts);
 				

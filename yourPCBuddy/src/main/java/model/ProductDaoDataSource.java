@@ -156,7 +156,7 @@ public class ProductDaoDataSource implements IProductDao {
 
 
 	@Override
-	public synchronized Collection<ProductBean> doRetrieveAll(String order) throws SQLException { //li ordina in un determinato modo
+	public synchronized Collection<ProductBean> doRetrieveAll() throws SQLException { //li ordina in un determinato modo
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -164,9 +164,7 @@ public class ProductDaoDataSource implements IProductDao {
 
 		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME;
 
-		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
-		}
+		
 
 		try {
 			connection = ds.getConnection();
@@ -199,13 +197,13 @@ public class ProductDaoDataSource implements IProductDao {
 		}
 		return products;
 	}
-	public synchronized Collection<ProductBean> doRetrieveProducts() throws SQLException {
+	public synchronized Collection<ProductBean> doRetrieveLastProducts() throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		Collection<ProductBean> products = new LinkedList<ProductBean>();
 
-		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME;
+		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " ORDER BY ID DESC LIMIT 5";
 
 
 		try {

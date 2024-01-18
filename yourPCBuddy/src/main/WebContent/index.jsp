@@ -38,13 +38,13 @@
 <img src="./Images/PCBuddy.png" alt="logo sito">
 <p>Benvenuti su yourPCBuddy</p>
 </div>
-<div class=prodotti align="center">
+<div class=ultimeAggiunte align="center">
 	<%		IProductDao productDao = null;
 	DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 	productDao = new ProductDaoDataSource(ds);
-	Collection<ProductBean> products = productDao.doRetrieveProducts(); %>
+	Collection<ProductBean> products = productDao.doRetrieveLastProducts(); %>
   
-  <h2>Prodotti</h2>
+  <h2>Ultime aggiunte</h2>
 <% if (products != null && !products.isEmpty()) { %>
     <% for (ProductBean bean : products) { %>
         <img src="./Images/<%= bean.getImage() %>" alt="Immagine" width="100" />

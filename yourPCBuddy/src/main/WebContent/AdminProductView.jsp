@@ -58,9 +58,9 @@ if (user == null)
 	<table border="1">
 		<tr>
 			<th>Codice</th>
-			<th>Nome <a href="product?sort=name">Ordina</a></th>
+			<th>Nome </th>
 			<th>Descrizione</th>
-			<th>Categoria <a href="product?sort=CategoriaID">Ordina</a></th>
+			<th>Categoria </th>
 			<th>Immagine</th>
 			<th></th>
 		</tr>
