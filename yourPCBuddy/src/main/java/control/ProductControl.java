@@ -86,7 +86,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					String description = request.getParameter("description");
 					float price = Float.parseFloat(request.getParameter("price"));
 					int quantity = Integer.parseInt(request.getParameter("quantity"));
-					int CategoriaID = Integer.parseInt(request.getParameter("CategoriaID"));
+					String Categoria = request.getParameter("Categoria");
 					String brand = request.getParameter("Marca");
 					
 					
@@ -106,7 +106,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					bean.setDescription(description);
 					bean.setPrice(price);
 					bean.setQuantity(quantity);
-					bean.setCategoriaID(CategoriaID);
+					bean.setCategoria(Categoria);
 					bean.setBrand(brand);
 						if (imagePart != null && imagePart.getSize() > 0) { //se c'è una nuova immagine la aggiorni
 							imagePart.write(imagePath);
@@ -124,7 +124,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					String description = request.getParameter("description");
 					float price = Float.parseFloat(request.getParameter("price"));
 					int quantity = Integer.parseInt(request.getParameter("quantity"));
-					int CategoriaID = Integer.parseInt(request.getParameter("CategoriaID"));
+					String Categoria = request.getParameter("Categoria");
 					String brand = request.getParameter("Marca"); 
 					
 					
@@ -142,7 +142,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					bean.setDescription(description);
 					bean.setPrice(price);
 					bean.setQuantity(quantity);
-					bean.setCategoriaID(CategoriaID);
+					bean.setCategoria(Categoria);
 					bean.setImage(image);
 					bean.setBrand(brand);
 					

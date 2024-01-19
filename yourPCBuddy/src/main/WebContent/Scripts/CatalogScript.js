@@ -36,7 +36,6 @@ $(document).ready(function() {
 });
 
 /*=============== SEARCH BAR JS ===============*/
-toggleSearch('search-bar')
 
 // Includi la funzione di ricerca JavaScript qui
 function searchAndFilter() {
@@ -58,11 +57,8 @@ function searchAndFilter() {
 window.onload = searchAndFilter;
 
 /*=============== Filtri prodotti JS ===============*/
-// Funzione per filtrare i prodotti
+// Funzione per filtrare i prodotti per prezzo
 
-
-
-	
 function sliderCatalogo() {
 
 	const rangevalue =
@@ -124,7 +120,7 @@ function sliderCatalogo() {
 					rangeInputvalue[0].value = minp;
 					let value1 = rangeInputvalue[0].max;
 					rangevalue.style.left = `${(minp / value1) * 100}%`;
-					console.log(value1);
+					
 				}
 				else {
 					rangeInputvalue[1].value = maxp;
@@ -174,10 +170,6 @@ function sliderCatalogo() {
 
 function sliderPrice(minPrice, maxPrice) {
 
-
-
-	//console.log("minPrice iniziale " + minPrice);
-	//console.log("maxPrice iniziale " + maxPrice);
 	// Ottenere tutte le schede prodotto
 	var products = document.getElementsByClassName('schedaProdotto');
 
@@ -190,7 +182,6 @@ function sliderPrice(minPrice, maxPrice) {
 
 		var pricePass = (price >= minPrice) && price <= maxPrice;
 
-		//console.log(pricePass);
 
 		// Visualizzare o nascondere il prodotto in base ai filtri
 		if (pricePass) {
@@ -201,8 +192,47 @@ function sliderPrice(minPrice, maxPrice) {
 	}
 }
 
+/*=============== checkbox ===============*/
+
+document.addEventListener("DOMContentLoaded", function () {
+	  const categoryCheckboxes = document.querySelectorAll('input[name="category"]');
+	  const brandCheckboxes = document.querySelectorAll('input[name="brand"]');
+	  const products = document.querySelectorAll('.schedaProdotto');
+
+	  function filterCheckbox() {
+		  const visibleCategories = Array.from(categoryCheckboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+		  const visibleBrands = Array.from(brandCheckboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+
+		  products.forEach(product => {
+		    const category = product.getAttribute('data-category');
+		    const brand = product.getAttribute('data-brand');
+
+		    const isVisibleCategory = visibleCategories.includes(category);
+		    const isVisibleBrand = visibleBrands.includes(brand);
+
+		    if (visibleCategories.length === 0 && visibleBrands.length === 0) {
+		      // Se nessuna checkbox è selezionata, mostra tutti i prodotti
+		      product.style.display = "block";
+		    } else {
+		      // Altrimenti, mostra o nascondi il prodotto in base alle checkbox selezionate
+		      if (isVisibleCategory || isVisibleBrand) {
+		        product.style.display = "block";
+		      } else {
+		        product.style.display = "none";
+		      }
+		    }
+		  });
+		}
 
 
+
+	  // Aggiungi event listener per le checkbox
+	  categoryCheckboxes.forEach(checkbox => checkbox.addEventListener('change', filterCheckbox));
+	  brandCheckboxes.forEach(checkbox => checkbox.addEventListener('change', filterCheckbox));
+
+	  // Chiamata iniziale per visualizzare i prodotti corretti all'avvio
+	  filterCheckbox();
+	});
 
 
 

@@ -76,7 +76,7 @@ if (user == null)
 			<td><%=bean.getCode()%></td>
 			<td class="product-name"><%=bean.getName()%></td>
 			<td><%=bean.getDescription()%></td>
-			<td><%=bean.getCategoriaID()%></td>
+			<td><%=bean.getCategoria()%></td>
 			<td><img src="Images/<%=bean.getImage()%>" width="100"></td>
 			<td>
 				<form action="product" method="post">
@@ -129,7 +129,7 @@ if (user == null)
 			<th>Descrizione</th>
 			<th>Prezzo</th>
 			<th>Quantità</th>
-			<th>CategoriaID</th>
+			<th>Categoria</th>
 		</tr>
 		<tr>
 			<td><%=product.getCode()%></td>
@@ -139,7 +139,7 @@ if (user == null)
 			<td><%=product.getDescription()%></td>
 			<td><%= String.format("%.2f", product.getPrice()) %></td>
 			<td><%=product.getQuantity()%></td>
-			<td><%=product.getCategoriaID()%></td>
+			<td><%=product.getCategoria()%></td>
 		</tr>
 	</table>
 	<%
@@ -162,8 +162,8 @@ if (user == null)
 		<label for="quantity">Quantità:</label><br> 
 		<input name="quantity" type="number" min="1" value="<%=existingProduct.getQuantity() %>" required><br>
 		
-		<label for="CategoriaID">CategoriaID:</label><br> 
-		<input name="CategoriaID" type="number" min="1" value="<%=existingProduct.getCategoriaID() %>" required><br>
+		<label for="Categoria">Categoria:</label><br> 
+		<input name="Categoria" type="text" required placeholder="Inserisci Categoria" value="<%=existingProduct.getCategoria()%>"><br>
 		
 		<label for="Marca">Marca:</label><br> 
         <input name="Marca" type="text" maxlength="20" required placeholder="Inserisci marca" value="<%=existingProduct.getBrand()%>"><br>
@@ -180,10 +180,10 @@ if (user == null)
 		<input type="hidden" name="action" value="insert"> 
 		
 		<label for="name">Nome:</label><br> 
-		<input name="name" type="text" maxlength="20" required placeholder="Inserisci nome"><br> 
+		<input name="name" type="text" maxlength="20" required placeholder="Inserisci nome" required><br> 
 		
 		<label for="description">Descrizione:</label><br>
-		<textarea name="description" maxlength="100" rows="3" required placeholder="inserisci descrizione"></textarea><br>
+		<textarea name="description" maxlength="100" rows="3" required placeholder="inserisci descrizione" required></textarea><br>
 		
 		<label for="price">Prezzo:</label><br> 
 		<input name="price" type="number"  step="0.01" min="0.00" value="0" required><br>
@@ -191,11 +191,11 @@ if (user == null)
 		<label for="quantity">Quantità:</label><br> 
 		<input name="quantity" type="number" min="1" value="1" required><br>
 		
-		<label for="CategoriaID">CategoriaID:</label><br> 
-		<input name="CategoriaID" type="number" min="1" value="0" required><br>
+		<label for="Categoria">Categoria:</label><br> 
+		<input name="Categoria" type="text" required placeholder="Inserisci Categoria" required><br>
 		
 		<label for="Marca">Marca:</label><br> 
-		<input name="Marca" type="text" maxlength="20" required placeholder="Inserisci marca"><br> 
+		<input name="Marca" type="text" maxlength="20" required placeholder="Inserisci marca" required><br> 
 		
 		<label for="image">Immagine:</label><br>
   		<input type="file" name="image" accept="image/*" required><br>

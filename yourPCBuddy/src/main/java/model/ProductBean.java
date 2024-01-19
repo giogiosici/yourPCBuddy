@@ -13,7 +13,7 @@ public class ProductBean implements Serializable {
 	float price;
 	int quantity;
 	int cartQuantity;
-	int CategoriaID;
+	String categoria;
 	String brand;
 	
 
@@ -24,7 +24,7 @@ public class ProductBean implements Serializable {
 		description = "";
 		quantity = 0;
 		brand = "";
-		CategoriaID=0;
+		categoria="";
 		price=(float) 0.00;
 	}
 
@@ -77,12 +77,12 @@ public class ProductBean implements Serializable {
 		this.quantity = quantity;
 	}
 	
-	public int getCategoriaID() {
-		return CategoriaID;
+	public String getCategoria() {
+		return categoria;
 	}
 
-	public void setCategoriaID(int CategoriaID) {
-		this.CategoriaID = CategoriaID;
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
 	
 	public String getImage() {
@@ -96,7 +96,7 @@ public class ProductBean implements Serializable {
 	
 	@Override
 	public String toString() {
-		return name + " (" + code + "), " + price + " " + quantity + ". " + description+ " " + brand + " " + CategoriaID + " " + image;
+		return name + " (" + code + "), " + price + " " + quantity + ". " + description+ " " + brand + " " + categoria + " " + image;
 	}
 
 }
