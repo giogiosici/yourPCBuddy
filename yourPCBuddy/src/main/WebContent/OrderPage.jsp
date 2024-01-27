@@ -9,22 +9,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Elenco Ordini</title>
+    <jsp:include page="Header.jsp"/>
+    
 </head>
 <body>
-<div class="navBar" align = "left">
-	<form action="CartServlet" method="post">
-		<input type="submit" value="carrello">
-	</form>
-	<form action="LogoutServlet" method="POST">
-        <input type="submit" value="Logout">
-    </form>
-   	<form action="index.jsp" method="POST">
-        <input type="submit" value="home">
-    </form>
-    <form action="PersonalAreaServlet" method="POST">
-        <input type="submit" value="Area Personale">
-    </form>
-</div>
+
     <h1>Elenco Ordini</h1>
     
     <c:forEach var="order" items="${orders}">

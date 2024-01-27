@@ -18,33 +18,18 @@ Collection<ProductBean> AllProducts = (Collection<ProductBean>) session.getAttri
 
 <meta charset="UTF-8">
 <title>Catalogo</title>
+<jsp:include page="Header.jsp" flush="true"/>
+
 </head>
 <body>
-	<form action="index.jsp" method="POST">
-		<input type="submit" value="Home">
-	</form>
-	<%
-	if (session.getAttribute("username") != null) {
-	%>
-	<form action="LogoutServlet" method="POST">
-		<input type="submit" value="Logout">
-	</form>
-	<form action="PersonalAreaServlet" method="POST">
-		<input type="submit" value="Area Personale">
-	</form>
-	<%
-	} else {
-	%>
-	<form action="LoginScreen.jsp" method="POST">
-		<input type="submit" value="Accedi o registrati">
-	</form>
-	<%
-	}
-	%>
-	<form action="CartServlet" method="post">
-		<input type="submit" value="carrello">
-	</form>
-
+	<h2 align = "center">Catalogo</h2>
+<div id="filtri">
+	<div class="container" align="center">
+			<form class="search" id="search-bar" onsubmit="return false;">
+				<input type="search" placeholder="Type something..." name="q"
+					class="search__input" onkeyup="searchAndFilter()">
+			</form>
+		</div>
 	<div class="slider-wrapper">
 		<div class="price-input-container">
 			<div class="price-input">
@@ -109,15 +94,12 @@ Collection<ProductBean> AllProducts = (Collection<ProductBean>) session.getAttri
     %>
 </form>
 	</div>
+	
+	
+		
+		
+	</div>
 	<div class="prodotti" align="center">
-		<h2>Catalogo</h2>
-		<div class="container">
-			<form class="search" id="search-bar" onsubmit="return false;">
-				<input type="search" placeholder="Type something..." name="q"
-					class="search__input" onkeyup="searchAndFilter()">
-			</form>
-		</div>
-
 		<%
 		if (AllProducts != null && !AllProducts.isEmpty()) {
 			for (ProductBean bean : AllProducts) {
@@ -129,11 +111,15 @@ Collection<ProductBean> AllProducts = (Collection<ProductBean>) session.getAttri
 			</a>
 			<p class="product-name"><%=bean.getName()%></p>
 			<p class="product-price"><%=String.format("%.2f", bean.getPrice())%></p>
+			<%if(bean.getQuantity()>0){ %>
 			<form action="CartServlet" method="POST" class="CatalogProduct">
-				<input type="hidden" name="action" value="addC"> <input
-					type="hidden" name="id" value="<%=bean.getCode()%>"> <input
-					type="submit" value="Aggiungi al carrello">
-			</form>
+            <input type="hidden" name="action" value="addC">
+            <input type="hidden" name="id" value="<%=bean.getCode()%>">
+		    <input type="submit" value="Aggiungi al carrello">
+        </form>
+			<%} else{%>
+        	<p>Esaurito</p>
+    <%} %>
 		</div>
 		<%
 		}

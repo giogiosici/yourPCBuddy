@@ -67,15 +67,7 @@ public class OrderServlet extends HttpServlet {
 			Order order = (Order) new Order();
 			Cart cart = (Cart)request.getSession().getAttribute("cart");
 			Integer userId = (Integer)request.getSession().getAttribute("userId");
-			List<ProductBean> OrderCart = cart.getProducts();
-			for(ProductBean orderBean : OrderCart)
-				System.out.println(orderBean.getQuantity());
-		
-		order.addProductsFromCart(OrderCart);
-		String cartJson=gson.toJson(cart);
-		
-		
-		request.setAttribute("order", order);
+			
 		
 		try {
 			String action = request.getParameter("action");
@@ -83,6 +75,11 @@ public class OrderServlet extends HttpServlet {
 				
 			if (action != null) {
 		        if (action.equalsIgnoreCase("Acquista")) {
+		        	
+		        	List<ProductBean> OrderCart = cart.getProducts();
+		    		order.addProductsFromCart(OrderCart);
+		    		String cartJson=gson.toJson(cart);
+		    		request.setAttribute("order", order);
 		            orderDao.OrderSave(userId, formattedDateTime, cartJson);
 		            orderDao.CartDelete(userId);
 		            for (ProductBean orderBean : OrderCart) {
@@ -113,13 +110,29 @@ public class OrderServlet extends HttpServlet {
 		            
 		            // Inoltra alla pagina JSP per visualizzare gli ordini
 		            request.getRequestDispatcher("OrderPage.jsp").forward(request, response);
+		            return;
 		        }
+		        
+		        else if(action.equalsIgnoreCase("Storico ordini")) {
+		        	
+		        	List<Order> orders = orderDao.DoRetrieveOrders(userId);
+		            
+		            // Passa gli ordini alla pagina JSP
+		            request.setAttribute("orders", orders);
+		            
+		            // Inoltra alla pagina JSP per visualizzare gli ordini
+		            request.getRequestDispatcher("OrderPage.jsp").forward(request, response);
+		            return;
+		        }
+		                	
 		    }
 		
-		
+			
 		
 		request.getRequestDispatcher("OrderView.jsp").forward(request, response);
-	
+		
+		
+		
 		} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

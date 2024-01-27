@@ -10,19 +10,11 @@
 <script src="./Scripts/PAScripts.js"></script>
 <meta charset="ISO-8859-1">
 <title>Area Personale</title>
+<jsp:include page="Header.jsp" flush="true"/>
+
 </head>
 <body>
-<div class="navBar" align = "left">
-	<form action="CartServlet" method="post">
-		<input type="submit" value="carrello">
-	</form>
-	<form action="LogoutServlet" method="POST">
-        <input type="submit" value="Logout">
-    </form>
-   	<form action="index.jsp" method="POST">
-        <input type="submit" value="home">
-    </form>
-</div>
+
 <div class="PA" align="center">
     <h2>Area Personale</h2>
     <table border="1">

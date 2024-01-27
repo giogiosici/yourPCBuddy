@@ -57,11 +57,12 @@ public class RegisterServlet extends HttpServlet {
 				request.getRequestDispatcher("RegisterPage.jsp?error=username_exists").forward(request, response);
 			    return; // Termina l'esecuzione della servlet
 			}
-		   if (isEmailExists(email)) {
+			else if (isEmailExists(email)) {
 			    // L'email esiste già nel database
 			   request.getRequestDispatcher("RegisterPage.jsp?error=email_exists").forward(request, response);
 				    return; // Termina l'esecuzione della servlet
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

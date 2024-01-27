@@ -22,27 +22,15 @@
 <script src="./Scripts/CartScript.js"></script>
 <meta charset="UTF-8">
 <title>Carrello</title>
+<jsp:include page="Header.jsp" flush="true"/>
 
 </head>
 <body>
-<form action="index.jsp" method="POST">
-        <input type="submit" value="Home">
-        </form>
- <% if (session.getAttribute("username") != null) { %>
-    <form action="LogoutServlet" method="POST">
-        <input type="submit" value="Logout">
-    </form>
-    <form action="PersonalAreaServlet" method="POST">
-        <input type="submit" value="Area Personale">
-    </form>
-    <% } else { %>
-    <form action="LoginScreen.jsp" method="POST">
-        <input type="submit" value="Accedi o registrati">
-    </form>
-<% } %>
+	
 <div class="cart" align="center">
 <% if (cart != null && !cart.isEmpty()) { %>
     <h2>Carrello</h2>
+            
     <table border="1">
         <tr>
             <th>Immagine</th>
@@ -51,8 +39,10 @@
             <th>Quantità</th>
             <th></th>
         </tr>
-        <% List<ProductBean> prodcart = cart.getProducts(); 
-           for (ProductBean beancart: prodcart) {
+        
+        <% List<ProductBean> prodcart = cart.getProducts(); %>
+
+           <%for (ProductBean beancart: prodcart) {
             %>
   
             <tr>
@@ -63,14 +53,14 @@
     				<%=beancart.getQuantity()%>
                 </td>
                 <td>
-                    <form action="CartServlet" method="POST" class="removeFromCartForm">
+                    <form action="CartServlet" method="POST" class="removeOneFromCartForm">
                         <input type="hidden" name="action" value="deleteC">
                         <input type="hidden" name="id" value="<%=beancart.getCode()%>">
                         <input type="hidden" name="quantity" value="<%=beancart.getQuantity()%>">
                         <input type="submit" value="Rimuovi">
                     </form>
                     
-                    <form action="CartServlet" method="POST" class="addToCartForm">
+                    <form action="CartServlet" method="POST" class="addOneToCartForm">
     					<input type="hidden" name="action" value="addC">
     					<input type="hidden" name="id" value="<%=beancart.getCode()%>">	
     					<input type="submit" value="Aggiungi">
@@ -84,6 +74,7 @@
 					
                 </td>
             </tr>
+            
         <% } %>
         
         <tr>
@@ -100,7 +91,9 @@
                 %>
             </span></td>
         </tr>
+       
     </table>
+    
     	<form action="OrderServlet" method="POST" onsubmit="return checkLogin()">
     		<input type="submit" value="Procedi al checkout">
 		</form>

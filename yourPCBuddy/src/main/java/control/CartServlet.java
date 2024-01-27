@@ -85,9 +85,10 @@ public class CartServlet extends HttpServlet {
 		        
 		        // Itera attraverso i prodotti recuperati e aggiungili alla lista temporanea
 		        for (ProductBean product : productsInCart) {
-		            productsToAdd.add(product);
+		        	if(!cart.isInCart(product)) { //se l'utente logga non aggiunge il carrello in sessione alla pagina del carrello 
+		        		productsToAdd.add(product);
+		        	}
 		        }
-		        
 		        // Aggiungi tutti i prodotti dalla lista temporanea al carrello
 		        cart.addProducts(productsToAdd);
 		        
@@ -109,14 +110,12 @@ public class CartServlet extends HttpServlet {
 				if (action.equalsIgnoreCase("addC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					
+						cart.addProduct(productDao.doRetrieveByKey(id));
+						int quantity = 1; // Imposta sempre la quantità a 1
+							if (isLogged) {
+								cartDao.cartSave(userId, id, quantity);
+							}
 					
-			/*else*/ cart.addProduct(productDao.doRetrieveByKey(id));
-			int quantity = 1; // Imposta sempre la quantità a 1
-			if (isLogged) {
-			    cartDao.cartSave(userId, id, quantity);
-			}
-
-
 				} else if (action.equalsIgnoreCase("deleteC")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					int quantity=Integer.parseInt(request.getParameter("quantity"));

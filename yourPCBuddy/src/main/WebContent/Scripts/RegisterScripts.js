@@ -1,21 +1,3 @@
-var error = "<%= request.getParameter('error') %>";
-
-  if (error === "username_exists") {
-	    Swal.fire({
-	        title: 'Errore',
-	        text: 'Username già esistente!',
-	        icon: 'error',
-	        confirmButtonText: 'OK'
-	    });
-	    
-	} else if (error === "email_exists") {
-	    Swal.fire({
-	        title: 'Errore',
-	        text: 'Email già esistente!',
-	        icon: 'error',
-	        confirmButtonText: 'OK'
-	    });
-	}
 	
   function validateRegistration() {
     
@@ -58,4 +40,6 @@ var error = "<%= request.getParameter('error') %>";
 	    });
             return false; // Blocca l'invio del form
         }
+        
+        
     }
