@@ -99,7 +99,7 @@ public class CartServlet extends HttpServlet {
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				e.printStackTrace(); 
 			}
 
 			}
@@ -144,6 +144,5 @@ public class CartServlet extends HttpServlet {
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/CartView.jsp");
 		dispatcher.forward(request, response);
 	}
-	
 
 }

@@ -9,7 +9,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="./Scripts/CatalogScript.js"></script>
 
-<link href="Styles/Slider.css" rel="stylesheet" type="text/css">
+<link href="Styles/Catalogo.css" rel="stylesheet" type="text/css">
+
 
 <%
 Collection<ProductBean> AllProducts = (Collection<ProductBean>) session.getAttribute("AllProducts");
@@ -23,13 +24,14 @@ Collection<ProductBean> AllProducts = (Collection<ProductBean>) session.getAttri
 </head>
 <body>
 	<h2 align = "center">Catalogo</h2>
-<div id="filtri">
 	<div class="container" align="center">
 			<form class="search" id="search-bar" onsubmit="return false;">
 				<input type="search" placeholder="Type something..." name="q"
 					class="search__input" onkeyup="searchAndFilter()">
 			</form>
 		</div>
+		<div id="filtri e prodotti">
+<div id="filtri">
 	<div class="slider-wrapper">
 		<div class="price-input-container">
 			<div class="price-input">
@@ -93,6 +95,10 @@ Collection<ProductBean> AllProducts = (Collection<ProductBean>) session.getAttri
         }
     %>
 </form>
+<div id="noProductsMessage" style="display: none;">
+ <p align="center"> Nessun prodotto rispecchia i filtri selezionati.</p>
+</div>
+
 	</div>
 	
 	
@@ -131,6 +137,7 @@ Collection<ProductBean> AllProducts = (Collection<ProductBean>) session.getAttri
 		<%
 		}
 		%>
+	</div>
 	</div>
 </body>
 <script>

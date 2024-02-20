@@ -206,11 +206,16 @@ function isCheckboxFiltered(product) {
   const visibleCategories = Array.from(categoryCheckboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
   const visibleBrands = Array.from(brandCheckboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
 
+  // Controlla se la categoria del prodotto è inclusa tra quelle selezionate
   const isVisibleCategory = visibleCategories.length === 0 || visibleCategories.includes(category);
+
+  // Controlla se il marchio del prodotto è inclusa tra quelli selezionati
   const isVisibleBrand = visibleBrands.length === 0 || visibleBrands.includes(brand);
 
+  // Restituisci true solo se sia la categoria che il marchio sono visibili
   return isVisibleCategory && isVisibleBrand;
 }
+
 
 
 /*=============== checkbox ===============*/
@@ -223,38 +228,44 @@ document.addEventListener("DOMContentLoaded", function () {
   function filterCheckbox() {
     const visibleCategories = Array.from(categoryCheckboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
     const visibleBrands = Array.from(brandCheckboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
-
-    // Chiamata alla funzione sliderPrice
-    sliderPrice();
-
+	let productsFound = false;
+	
+	
     products.forEach(product => {
       const category = product.getAttribute('data-category');
       const brand = product.getAttribute('data-brand');
 
-      const isVisibleCategory = visibleCategories.includes(category);
-      const isVisibleBrand = visibleBrands.includes(brand);
+      // Controlla se la categoria del prodotto è inclusa tra quelle selezionate
+      const isVisibleCategory = visibleCategories.length === 0 || visibleCategories.includes(category);
 
-      if (visibleCategories.length === 0 && visibleBrands.length === 0) {
-        // Se nessuna checkbox è selezionata, mostra tutti i prodotti
+      // Controlla se il marchio del prodotto è incluso tra quelli selezionati
+      const isVisibleBrand = visibleBrands.length === 0 || visibleBrands.includes(brand);
+
+      // Mostra il prodotto solo se soddisfa entrambi i filtri
+      if (isVisibleCategory && isVisibleBrand) {
         product.style.display = "block";
+        productsFound = true;
       } else {
-        // Altrimenti, mostra o nascondi il prodotto in base alle checkbox selezionate
-        if (isVisibleCategory || isVisibleBrand) {
-          product.style.display = "block";
-        } else {
-          product.style.display = "none";
-        }
+        product.style.display = "none";
       }
     });
+    // Mostra il messaggio se nessun prodotto è stato trovato
+  const noProductsMessage = document.getElementById('noProductsMessage');
+  	if (productsFound) {
+    	noProductsMessage.style.display = "none";
+  	} else {
+    	noProductsMessage.style.display = "block";
+  	}
   }
 
   // Aggiungi event listener per le checkbox
   categoryCheckboxes.forEach(checkbox => checkbox.addEventListener('change', filterCheckbox));
   brandCheckboxes.forEach(checkbox => checkbox.addEventListener('change', filterCheckbox));
 
-  // Chiamata iniziale per visualizzare i prodotti corretti all'avvio
+  // Chiamata iniziale per filtrare i prodotti correttamente all'avvio
   filterCheckbox();
 });
+
 
 
 
