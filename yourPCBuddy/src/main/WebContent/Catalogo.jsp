@@ -30,40 +30,40 @@ Collection<ProductBean> AllProducts = (Collection<ProductBean>) session.getAttri
 					class="search__input" onkeyup="searchAndFilter()">
 			</form>
 		</div>
-		<div id="filtri e prodotti">
+		<div id="filtriEProdotti">
 <div id="filtri">
 	<div class="slider-wrapper">
-		<div class="price-input-container">
-			<div class="price-input">
-				<div class="price-field">
-					<span>Minimum Price</span> <input type="number" class="min-input"
-						value="100" onchange="sliderCatalogo()">
-				</div>
-				<!-- price-field 1 -->
-				<div class="price-field">
-					<span>Maximum Price</span> <input type="number" class="max-input"
-						value="2000" onchange="sliderCatalogo()">
-				</div>
-				<!-- price-field 2 -->
+	<div class="price-input-container">
+		<div class="price-input">
+			<div class="price-field">
+				<span>Minimum Price</span> <input type="number" class="min-input"
+					value="100" onchange="sliderCatalogo()" min="0" max="5000">
 			</div>
-			<!-- price-input -->
-			<div class="slider-container">
-				<div class="price-slider"></div>
-				<!-- price-slider -->
+			<!-- price-field 1 -->
+			<div class="price-field">
+				<span>Maximum Price</span> <input type="number" class="max-input"
+					value="2000" onchange="sliderCatalogo()" min="0" max="5000">
 			</div>
-			<!--slider-container -->
+			<!-- price-field 2 -->
 		</div>
-		<!-- price-input-container -->
-
-		<!-- Slider -->
-		<div class="range-input">
-			<input type="range" class="min-range" id="min-range" min="0"
-				max="5000" value="100" step="10" onchange="sliderCatalogo()">
-			<input type="range" class="max-range" id="max-range" min="0"
-				max="5000" value="2000" step="10" onchange="sliderCatalogo()">
+		<!-- price-input -->
+		<div class="slider-container">
+			<div class="price-slider"></div>
+			<!-- price-slider -->
 		</div>
-		<!-- range-input -->
+		<!--slider-container -->
 	</div>
+	<!-- price-input-container -->
+
+	<!-- Slider -->
+	<div class="range-input">
+		<input type="range" class="min-range" id="min-range" min="0"
+			max="5000" value="100" step="10" onchange="sliderCatalogo()">
+		<input type="range" class="max-range" id="max-range" min="0"
+			max="5000" value="2000" step="10" onchange="sliderCatalogo()">
+	</div>
+	<!-- range-input -->
+</div>
 	
 	<div class="checkbox">
 		<form>

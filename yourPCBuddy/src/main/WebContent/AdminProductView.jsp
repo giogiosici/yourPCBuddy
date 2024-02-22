@@ -151,22 +151,22 @@ if (user == null)
         <input type="hidden" name="id" value="<%=existingProduct.getCode()%>">
         
         <label for="name">Nome:</label><br> 
-        <input name="name" type="text" maxlength="20" required placeholder="Inserisci nome" value="<%=existingProduct.getName()%>"><br> 
+        <input name="name" type="text" maxlength="20" placeholder="<%=existingProduct.getName()%>"><br> 
 
         <label for="description">Descrizione:</label><br>
-		<textarea name="description" maxlength="100" rows="3" required placeholder="inserisci descrizione"><%=existingProduct.getDescription() %></textarea><br>
+		<textarea name="description" maxlength="100" rows="3"><%=existingProduct.getDescription() %></textarea><br>
 		
 		<label for="price">Prezzo:</label><br> 
-		<input name="price" type="number"  step="0.01" min="0.00" value="<%=existingProduct.getPrice() %>" required><br>
+		<input name="price" type="number"  step="0.01" min="0.00" value="<%=existingProduct.getPrice() %>"><br>
 
 		<label for="quantity">Quantità:</label><br> 
-		<input name="quantity" type="number" min="1" value="<%=existingProduct.getQuantity() %>" required><br>
+		<input name="quantity" type="number"><br>
 		
 		<label for="Categoria">Categoria:</label><br> 
-		<input name="Categoria" type="text" required placeholder="Inserisci Categoria" value="<%=existingProduct.getCategoria()%>"><br>
+		<input name="Categoria" type="text" placeholder="<%=existingProduct.getCategoria()%>"><br>
 		
 		<label for="Marca">Marca:</label><br> 
-        <input name="Marca" type="text" maxlength="20" required placeholder="Inserisci marca" value="<%=existingProduct.getBrand()%>"><br>
+        <input name="Marca" type="text" maxlength="20" placeholder="<%=existingProduct.getBrand()%>"><br>
 		
 		<label for="image">Immagine:</label><br>
   		<input type="file" name="image" accept="image/*"><br>

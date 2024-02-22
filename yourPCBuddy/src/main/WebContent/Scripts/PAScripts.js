@@ -45,7 +45,7 @@ function validateForm() {
     var lettersPattern = /^[A-Za-z\s]+$/;
     var numbersPattern = /^[1-9]\d*[a-zA-Z]?$/;
     var provPattern = /^[A-Za-z]{2}$/;
-    var addressPattern = /^(Via|Viale|via|viale)[A-Za-z\s]+$/;
+    var addressPattern = /^(Via |Viale |via |viale |Piazza |piazza |Traversa |traversa )[A-Za-z\s]+$/;
     
     if (!state.match(lettersPattern)) {
         // Utilizza SweetAlert2 per visualizzare un messaggio di avviso personalizzato

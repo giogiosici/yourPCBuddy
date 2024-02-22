@@ -6,6 +6,10 @@ import model.IProductDao;
 import model.ProductDaoDataSource;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -89,15 +93,16 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					String Categoria = request.getParameter("Categoria");
 					String brand = request.getParameter("Marca");
 					
-					
-					
-					
 					//upload immagine
 					Part imagePart = request.getPart("image");
 			        String image = getFileName(imagePart); // Ottieni il nome dell'immagine
 			        String saveDirectory = "C:/Users/giogi/git/yourPCBuddy/yourPCBuddy/src/main/WebContent/Images";
 			        String imagePath = saveDirectory + File.separator + image; // Percorso per salvare l'immagine
-					
+			        String targetPath = getServletContext().getRealPath("/" +"Images"+ File.separator + image);
+			        File fileToSave = new File(imagePath);
+			        File targetFile = new File(targetPath);
+
+			        InputStream fileContent = imagePart.getInputStream();
 			        
 			        
 					ProductBean bean = new ProductBean();
@@ -109,8 +114,16 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					bean.setCategoria(Categoria);
 					bean.setBrand(brand);
 						if (imagePart != null && imagePart.getSize() > 0) { //se c'è una nuova immagine la aggiorni
-							imagePart.write(imagePath);
+					        if (!fileToSave.exists()) {
+							Files.copy(fileContent, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+							Files.copy(fileContent, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);
 							bean.setImage(image);
+					        }
+					        else {
+					        	// I file sono identici, non fare nulla
+			                    System.out.println("Il file esistente è identico. Non si effettua l'upload.");
+					        	bean.setImage(image);
+					        }
 						}
 						else {
 							ProductBean existingProduct = productDao.doRetrieveByKey(id);
@@ -134,8 +147,11 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			        String image = getFileName(imagePart); // Ottieni il nome dell'immagine
 			        String saveDirectory = "C:/Users/giogi/git/yourPCBuddy/yourPCBuddy/src/main/WebContent/Images";
 			        String imagePath = saveDirectory + File.separator + image; // Percorso per salvare l'immagine
-					
-			        imagePart.write(imagePath);
+			        String targetPath = getServletContext().getRealPath("/" +"Images"+ File.separator + image);
+			        File fileToSave = new File(imagePath);
+			        File targetFile = new File(targetPath);
+			        InputStream fileContent = imagePart.getInputStream();
+			        InputStream targetStream = imagePart.getInputStream();
 			        
 					ProductBean bean = new ProductBean();
 					bean.setName(name);
@@ -145,6 +161,17 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					bean.setCategoria(Categoria);
 					bean.setImage(image);
 					bean.setBrand(brand);
+						if (!fileToSave.exists()) {
+							Files.copy(fileContent, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);
+							Files.copy(targetStream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);	
+							bean.setImage(image);
+						
+				    }
+				    else {
+				    	// I file sono identici, non fare nulla
+		                System.out.println("Il file esistente è identico. Non si effettua l'upload.");
+				        bean.setImage(image);
+				    }
 					
 					productDao.doSave(bean);
 				}

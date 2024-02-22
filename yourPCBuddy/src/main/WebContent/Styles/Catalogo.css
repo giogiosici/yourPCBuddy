@@ -1,9 +1,59 @@
+#filtri {
+  display: flex;
+  flex : 1 1 20rem;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  width: 250px;
+  height: 100%;
+  float: left;
+}
+
+.checkbox {
+  margin: 10px 0;
+}
+
+.prodotti {
+  display: flex;
+  flex : 10 1 30rem;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 20px;
+  padding: 20px;
+  width: calc(100% - 250px);
+  float: left;
+}
+
+.schedaProdotto {
+  flex: 1 1 250px;
+  margin: 10px;
+  text-align: center;
+}
+
+.product-name {
+  margin: 10px 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.product-price {
+  margin: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: green;
+}
+
+
 /*CSS Slider*/
 .slider-wrapper { 
 	margin: 0;
-    width: 15%;
-    padding: 0px 25px 40px;
-    position: relative;
+    width: 100%;
     left: 63px
 } 
 
@@ -117,3 +167,7 @@ input[type="range"]::-webkit-slider-thumb {
 	} 
 }
 /*fine slider CSS*/
+
+	#filtriEProdotti{
+		display: flex;
+	}
