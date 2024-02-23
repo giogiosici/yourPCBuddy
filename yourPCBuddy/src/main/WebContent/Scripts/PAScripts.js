@@ -1,18 +1,19 @@
+//Indirizzo
 function toggleAddressDropdown() {
     var dropdown = document.getElementById("addressDropdown");
     var currentAddress = document.getElementById("currentAddress");
-    var toggleButton = document.getElementById("toggleButton");
+    var toggleButtonAddress = document.getElementById("toggleButtonAddress");
 
     if (dropdown.style.display === "none") {
         // Mostra il dropdown e nascondi l'indirizzo attuale
         dropdown.style.display = "block";
         currentAddress.style.display = "none";
-        toggleButton.innerHTML = "Annulla";
+        toggleButtonAddress.innerHTML = "Annulla";
     } else {
         // Nascondi il dropdown e mostra l'indirizzo attuale
         dropdown.style.display = "none";
         currentAddress.style.display = "block";
-        toggleButton.innerHTML = "Aggiorna indirizzo";
+        toggleButtonAddress.innerHTML = "Aggiorna indirizzo";
     }
 }
 
@@ -20,16 +21,16 @@ function toggleAddressDropdown() {
 function cancelAddressUpdate() {
     var dropdown = document.getElementById("addressDropdown");
     var currentAddress = document.getElementById("currentAddress");
-    var toggleButton = document.getElementById("toggleButton");
-    var confirmButton = document.getElementById("confirmButton");
+    var toggleButtonAddress = document.getElementById("toggleButtonAddress");
+    var confirmButtonAddress = document.getElementById("confirmButtonAddress");
 
     // Nascondi il dropdown e mostra l'indirizzo attuale
     dropdown.style.display = "none";
     currentAddress.style.display = "block";
 
     // Mostra il pulsante "Aggiorna indirizzo" e nascondi il pulsante "Annulla" e "Conferma"
-    toggleButton.style.display = "block";
-    confirmButton.style.display = "none";
+    toggleButtonAddress.style.display = "block";
+    confirmButtonAddress.style.display = "none";
 }
 
 function validateForm() {
@@ -113,4 +114,63 @@ function validateForm() {
     
     return true; // Se tutti i campi sono validi, il modulo verrà inviato al server
 }
-    
+//Fine Indirizzo
+
+//Email 
+function toggleEmailDropdown() {
+    var currentEmail = document.getElementById("currentEmail");
+    var dropdown = document.getElementById("emailDropdown");
+    var toggleButtonEmail = document.getElementById("toggleButtonEmail");
+
+    if (dropdown.style.display === "none") {
+        // Nascondi l'indirizzo email corrente
+        currentEmail.style.display = "none";
+        // Mostra il dropdown
+        dropdown.style.display = "block";
+        toggleButtonEmail.innerHTML = "Annulla";
+    } else {
+        // Mostra l'indirizzo email corrente
+        currentEmail.style.display = "block";
+        // Nascondi il dropdown
+        dropdown.style.display = "none";
+        toggleButtonEmail.innerHTML = "Aggiorna email";
+    }
+}
+
+
+function cancelEmailUpdate() {
+    var dropdown = document.getElementById("emailDropdown");
+    var toggleButtonEmail = document.getElementById("toggleButtonEmail");
+
+    // Nascondi il dropdown
+    dropdown.style.display = "none";
+    toggleButtonEmail.innerHTML = "Aggiorna email";
+}
+
+function validateEmail() {
+    var emailInput = document.getElementById("email").value;
+
+    if (emailInput.indexOf('@') === -1) {
+        Swal.fire({
+            title: 'Errore',
+            text: 'Email non valida!',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+        return false; // Blocca l'invio del form se la validazione fallisce
+    }
+
+    var domain = emailInput.split('@')[1];
+
+    if (domain.endsWith('.com') || domain.endsWith('.it')) {
+        // Consente l'invio del form se la validazione è passata
+    } else {
+        Swal.fire({
+            title: 'Errore',
+            text: 'Email non valida!',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+        return false; // Blocca l'invio del form se la validazione fallisce
+    }
+}

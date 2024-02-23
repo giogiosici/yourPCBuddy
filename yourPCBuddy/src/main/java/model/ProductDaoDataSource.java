@@ -35,7 +35,7 @@ public class ProductDaoDataSource implements IProductDao {
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, product.getName());
 			preparedStatement.setString(2, product.getDescription());
-			preparedStatement.setFloat(3, product.getPrice());
+			preparedStatement.setDouble(3, product.getPrice());
 			preparedStatement.setInt(4, product.getQuantity());
 			preparedStatement.setString(5, product.getCategoria());
 			preparedStatement.setString(6, product.getImage());
@@ -74,7 +74,7 @@ public class ProductDaoDataSource implements IProductDao {
 				bean.setCode(rs.getInt("ID"));
 				bean.setName(rs.getString("Nome"));
 				bean.setDescription(rs.getString("Descrizione"));
-				bean.setPrice(rs.getFloat("Prezzo"));
+				bean.setPrice(rs.getDouble("Prezzo"));
 				bean.setQuantity(rs.getInt("QuantitaDisponibile"));
 				bean.setCategoria(rs.getString("Categoria"));
 				bean.setImage(rs.getString("Immagine"));
@@ -131,7 +131,7 @@ public class ProductDaoDataSource implements IProductDao {
 	        preparedStatement = connection.prepareStatement(updateSQL);
 	        preparedStatement.setString(1, product.getName());
 	        preparedStatement.setString(2, product.getDescription());
-	        preparedStatement.setFloat(3, product.getPrice());
+	        preparedStatement.setDouble(3, product.getPrice());
 	        preparedStatement.setInt(4, product.getQuantity());
 	        preparedStatement.setString(5, product.getCategoria());
 	        preparedStatement.setString(6, product.getImage());
@@ -178,7 +178,7 @@ public class ProductDaoDataSource implements IProductDao {
 				bean.setCode(rs.getInt("ID"));
 				bean.setName(rs.getString("Nome"));
 				bean.setDescription(rs.getString("Descrizione"));
-				bean.setPrice(rs.getFloat("Prezzo"));
+				bean.setPrice(rs.getDouble("Prezzo"));
 				bean.setQuantity(rs.getInt("QuantitaDisponibile"));
 				bean.setCategoria(rs.getString("Categoria"));
 				bean.setImage(rs.getString("Immagine"));
@@ -218,7 +218,7 @@ public class ProductDaoDataSource implements IProductDao {
 				bean.setCode(rs.getInt("ID"));
 				bean.setName(rs.getString("Nome"));
 				bean.setDescription(rs.getString("Descrizione"));
-				bean.setPrice(rs.getFloat("Prezzo"));
+				bean.setPrice(rs.getDouble("Prezzo"));
 				bean.setQuantity(rs.getInt("QuantitaDisponibile"));
 				bean.setCategoria(rs.getString("Categoria"));
 				bean.setImage(rs.getString("Immagine"));

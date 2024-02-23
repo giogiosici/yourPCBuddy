@@ -46,8 +46,7 @@ public class ProductControl extends HttpServlet {
 	}
 
 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
+			
 		String isDriverManager = request.getParameter("driver");
 		if(isDriverManager == null || isDriverManager.equals("")) {
 			isDriverManager = "datasource";
@@ -57,8 +56,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 
 			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 			productDao = new ProductDaoDataSource(ds);
-		
-		
+			
 		String action = request.getParameter("action");
 
 		try {
@@ -78,20 +76,32 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 				    request.setAttribute("existingProduct", existingProduct);
 				    
 				} else if(action.equalsIgnoreCase("Annulla")) { //annulla vicino al prodotto
-					   
-					    
+					   	    
 					    request.setAttribute("existingProduct", null);
 				    
 				} else if (action.equalsIgnoreCase("update")) {
 					int id = Integer.parseInt(request.getParameter("id"));
+					ProductBean existingProduct = productDao.doRetrieveByKey(id);
+					double price;
+					int quantity;
+					int oldQuantity = existingProduct.getQuantity();
 
-					
 					String name = request.getParameter("name");
 					String description = request.getParameter("description");
-					float price = Float.parseFloat(request.getParameter("price"));
-					int quantity = Integer.parseInt(request.getParameter("quantity"));
+					String priceParameter = request.getParameter("price");
+					if (priceParameter != null && !priceParameter.isEmpty()) {
+					    price = Double.parseDouble(priceParameter);
+					} else 
+						price = 0.0;
+					String quantityParameter = request.getParameter("quantity");
+					if (quantityParameter != null && !quantityParameter.isEmpty()) {
+					    quantity = Integer.parseInt(request.getParameter("quantity"));
+					} else 
+						quantity = 0;
 					String Categoria = request.getParameter("Categoria");
 					String brand = request.getParameter("Marca");
+					
+					int newQuantity = oldQuantity+quantity;
 					
 					//upload immagine
 					Part imagePart = request.getPart("image");
@@ -103,16 +113,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			        File targetFile = new File(targetPath);
 
 			        InputStream fileContent = imagePart.getInputStream();
-			        
-			        
-					ProductBean bean = new ProductBean();
-					bean.setCode(id);
-					bean.setName(name);
-					bean.setDescription(description);
-					bean.setPrice(price);
-					bean.setQuantity(quantity);
-					bean.setCategoria(Categoria);
-					bean.setBrand(brand);
+			             
+					ProductBean bean = productDao.doRetrieveByKey(id);
+					bean.setNotEmpty(name,description,price,newQuantity,Categoria,brand);
 						if (imagePart != null && imagePart.getSize() > 0) { //se c'è una nuova immagine la aggiorni
 					        if (!fileToSave.exists()) {
 							Files.copy(fileContent, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
@@ -126,7 +129,6 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					        }
 						}
 						else {
-							ProductBean existingProduct = productDao.doRetrieveByKey(id);
 							bean.setImage(existingProduct.getImage());
 						}
 
@@ -135,12 +137,10 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 				} else if (action.equalsIgnoreCase("insert")) {
 					String name = request.getParameter("name");
 					String description = request.getParameter("description");
-					float price = Float.parseFloat(request.getParameter("price"));
+					double price = Double.parseDouble(request.getParameter("price"));
 					int quantity = Integer.parseInt(request.getParameter("quantity"));
 					String Categoria = request.getParameter("Categoria");
 					String brand = request.getParameter("Marca"); 
-					
-					
 					
 					//upload immagine
 					Part imagePart = request.getPart("image");
@@ -154,6 +154,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			        InputStream targetStream = imagePart.getInputStream();
 			        
 					ProductBean bean = new ProductBean();
+					
 					bean.setName(name);
 					bean.setDescription(description);
 					bean.setPrice(price);

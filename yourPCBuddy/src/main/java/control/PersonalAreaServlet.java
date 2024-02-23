@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-import model.PADao;
-import model.PADaoDataSource;
+import model.UserDao;
+import model.UserDaoDataSource;
+import model.UserDao;
 import model.User;
 /**
  * Servlet implementation class PersonalAreaServlet
@@ -37,7 +38,7 @@ public class PersonalAreaServlet extends HttpServlet {
 		
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		Integer userId = (Integer)request.getSession().getAttribute("userId");
-		PADao paDao = new PADaoDataSource(ds);
+		UserDao userDao = new UserDaoDataSource(ds);
 		
 		if(userId==1) {
 			request.getRequestDispatcher("AdminPage.jsp").forward(request, response);
@@ -49,18 +50,63 @@ public class PersonalAreaServlet extends HttpServlet {
 			  User user = (User) request.getSession().getAttribute("user");
 			request.setAttribute("user", user);
 				
+			
 				if (action != null) {
 					if (action.equalsIgnoreCase("ChangeAddress")) {
-						String Stato = request.getParameter("state");
-						String Città = request.getParameter("city");
-						String Provincia = request.getParameter("provincia");
-						String Via = request.getParameter("street");
-						String Number = request.getParameter("number");
-						String Cap = request.getParameter("zip");
-						String Address = Stato + "<br>" + Via + " " + Number +"<br>"+ Città + " " + "(" +Provincia +")" + "<br>" + Cap;
+						
+						String oldAddress = user.getIndirizzo();
+						
+							String[] campi = oldAddress.split("<br>");
+				    	
+							String stato,citta, provincia,via,numero,cap;
+
+							String statoParameter = request.getParameter("state");
+							String cittaParameter = request.getParameter("city");
+							String provinciaParameter = request.getParameter("provincia");
+							String viaParameter = request.getParameter("street");
+							String numberParameter = request.getParameter("number");
+							String capParameter = request.getParameter("zip");
+						
+							if(!statoParameter.isEmpty())
+								stato=statoParameter;
+							else
+								stato = campi[0];
+						
+							if(!cittaParameter.isEmpty())
+								citta=cittaParameter;
+							else
+								citta = campi[1];
+							if(!provinciaParameter.isEmpty())
+								provincia=provinciaParameter;
+							else
+								provincia = campi[2];
+						
+							if(!viaParameter.isEmpty())
+								via=viaParameter;
+							else
+								via = campi[3];
+						
+							if(!numberParameter.isEmpty())
+								numero=numberParameter;
+							else
+								numero = campi[4];
+						
+							if(!capParameter.isEmpty())
+								cap=capParameter;
+							else
+								cap = campi[5];
+						
+							String Address = stato + "<br>" + via + "<br>" + numero +"<br>"+ citta + "<br>" + "(" +provincia +")" + "<br>" + cap;
 				
-						paDao.ChangeAddress(userId,Address);
-						user.setIndirizzo(Address);
+							userDao.ChangeAddress(userId,Address);
+							user.setIndirizzo(Address);
+						
+					}
+					else if(action.equalsIgnoreCase("changeEmail")) {
+						String email = request.getParameter("email");
+						userDao.ChangeEmail(userId, email);
+						user.setEmail(email);
+						
 					}
 				}
 		    // Ora puoi inoltrare la richiesta alla tua pagina JSP per visualizzare i dati dell'utente

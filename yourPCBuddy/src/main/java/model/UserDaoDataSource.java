@@ -7,11 +7,11 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-public class PADaoDataSource implements PADao{
+public class UserDaoDataSource implements UserDao{
 	private static final String TABLE_NAME = "Utenti";
 	private DataSource ds = null;
 
-	public PADaoDataSource(DataSource ds) {
+	public UserDaoDataSource(DataSource ds) {
 		this.ds = ds;
 	}
 
@@ -21,7 +21,7 @@ public class PADaoDataSource implements PADao{
 	    PreparedStatement preparedStatement = null;
 	    User user = new User();
 	    
-	    String selectSQL = "SELECT * FROM " + PADaoDataSource.TABLE_NAME + " WHERE ID = ?";
+	    String selectSQL = "SELECT * FROM " + UserDaoDataSource.TABLE_NAME + " WHERE ID = ?";
 	    
 	    try {
 	        connection = ds.getConnection();
@@ -63,12 +63,12 @@ public class PADaoDataSource implements PADao{
 	    PreparedStatement preparedStatement = null;
 	    
 	    
-	    String selectSQL = "SELECT Indirizzo FROM " + PADaoDataSource.TABLE_NAME + " WHERE ID = ?";
+	    String selectSQL = "SELECT Indirizzo FROM " + UserDaoDataSource.TABLE_NAME + " WHERE ID = ?";
 	    
-	    String insertSQL = "INSERT INTO " + PADaoDataSource.TABLE_NAME + " (Indirizzo) VALUES (?)";
+	    String insertSQL = "INSERT INTO " + UserDaoDataSource.TABLE_NAME + " (Indirizzo) VALUES (?)";
 
 	    // Query per l'aggiornamento dell'indirizzo
-	    String updateSQL = "UPDATE " + PADaoDataSource.TABLE_NAME  + " SET Indirizzo = ? WHERE ID = ?";
+	    String updateSQL = "UPDATE " + UserDaoDataSource.TABLE_NAME  + " SET Indirizzo = ? WHERE ID = ?";
 	    
 	    try {
 	        connection = ds.getConnection();
@@ -123,9 +123,66 @@ public class PADaoDataSource implements PADao{
 	}
 
 	@Override
-	public void ChangeEmail(int UID, String Email) throws SQLException {
-		// TODO Auto-generated method stub
+	public void ChangeEmail(int UID, String email) throws SQLException {
+		Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    
+	    String updateSQL = "UPDATE " + UserDaoDataSource.TABLE_NAME  + " SET Email = ? WHERE ID = ?";
+	    try {
+	        connection = ds.getConnection();
+	        connection.setAutoCommit(false); // Disabilita l'autocommit
+
+	            preparedStatement = connection.prepareStatement(updateSQL);
+	            preparedStatement.setString(1, email);
+	            preparedStatement.setInt(2, UID);
+	            preparedStatement.executeUpdate();
+	        
+	    }catch (SQLException e) {
+	    	e.printStackTrace();
+	    }
+	    
+	}
+	
+	public boolean isUsernameExists(String username) throws SQLException {
+		Connection connection = null;
+		
+		connection = ds.getConnection();
+        connection.setAutoCommit(false); // Disabilita l'autocommit
+
+        // Verifica se l'username è già inserito
+        String query = "SELECT * FROM Utenti WHERE Username = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, username);
+        ResultSet resultSet = statement.executeQuery();
+        return resultSet.next(); // Restituisce true se il nome utente esiste già nel database, altrimenti false 
+	}
+    
+	public boolean isEmailExists(String email) throws SQLException {
+    	Connection connection = null;
+    	connection = ds.getConnection();
+        connection.setAutoCommit(false); // Disabilita l'autocommit
+        String query = "SELECT * FROM Utenti WHERE Email = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, email);
+        ResultSet resultSet = statement.executeQuery();
+        return resultSet.next(); // Restituisce true se l'email esiste già nel database, altrimenti false 
+	}
+	
+	public boolean doSaveUser(User user) throws SQLException{
+		Connection connection = null;
+		
+		connection = ds.getConnection();
+		
+		String insertQuery = "INSERT INTO Utenti (Nome, Cognome, Username, Email, Password) VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement statement = connection.prepareStatement(insertQuery);
+        statement.setString(1, user.getNome());
+        statement.setString(2, user.getCognome());
+        statement.setString(3, user.getUsername());
+        statement.setString(4, user.getEmail());
+        statement.setString(5, user.getPassword());
+        statement.executeUpdate();
+        connection.commit();
+		return true;
 		
 	}
-
 }

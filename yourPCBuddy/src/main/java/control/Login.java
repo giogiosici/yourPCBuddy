@@ -2,8 +2,9 @@ package control;
 
 import model.ProductBean;
 import model.User;
-import model.PADaoDataSource;
-import model.PADao;
+import model.UserDao;
+import model.UserDaoDataSource;
+import model.UserDao;
 import model.IProductDao;
 import model.Cart;
 import model.CartDao;
@@ -38,7 +39,7 @@ public class Login extends HttpServlet {
         ResultSet logincheck=null;
         PreparedStatement statement = null;
         Connection connection = null;
-        PADao paDao = new PADaoDataSource(ds);
+        UserDao userDao = new UserDaoDataSource(ds);
         
         
         	
@@ -58,7 +59,7 @@ public class Login extends HttpServlet {
                     getServletContext().setAttribute("isLogged", isLogged); // Aggiorna il contesto dell'applicazione
                     session.setAttribute("userId", userId);
                     session.setAttribute("username", username);
-                    User user = paDao.RetrieveUserData(userId);
+                    User user = userDao.RetrieveUserData(userId);
                     session.setAttribute("user", user);
                     if(userId==1) {
                     	request.getRequestDispatcher("AdminPage.jsp").forward(request, response);

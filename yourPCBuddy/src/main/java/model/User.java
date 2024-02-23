@@ -5,17 +5,46 @@ public class User {
     private String nome;
     private String cognome;
     private String username;
-    private String indirizzo;
-    private String datiPagamento;
-	private String Email;
+    private String password;
+	private String email;
+	private String indirizzo;
+
 
     // Costruttore vuoto
     public User() {
     }
-
-    // Metodi getter e setter per ciascun campo
     
-    public int getId() {
+    
+    
+    
+
+    
+
+	public User(String nome, String cognome, String username, String password, String email, String indirizzo) {
+		super();
+		this.nome = nome;
+		this.cognome = cognome;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.indirizzo = indirizzo;
+	}
+
+
+	// Metodi getter e setter per ciascun campo
+    
+    public User(String nome, String cognome, String username, String password, String email) {
+		super();
+		this.nome = nome;
+		this.cognome = cognome;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+	}
+
+
+
+	public int getId() {
     	return id;
     }
     public String getNome() {
@@ -43,27 +72,36 @@ public class User {
     }
     
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String Email) {
-        this.Email = Email;
+        this.email = Email;
     }
+
+   
 
     public String getIndirizzo() {
-        return indirizzo;
+		return indirizzo;
+	}
+    
+	public void setIndirizzo(String indirizzo) {
+		this.indirizzo = indirizzo;
+	}
+	
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getPassword() {
+        return password;
     }
 
-    public void setIndirizzo(String indirizzo) {
-        this.indirizzo = indirizzo;
+    public void setPassword(String password) {
+        this.password = password;
     }
-
-    public String getDatiPagamento() {
-        return datiPagamento;
-    }
-
-    public void setDatiPagamento(String datiPagamento) {
-        this.datiPagamento = datiPagamento;
-    }
+    	
 }
+
 

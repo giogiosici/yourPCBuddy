@@ -157,7 +157,7 @@ if (user == null)
 		<textarea name="description" maxlength="100" rows="3"><%=existingProduct.getDescription() %></textarea><br>
 		
 		<label for="price">Prezzo:</label><br> 
-		<input name="price" type="number"  step="0.01" min="0.00" value="<%=existingProduct.getPrice() %>"><br>
+		<input name="price" type="number"  step="0.01" min="0.00" value="<%=String.format("%.2f",existingProduct.getPrice()) %>"><br>
 
 		<label for="quantity">Quantità:</label><br> 
 		<input name="quantity" type="number"><br>
