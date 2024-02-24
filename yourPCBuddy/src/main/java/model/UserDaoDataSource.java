@@ -187,8 +187,10 @@ public class UserDaoDataSource implements UserDao{
 	
 	public boolean doSaveUser(User user) throws SQLException{
 		Connection connection = null;
-		
+		try {
 		connection = ds.getConnection();
+        connection.setAutoCommit(false); // Disabilita l'autocommit
+
 		
 		String insertQuery = "INSERT INTO Utenti (Nome, Cognome, Username, Email, Password) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(insertQuery);
@@ -200,6 +202,10 @@ public class UserDaoDataSource implements UserDao{
         statement.executeUpdate();
         connection.commit();
 		return true;
-		
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

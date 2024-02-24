@@ -2,7 +2,6 @@ $(document).ready(function() {
 	
 	$('.DetailsProduct').submit(function(e) {
 		e.preventDefault(); // Previene l'invio predefinito del form
-console.log("a puttan ra mamm");
 		var formData = $(this).serialize(); // Ottiene i dati del form serializzati
 
 		// Trova il campo "quantity" associato a questo form
@@ -16,7 +15,6 @@ console.log("a puttan ra mamm");
 
 		// Imposta il nuovo valore di "quantity" nel campo
 		quantityField.val(newQuantity);
-		console.log("prima di ajax");
 		// Invia la richiesta AJAX al tuo form di destinazione
 		$.ajax({
 			url: 'CartServlet',

@@ -55,7 +55,7 @@
             <% } else { %>
     			<strong>Nazione: </strong><%=user.getStato()%><br>
     			<strong>Indirizzo: </strong><%=user.getVia()%> <%=user.getNumeroCivico()%><br>
-    			<strong>Città: </strong><%=user.getCitta()%> <%=user.getProvincia()%><br>
+    			<strong>Città: </strong><%=user.getCitta()%> (<%=user.getProvincia()%>)<br>
     			<strong>CAP: </strong><%=user.getCap()%><br>
            <% } %>	
         </div>

@@ -26,24 +26,28 @@ if (user == null)
 
 <head>
 <script src="./Scripts/Search.js"></script>
+<script src="./Scripts/AdminScript.js"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link href="Styles/ProductStyle.css" rel="stylesheet" type="text/css">
+	<link href="Styles/AdminProduct.css" rel="stylesheet" type="text/css">
 	
 	<title>yourPCBuddy</title>
 </head>
 
 <body>
+<div id="adminNav" class="adminNav">
     <form action="LogoutServlet" method="POST">
-        <input type="submit" value="Logout">
+        <input type="submit" value="Logout" class="top-buttons__button">
     </form>
     
     <form action="PersonalAreaServlet" method="POST">
-        <input type="submit" value="Area Personale">
+        <input type="submit" value="Area Personale" class="top-buttons__button">
     </form>
     
     <form action="AdminOrderView.jsp" method="post">
-		<input type="submit" value="Ordini">
+		<input type="submit" value="Ordini" class="top-buttons__button">
 	</form>
+</div>
+<div id="adminContent">
 	<h2>Prodotti</h2>
 	<div class="container">
             <form class="search" id="search-bar">
@@ -55,6 +59,8 @@ if (user == null)
                 </div>
             </form>
         </div>
+        <button id="toggleButtonInsert" onclick="toggleInsertDropdown()">Inserisci prodotto</button>
+        
 	<table border="1">
 		<tr>
 			<th>Codice</th>
@@ -145,6 +151,8 @@ if (user == null)
 	<%
 		}
 	%><% if (request.getAttribute("existingProduct") != null) { %>
+		<div id="updateProduct">
+	
     <h2>Aggiornamento Prodotto</h2>
     <form action="product" method="post" enctype="multipart/form-data">
         <input type="hidden" name="action" value="update">
@@ -173,8 +181,10 @@ if (user == null)
         
         <input type="submit" value="Aggiorna"><input type="reset" value="Reset"><input type="submit" name="action "value="Annulla"> 
     </form>
-    
+    </div>
 <% } else { %>
+<div id="insertProduct" style="display: none;">
+
 	<h2>Inserimento</h2>
 	<form action="product" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="action" value="insert"> 
@@ -200,8 +210,11 @@ if (user == null)
 		<label for="image">Immagine:</label><br>
   		<input type="file" name="image" accept="image/*" required><br>
   
-		<input type="submit" value="Aggiungi"><input type="reset" value="Reset"> 
+		<input type="submit" value="Aggiungi"><input type="reset" value="Reset">  <button id="toggleButtonInsert" onclick="toggleInsertDropdown()">Annulla</button>
+		
 	</form>
 	<% } %>
+	</div>
+	</div>
 </body>
 </html>

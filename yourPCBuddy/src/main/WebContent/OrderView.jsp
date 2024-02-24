@@ -59,7 +59,12 @@ User user = (User) request.getSession().getAttribute("user");
         </tr>
         <tr>
             <th>Conferma i dati di spedizione</th>                
-        <td colspan="3"><span id="indirizzo"> <%= user.getIndirizzo() %> </span></td>
+        <td colspan="3">
+        <span id="stato"> <%= user.getStato() %></span><br>
+        <span> <%=user.getVia() %> <%= user.getNumeroCivico() %> </span><br>
+        <span><%= user.getCitta() %> (<%= user.getProvincia() %>)</span><br>
+        <span><%= user.getCap() %></span>
+        </td>
         </tr>
 </table>
 </div>

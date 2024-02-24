@@ -17,7 +17,6 @@
 		<%
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		String path = httpServletRequest.getServletPath();
-		System.out.println(path);
 		
 		if (path.contains("/index.jsp")) {
 		%>

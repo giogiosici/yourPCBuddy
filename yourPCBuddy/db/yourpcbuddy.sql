@@ -68,7 +68,7 @@ CREATE TABLE DettagliOrdine (
 
 
 INSERT INTO Utenti (Username,Email,Password) values ("root","admin@gmail.com","admin");
-INSERT INTO Utenti (Username,Email,Password, Stato, Citta, Provincia, Via, Numero_civico, Cap) values ("pippo","pippofranco@gmail.com","franco","Italia","Via nazario sauro","3","Salerno","(SA)","84135");
+INSERT INTO Utenti (Username,Email,Password, Stato, Citta, Provincia, Via, Numero_civico, Cap) values ("pippo","pippofranco@gmail.com","franco","Italia","Salerno","SA","Via nazario sauro","3","84135");
 INSERT INTO product (Nome,Descrizione,Prezzo,QuantitaDisponibile,Categoria, Immagine,Marca) values ("Intel i3-12300","Processore",200.00,10,"Processore","i3-12.png","Intel");
 INSERT INTO product (Nome,Descrizione,Prezzo,QuantitaDisponibile,Categoria, Immagine,Marca) values ("Intel i7-13200","Processore",200.50,10,"Processore","i7-13.png","Intel");
 INSERT INTO product (Nome,Descrizione,Prezzo,QuantitaDisponibile,Categoria, Immagine,Marca) values ("Ryzen 5 5600g","Processore",180.00,5,"Processore","r5-50.png","AMD");

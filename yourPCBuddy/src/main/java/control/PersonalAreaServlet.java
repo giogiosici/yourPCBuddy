@@ -94,7 +94,7 @@ public class PersonalAreaServlet extends HttpServlet {
 							else
 								cap = user.getCap();
 						
-				
+							System.out.println(stato + citta+provincia+via+numero+cap);
 							userDao.ChangeAddress(userId,stato,citta,provincia,via,numero,cap);
 							user.setIndirizzo(stato,citta,provincia,via,numero,cap);
 						

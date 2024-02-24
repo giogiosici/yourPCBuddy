@@ -6,7 +6,6 @@ $(document).ready(function() {
 	
 	$('.IndexProduct').submit(function(e) {
 		e.preventDefault(); // Previene l'invio predefinito del form
-	console.log("index");
 		var formData = $(this).serialize(); // Ottiene i dati del form serializzati
 
 		// Trova il campo "quantity" associato a questo form
@@ -36,8 +35,3 @@ $(document).ready(function() {
 	});
 });
 
-$(document).ready(function () {
-  $(".burger-menu").click(function () {
-    $(".nav-links").toggleClass("show-menu");
-  });
-});

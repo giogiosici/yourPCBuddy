@@ -37,7 +37,7 @@
         <p><%=bean.getName()%></p>
         <p><%= String.format("%.2f", bean.getPrice()) %></p>
         <%if(bean.getQuantity()>0){ %>
-        <form action="CartServlet" method="POST" class="IndexProduct">
+        <form method="POST" class="IndexProduct">
             <input type="hidden" name="action" value="addC">
             <input type="hidden" name="id" value="<%=bean.getCode()%>">
  		    <input type="submit" value="Aggiungi al carrello">
