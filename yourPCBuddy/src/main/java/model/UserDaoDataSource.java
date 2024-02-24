@@ -37,7 +37,13 @@ public class UserDaoDataSource implements UserDao{
 				user.setCognome(rs.getString("Cognome"));
 				user.setUsername(rs.getString("Username"));
 				user.setEmail(rs.getString("Email"));
-				user.setIndirizzo(rs.getString("Indirizzo"));
+				user.setStato(rs.getString("Stato"));
+				user.setCitta(rs.getString("Citta"));
+				user.setProvincia(rs.getString("Provincia"));
+				user.setVia(rs.getString("Via"));
+				user.setNumeroCivico(rs.getString("Numero_civico"));
+				user.setCap(rs.getString("Cap"));
+
 				
 			}
 	    }
@@ -58,17 +64,18 @@ public class UserDaoDataSource implements UserDao{
 	}
 
 	@Override
-	public void ChangeAddress(int UID, String Address) throws SQLException {
+	public void ChangeAddress(int UID, String stato, String citta,
+			String provincia, String via, String numeroCivico, String cap) throws SQLException {
 		Connection connection = null;
 	    PreparedStatement preparedStatement = null;
 	    
 	    
-	    String selectSQL = "SELECT Indirizzo FROM " + UserDaoDataSource.TABLE_NAME + " WHERE ID = ?";
+	    String selectSQL = "SELECT * FROM " + UserDaoDataSource.TABLE_NAME + " WHERE ID = ?";
 	    
-	    String insertSQL = "INSERT INTO " + UserDaoDataSource.TABLE_NAME + " (Indirizzo) VALUES (?)";
+	    String insertSQL = "INSERT INTO " + UserDaoDataSource.TABLE_NAME + " (Stato,Citta,Provincia,Via,Numero_civico,Cap) VALUES (?,?,?,?,?,?)";
 
 	    // Query per l'aggiornamento dell'indirizzo
-	    String updateSQL = "UPDATE " + UserDaoDataSource.TABLE_NAME  + " SET Indirizzo = ? WHERE ID = ?";
+	    String updateSQL = "UPDATE " + UserDaoDataSource.TABLE_NAME  + " SET Stato = ?, Citta = ?, Provincia = ?, Via = ?, Numero_civico = ?, Cap = ? WHERE ID = ?";
 	    
 	    try {
 	        connection = ds.getConnection();
@@ -85,8 +92,13 @@ public class UserDaoDataSource implements UserDao{
 	            preparedStatement.close(); // Chiudi la query precedente
 
 	            preparedStatement = connection.prepareStatement(updateSQL);
-	            preparedStatement.setString(1, Address);
-	            preparedStatement.setInt(2, UID);
+	            preparedStatement.setString(1, stato);
+	            preparedStatement.setString(2, citta);
+	            preparedStatement.setString(3, provincia);
+	            preparedStatement.setString(4, via);
+	            preparedStatement.setString(5, numeroCivico);
+	            preparedStatement.setString(6, cap);
+	            preparedStatement.setInt(7, UID);
 	            preparedStatement.executeUpdate();
 	        } else {
 	        	
@@ -94,7 +106,12 @@ public class UserDaoDataSource implements UserDao{
 	            preparedStatement.close(); // Chiudi la query precedente
 
 	            preparedStatement = connection.prepareStatement(insertSQL);
-	            preparedStatement.setString(1, Address);
+	            preparedStatement.setString(1, stato);
+	            preparedStatement.setString(2, citta);
+	            preparedStatement.setString(3, provincia);
+	            preparedStatement.setString(4, via);
+	            preparedStatement.setString(5, numeroCivico);
+	            preparedStatement.setString(6, cap);
 	            preparedStatement.executeUpdate();
 	            
 	        }

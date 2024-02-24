@@ -50,15 +50,13 @@
             <th>Indirizzo di Spedizione</th>
             <td>
             <div id="currentAddress">
-            <%if(user.getIndirizzo()==null){ %>
+            <%if(user.getStato()==null){ %>
             	<button id="toggleButtonAddress" onclick="toggleAddressDropdown()">Inserire indirizzo</button>
-            <% } else { 
-            	String indirizzo = user.getIndirizzo();
-    			String[] campi = indirizzo.split("<br>");%>
-    			<strong>Nazione: </strong><%=campi[0]%><br>
-    			<strong>Indirizzo: </strong><%=campi[1]%> <%=campi[2]%><br>
-    			<strong>Città: </strong><%=campi[3]%> <%=campi[4]%><br>
-    			<strong>CAP: </strong><%=campi[5]%><br>
+            <% } else { %>
+    			<strong>Nazione: </strong><%=user.getStato()%><br>
+    			<strong>Indirizzo: </strong><%=user.getVia()%> <%=user.getNumeroCivico()%><br>
+    			<strong>Città: </strong><%=user.getCitta()%> <%=user.getProvincia()%><br>
+    			<strong>CAP: </strong><%=user.getCap()%><br>
            <% } %>	
         </div>
         
@@ -66,29 +64,27 @@
             <!-- Campi per l'indirizzo -->
              <form id="addressForm" action="PersonalAreaServlet" method="POST" onsubmit="return validateForm();">
     <!-- Campi per l'indirizzo -->
-    		<%if(user.getIndirizzo()==null) {%>
+    		<%if(user.getStato()==null) {%>
     			<input type="text" id="state" name="state" placeholder="Stato"><br>
     			<input type="text" id="street" name="street" placeholder="Via"><br>
     			<input type="text" id="number" name="number" placeholder="Numero civico"><br>
     			<input type="text" id="city" name="city" placeholder="Città"><br>
     			<input type="text" id="provincia" name="provincia" placeholder="Provincia"><br>
     			<input type="text" id="zip" name="zip" placeholder="CAP"><br>
-    		<%}else {
-    			String indirizzo = user.getIndirizzo();
-    			String[] campi = indirizzo.split("<br>");%>
-    			<input type="text" id="state" name="state" placeholder="Stato: <%=campi[0]%>"><br>
-    			<input type="text" id="street" name="street" placeholder="Via: <%=campi[1]%>"><br>
-    			<input type="text" id="number" name="number" placeholder="Numero civico: <%=campi[2]%>"><br>
-    			<input type="text" id="city" name="city" placeholder="Città: <%=campi[3]%>"><br>
-    			<input type="text" id="provincia" name="provincia" placeholder="Provincia: <%=campi[4]%>"><br>
-    			<input type="text" id="zip" name="zip" placeholder="CAP: <%=campi[5]%>"><br>
+    		<%}else {%>
+    			<input type="text" id="state" name="state" placeholder="Stato: <%=user.getStato()%>"><br>
+    			<input type="text" id="street" name="street" placeholder="Via: <%=user.getVia()%>"><br>
+    			<input type="text" id="number" name="number" placeholder="Numero civico: <%=user.getNumeroCivico()%>"><br>
+    			<input type="text" id="city" name="city" placeholder="Città: <%=user.getCitta()%>"><br>
+    			<input type="text" id="provincia" name="provincia" placeholder="Provincia: <%=user.getProvincia()%>"><br>
+    			<input type="text" id="zip" name="zip" placeholder="CAP: <%=user.getCap()%>"><br>
     		<%}%>
     <!-- Bottone per confermare l'aggiornamento -->
     		<input type="hidden" name="action" value="ChangeAddress">
     		<input type="submit" value ="Conferma">
 			</form>
         </div>
-        <%if(user.getIndirizzo()!=null){ %>
+        <%if(user.getStato()!=null){ %>
         <button id="toggleButtonAddress" onclick="toggleAddressDropdown()">Aggiorna indirizzo</button>
     	<% } %>
     </td>

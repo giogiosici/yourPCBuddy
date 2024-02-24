@@ -7,8 +7,12 @@ public class User {
     private String username;
     private String password;
 	private String email;
-	private String indirizzo;
-
+	private String stato;
+	private String citta;
+	private String provincia;
+	private String via;
+	private String numeroCivico;
+	private String cap;
 
     // Costruttore vuoto
     public User() {
@@ -20,14 +24,20 @@ public class User {
 
     
 
-	public User(String nome, String cognome, String username, String password, String email, String indirizzo) {
+	public User(String nome, String cognome, String username, String password, String email, String stato, String citta,
+			String provincia, String via, String numeroCivico, String cap) {
 		super();
 		this.nome = nome;
 		this.cognome = cognome;
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.indirizzo = indirizzo;
+		this.stato = stato;
+		this.citta = citta;
+		this.provincia = provincia;
+		this.via = via;
+		this.numeroCivico = numeroCivico;
+		this.cap = cap;
 	}
 
 
@@ -81,14 +91,53 @@ public class User {
 
    
 
-    public String getIndirizzo() {
-		return indirizzo;
+    public String getStato() {
+		return stato;
 	}
     
-	public void setIndirizzo(String indirizzo) {
-		this.indirizzo = indirizzo;
+	public void setStato(String stato) {
+		this.stato = stato;
 	}
 	
+	public String getCitta() {
+		return citta;
+	}
+	
+	public void setCitta(String citta) {
+		this.citta = citta;
+	}
+	
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public String getVia() {
+		return via;
+	}
+
+	public void setVia(String via) {
+		this.via = via;
+	}
+
+	public String getNumeroCivico() {
+		return numeroCivico;
+	}
+
+	public void setNumeroCivico(String numeroCivico) {
+		this.numeroCivico = numeroCivico;
+	}
+
+	public String getCap() {
+		return cap;
+	}
+
+	public void setCap(String cap) {
+		this.cap = cap;
+	}
 
 	public void setId(int id) {
 		this.id = id;
@@ -101,6 +150,31 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    public void setIndirizzo(String stato, String citta,
+			String provincia, String via, String numeroCivico, String cap) {
+    	this.stato=stato;
+    	this.citta=citta;
+    	this.provincia = provincia;
+    	this.via=via;
+    	this.numeroCivico = numeroCivico;
+    	this.cap = cap;
+    }
+
+
+
+
+
+
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", username=" + username + ", password="
+				+ password + ", email=" + email + ", stato=" + stato + ", citta=" + citta + ", provincia=" + provincia
+				+ ", via=" + via + ", numeroCivico=" + numeroCivico + ", cap=" + cap + "]";
+	}
+    
+    
     	
 }
 

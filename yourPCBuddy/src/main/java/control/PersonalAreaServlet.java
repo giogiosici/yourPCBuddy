@@ -40,6 +40,11 @@ public class PersonalAreaServlet extends HttpServlet {
 		Integer userId = (Integer)request.getSession().getAttribute("userId");
 		UserDao userDao = new UserDaoDataSource(ds);
 		
+		User user = (User) request.getSession().getAttribute("user");
+		request.setAttribute("user", user);
+			
+		System.out.println(user);
+		
 		if(userId==1) {
 			request.getRequestDispatcher("AdminPage.jsp").forward(request, response);
 		return;
@@ -47,17 +52,10 @@ public class PersonalAreaServlet extends HttpServlet {
 		
 		try {
 			String action = request.getParameter("action");
-			  User user = (User) request.getSession().getAttribute("user");
-			request.setAttribute("user", user);
-				
-			
+			  
 				if (action != null) {
 					if (action.equalsIgnoreCase("ChangeAddress")) {
-						
-						String oldAddress = user.getIndirizzo();
-						
-							String[] campi = oldAddress.split("<br>");
-				    	
+																    	
 							String stato,citta, provincia,via,numero,cap;
 
 							String statoParameter = request.getParameter("state");
@@ -70,36 +68,35 @@ public class PersonalAreaServlet extends HttpServlet {
 							if(!statoParameter.isEmpty())
 								stato=statoParameter;
 							else
-								stato = campi[0];
+								stato = user.getStato();
 						
 							if(!cittaParameter.isEmpty())
 								citta=cittaParameter;
 							else
-								citta = campi[1];
+								citta = user.getCitta();
 							if(!provinciaParameter.isEmpty())
 								provincia=provinciaParameter;
 							else
-								provincia = campi[2];
+								provincia = user.getProvincia();
 						
 							if(!viaParameter.isEmpty())
 								via=viaParameter;
 							else
-								via = campi[3];
+								via = user.getVia();
 						
 							if(!numberParameter.isEmpty())
 								numero=numberParameter;
 							else
-								numero = campi[4];
+								numero = user.getNumeroCivico();
 						
 							if(!capParameter.isEmpty())
 								cap=capParameter;
 							else
-								cap = campi[5];
+								cap = user.getCap();
 						
-							String Address = stato + "<br>" + via + "<br>" + numero +"<br>"+ citta + "<br>" + "(" +provincia +")" + "<br>" + cap;
 				
-							userDao.ChangeAddress(userId,Address);
-							user.setIndirizzo(Address);
+							userDao.ChangeAddress(userId,stato,citta,provincia,via,numero,cap);
+							user.setIndirizzo(stato,citta,provincia,via,numero,cap);
 						
 					}
 					else if(action.equalsIgnoreCase("changeEmail")) {
