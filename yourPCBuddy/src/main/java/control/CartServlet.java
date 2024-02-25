@@ -50,7 +50,6 @@ public class CartServlet extends HttpServlet {
 	
 	public CartServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -98,7 +97,6 @@ public class CartServlet extends HttpServlet {
 				request.getSession().setAttribute("cart", cart);
 
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace(); 
 			}
 

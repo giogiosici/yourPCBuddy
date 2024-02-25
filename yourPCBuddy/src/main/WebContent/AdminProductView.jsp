@@ -154,7 +154,7 @@ if (user == null)
 	</table>
 	<%
 		}
-	%>
+	%><% System.out.println(request.getAttribute("existingProduct")); %>
 		<div id="updateProduct" style ="display: none; ">
 	
     <h2>Aggiornamento Prodotto</h2>
@@ -163,7 +163,7 @@ if (user == null)
             <input type="hidden" name="id" id="productId"> 
             
             <label for="name">Nome:</label><br> 
-            <input name="name" type="text" maxlength="20" placeholder=""><br> <!-- Rimuovi il placeholder -->
+            <input name="name" type="text" maxlength="20" placeholder=""><br>
     
             <label for="description">Descrizione:</label><br>
             <textarea name="description" maxlength="100" rows="3"></textarea><br>
@@ -183,10 +183,10 @@ if (user == null)
             <label for="image">Immagine:</label><br>
             <input type="file" name="image" accept="image/*"><br>
             
-            <input type="submit" value="Aggiorna">
+            <button id="updateProductButton" type="button" onclick="updateProduct()">Aggiorna</button> 
             <input type="reset" value="Reset">
             
-            <button id="toggleButtonUpdate" type="button" onclick="toggleUpdateDropdown()">Annulla</button> <!-- Aggiunto ID al bottone Annulla -->
+            <button id="toggleButtonUpdate" type="button" onclick="toggleUpdateDropdown()">Annulla</button>
             
         </form>
         

@@ -29,7 +29,6 @@ public class CatalogServlet extends HttpServlet {
      */
     public CatalogServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 
