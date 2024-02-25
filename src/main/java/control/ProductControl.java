@@ -68,6 +68,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			PrintWriter out = response.getWriter();
 			
 		String action = request.getParameter("action");
+		System.out.println("action " + action);
+		System.out.println("id: " + request.getParameter("id"));
 		try {
 			if (action != null) {
 				if (action.equalsIgnoreCase("details")) {
@@ -81,7 +83,6 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 				}	else if(action.equalsIgnoreCase("pdate")) { //aggiorna vicino al prodotto
 					int id = Integer.parseInt(request.getParameter("id"));
 				    ProductBean existingProduct = productDao.doRetrieveByKey(id);
-				    System.out.println(existingProduct);
 					setStatus(response , responseMap , json , out , "existingProduct",existingProduct);
 				    // Converti gli altri attributi del prodotto allo stesso modo
 
@@ -92,8 +93,11 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					    request.setAttribute("existingProduct", null);
 				    
 				} else if (action.equalsIgnoreCase("update")) {
+					System.out.println("entro");
 					int id = Integer.parseInt(request.getParameter("id"));
 					ProductBean existingProduct = productDao.doRetrieveByKey(id);
+					System.out.println("id prodotto: " + id);
+					System.out.println(existingProduct);
 					double price;
 					int quantity;
 					int oldQuantity = existingProduct.getQuantity();
@@ -118,7 +122,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					//upload immagine
 					Part imagePart = request.getPart("image");
 			        String image = getFileName(imagePart); // Ottieni il nome dell'immagine
-			        String saveDirectory = "C:/Users/giogi/git/yourPCBuddy/yourPCBuddy/src/main/WebContent/Images";
+			        String saveDirectory = "C:/Users/giogi/git/yourPCBuddy/src/main/WebContent/Images";
 			        String imagePath = saveDirectory + File.separator + image; // Percorso per salvare l'immagine
 			        String targetPath = getServletContext().getRealPath("/" +"Images"+ File.separator + image);
 			        File fileToSave = new File(imagePath);
@@ -157,7 +161,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					//upload immagine
 					Part imagePart = request.getPart("image");
 			        String image = getFileName(imagePart); // Ottieni il nome dell'immagine
-			        String saveDirectory = "C:/Users/giogi/git/yourPCBuddy/yourPCBuddy/src/main/WebContent/Images";
+			        String saveDirectory = "C:/Users/giogi/git/yourPCBuddy/src/main/WebContent/Images";
 			        String imagePath = saveDirectory + File.separator + image; // Percorso per salvare l'immagine
 			        String targetPath = getServletContext().getRealPath("/" +"Images"+ File.separator + image);
 			        File fileToSave = new File(imagePath);

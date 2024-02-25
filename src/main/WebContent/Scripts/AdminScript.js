@@ -37,9 +37,14 @@ function toggleUpdateDropdown(productId) {
         insertDropdown.style.display = "none";
         toggleButtonInsert.innerHTML = "Inserisci prodotto";
         populateForm(productId); // Chiama populateForm() quando il menu di aggiornamento viene aperto
+         var updateButton = document.getElementById("updateProductButton");
+        updateButton.setAttribute("productId", productId);
+        
     } else {
         // Nascondi il menu di aggiornamento
         updateDropdown.style.display = "none";
+        updateButton.removeAttribute("productId");
+
         
     }
 }
@@ -82,26 +87,14 @@ function cancelUpdate() {
     toggleDropdown(); // Chiama la funzione per chiudere il dropdown
 }
 
-function updateProduct(productId){
-	$.ajax({
-        url: 'product', // Sostituisci con l'URL della tua servlet
-        type: 'POST',
-            dataType: 'json', // Specifica che ci si aspetta una risposta JSON
-
-        data: {  id : productId,
-            action: 'update',
-             // Azione per ottenere i dati del prodotto esistente
-            // Altri parametri se necessario
-        },
-        success: function(response) {
-            // Popola il form con i dati ottenuti dalla chiamata AJAX
-            var existingProduct = response.existingProduct;
-	
-            $('#updateProduct input[name="id"]').val(existingProduct.id);
-            
-        },
-        error: function(xhr, status, error) {
-            // Gestisci gli errori
-        }
-    });
+function submitUpdateForm() {
+    var productId = document.getElementById("updateProductButton").getAttribute("productId");
+    if (productId) {
+        // Imposta il valore di productId nel campo nascosto del modulo
+        document.getElementById("productIdField").value = productId;
+        // Invia il modulo
+        document.getElementById("updateProductForm").submit();
+    } else {
+        // Gestisci l'assenza di productId
+    }
 }

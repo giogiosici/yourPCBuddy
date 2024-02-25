@@ -154,39 +154,42 @@ if (user == null)
 	</table>
 	<%
 		}
-	%><% System.out.println(request.getAttribute("existingProduct")); %>
+	%>
+	
 		<div id="updateProduct" style ="display: none; ">
 	
     <h2>Aggiornamento Prodotto</h2>
-    <form action="product" method="post" enctype="multipart/form-data">
+    <form id="updateProductForm" action="product" method="post" enctype="multipart/form-data">
             <input type="hidden" name="action" value="update">
-            <input type="hidden" name="id" id="productId"> 
             
             <label for="name">Nome:</label><br> 
-            <input name="name" type="text" maxlength="20" placeholder=""><br>
+            <input id = "name" name="name" type="text" maxlength="20" placeholder=""><br>
     
             <label for="description">Descrizione:</label><br>
-            <textarea name="description" maxlength="100" rows="3"></textarea><br>
+            <textarea id="description" name="description" maxlength="100" rows="3"></textarea><br>
             
             <label for="price">Prezzo:</label><br> 
-            <input name="price" type="number"  step="0.01" min="0.00"><br>
+            <input id="price" name="price" type="number"  step="0.01" min="0.00"><br>
     
             <label for="quantity">Quantità:</label><br> 
-            <input name="quantity" type="number"><br>
+            <input id="quantity" name="quantity" type="number"><br>
             
             <label for="Categoria">Categoria:</label><br> 
-            <input name="Categoria" type="text" placeholder=""><br>
+            <input id = "categoria" name="Categoria" type="text" placeholder=""><br>
             
             <label for="Marca">Marca:</label><br> 
-            <input name="Marca" type="text" maxlength="20" placeholder=""><br>
+            <input id="marca" name="Marca" type="text" maxlength="20" placeholder=""><br>
             
             <label for="image">Immagine:</label><br>
-            <input type="file" name="image" accept="image/*"><br>
+            <input id="image" type="file" name="image" accept="image/*"><br>
             
-            <button id="updateProductButton" type="button" onclick="updateProduct()">Aggiorna</button> 
-            <input type="reset" value="Reset">
-            
-            <button id="toggleButtonUpdate" type="button" onclick="toggleUpdateDropdown()">Annulla</button>
+            <button id="updateProductButton" type="button" onclick="submitUpdateForm()">Aggiorna</button> 
+    <input type="reset" value="Reset">
+    
+    <button id="toggleButtonUpdate" type="button" onclick="toggleUpdateDropdown()">Annulla</button>
+    
+    <!-- Campo nascosto per memorizzare productId -->
+    <input type="hidden" id="productIdField" name="id" value="">
             
         </form>
         
@@ -225,4 +228,5 @@ if (user == null)
 	</div>
 	</div>
 </body>
+
 </html>

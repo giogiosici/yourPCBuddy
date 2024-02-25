@@ -35,7 +35,7 @@
 				src="./Images/<%=bean.getImage()%>" alt="Immagine" width="100" />
 			</a>
         <p><%=bean.getName()%></p>
-        <p><%= String.format("%.2f", bean.getPrice()) %></p>
+        <p><%= String.format("%.2f", bean.getPrice()) %> &euro;</p>
         <%if(bean.getQuantity()>0){ %>
         <form method="POST" class="IndexProduct">
             <input type="hidden" name="action" value="addC">

@@ -116,7 +116,7 @@ Collection<ProductBean> AllProducts = (Collection<ProductBean>) session.getAttri
 				src="./Images/<%=bean.getImage()%>" alt="Immagine" width="100" />
 			</a>
 			<p class="product-name"><%=bean.getName()%></p>
-			<p class="product-price"><%=String.format("%.2f", bean.getPrice())%></p>
+			<p class="product-price"><%=String.format("%.2f", bean.getPrice())%>  &euro;</p>
 			<%if(bean.getQuantity()>0){ %>
 			<form action="CartServlet" method="POST" class="CatalogProduct">
             <input type="hidden" name="action" value="addC">
