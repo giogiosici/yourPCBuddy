@@ -27,6 +27,8 @@ if (user == null)
 <head>
 <script src="./Scripts/Search.js"></script>
 <script src="./Scripts/AdminScript.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link href="Styles/AdminProduct.css" rel="stylesheet" type="text/css">
 	
@@ -85,12 +87,14 @@ if (user == null)
 			<td><%=bean.getCategoria()%></td>
 			<td><img src="Images/<%=bean.getImage()%>" width="100"></td>
 			<td>
-				<form action="product" method="post">
-           			<input type="hidden" name="driver" value="drivermanager">
-            		<input type="hidden" name="action" value="pdate">
-            		<input type="hidden" name="id" value="<%=bean.getCode()%>">
-           			<input type="submit" value="Aggiorna">
-        		</form>
+			<div class="dropdown">
+    <button id="toggleButtonUpdate" onclick="toggleUpdateDropdown(<%=bean.getCode()%>)" >Aggiorna</button>
+    <div id="myDropdown" class="dropdown-content">
+        <!-- Rimuovi la riga dell'ancora e sposta l'evento onclick direttamente sul bottone -->
+    </div>
+</div>
+
+			
         		<br>
         		<form action="product" method="post">
            			<input type="hidden" name="driver" value="drivermanager">
@@ -150,39 +154,44 @@ if (user == null)
 	</table>
 	<%
 		}
-	%><% if (request.getAttribute("existingProduct") != null) { %>
-		<div id="updateProduct">
+	%>
+		<div id="updateProduct" style ="display: none; ">
 	
     <h2>Aggiornamento Prodotto</h2>
     <form action="product" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="action" value="update">
-        <input type="hidden" name="id" value="<%=existingProduct.getCode()%>">
+            <input type="hidden" name="action" value="update">
+            <input type="hidden" name="id" id="productId"> 
+            
+            <label for="name">Nome:</label><br> 
+            <input name="name" type="text" maxlength="20" placeholder=""><br> <!-- Rimuovi il placeholder -->
+    
+            <label for="description">Descrizione:</label><br>
+            <textarea name="description" maxlength="100" rows="3"></textarea><br>
+            
+            <label for="price">Prezzo:</label><br> 
+            <input name="price" type="number"  step="0.01" min="0.00"><br>
+    
+            <label for="quantity">Quantità:</label><br> 
+            <input name="quantity" type="number"><br>
+            
+            <label for="Categoria">Categoria:</label><br> 
+            <input name="Categoria" type="text" placeholder=""><br>
+            
+            <label for="Marca">Marca:</label><br> 
+            <input name="Marca" type="text" maxlength="20" placeholder=""><br>
+            
+            <label for="image">Immagine:</label><br>
+            <input type="file" name="image" accept="image/*"><br>
+            
+            <input type="submit" value="Aggiorna">
+            <input type="reset" value="Reset">
+            
+            <button id="toggleButtonUpdate" type="button" onclick="toggleUpdateDropdown()">Annulla</button> <!-- Aggiunto ID al bottone Annulla -->
+            
+        </form>
         
-        <label for="name">Nome:</label><br> 
-        <input name="name" type="text" maxlength="20" placeholder="<%=existingProduct.getName()%>"><br> 
-
-        <label for="description">Descrizione:</label><br>
-		<textarea name="description" maxlength="100" rows="3"><%=existingProduct.getDescription() %></textarea><br>
-		
-		<label for="price">Prezzo:</label><br> 
-		<input name="price" type="number"  step="0.01" min="0.00" value="<%=String.format("%.2f",existingProduct.getPrice()) %>"><br>
-
-		<label for="quantity">Quantità:</label><br> 
-		<input name="quantity" type="number"><br>
-		
-		<label for="Categoria">Categoria:</label><br> 
-		<input name="Categoria" type="text" placeholder="<%=existingProduct.getCategoria()%>"><br>
-		
-		<label for="Marca">Marca:</label><br> 
-        <input name="Marca" type="text" maxlength="20" placeholder="<%=existingProduct.getBrand()%>"><br>
-		
-		<label for="image">Immagine:</label><br>
-  		<input type="file" name="image" accept="image/*"><br>
-        
-        <input type="submit" value="Aggiorna"><input type="reset" value="Reset"><input type="submit" name="action "value="Annulla"> 
-    </form>
     </div>
-<% } else { %>
+
 <div id="insertProduct" style="display: none;">
 
 	<h2>Inserimento</h2>
@@ -212,8 +221,7 @@ if (user == null)
   
 		<input type="submit" value="Aggiungi"><input type="reset" value="Reset">  <button id="toggleButtonInsert" onclick="toggleInsertDropdown()">Annulla</button>
 		
-	</form>
-	<% } %>
+</form>
 	</div>
 	</div>
 </body>

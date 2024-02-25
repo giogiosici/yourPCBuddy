@@ -7,10 +7,13 @@ import model.ProductDaoDataSource;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
+import java.util.HashMap;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -20,6 +23,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.sql.DataSource;
+
+import org.json.JSONObject;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 @MultipartConfig
 /**
@@ -56,9 +64,11 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 
 			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 			productDao = new ProductDaoDataSource(ds);
+			HashMap<String , ProductBean> responseMap = new HashMap<>();
+			Gson json = new Gson();
+			PrintWriter out = response.getWriter();
 			
 		String action = request.getParameter("action");
-
 		try {
 			if (action != null) {
 				if (action.equalsIgnoreCase("details")) {
@@ -72,9 +82,12 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 				}	else if(action.equalsIgnoreCase("pdate")) { //aggiorna vicino al prodotto
 					int id = Integer.parseInt(request.getParameter("id"));
 				    ProductBean existingProduct = productDao.doRetrieveByKey(id);
-				    
-				    request.setAttribute("existingProduct", existingProduct);
-				    
+				    System.out.println(existingProduct);
+					setStatus(response , responseMap , json , out , "existingProduct",existingProduct);
+				    // Converti gli altri attributi del prodotto allo stesso modo
+
+				    // Invia la risposta come JSON
+				    return;
 				} else if(action.equalsIgnoreCase("Annulla")) { //annulla vicino al prodotto
 					   	    
 					    request.setAttribute("existingProduct", null);
@@ -197,6 +210,14 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doPost(request, response);
+	}
+	
+	private static void setStatus(HttpServletResponse response, HashMap<String, ProductBean> responseMap, Gson json, PrintWriter out, String stato,ProductBean existingProduct) {
+		responseMap.put(stato, existingProduct);
+		String jsonResponse = json.toJson(responseMap);
+		response.setContentType("application/json");
+		out.write(jsonResponse);
+		out.flush();
 	}
 
 }
