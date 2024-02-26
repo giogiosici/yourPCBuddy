@@ -34,7 +34,7 @@ if (user == null)
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link href="Styles/AdminProduct.css" rel="stylesheet" type="text/css">
-	
+
 	<title>yourPCBuddy</title>
 </head>
 
@@ -64,7 +64,7 @@ if (user == null)
                 </div>
             </form>
         </div>
-        <button id="toggleButtonInsert" onclick="toggleInsertDropdown()">Inserisci prodotto</button>
+        <button id="toggleButtonInsert" class="button" onclick="toggleInsertDropdown()">Inserisci prodotto</button>
         
 	<table border="1">
 		<tr>
@@ -91,7 +91,7 @@ if (user == null)
 			<td><img src="Images/<%=bean.getImage()%>" width="100"></td>
 			<td>
 			<div class="sideButtons">
-    <button id="toggleButtonUpdate" onclick="toggleUpdateDropdown(<%=bean.getCode()%>)" >Aggiorna</button>
+    <button id="toggleButtonUpdate" class="button" onclick="toggleUpdateDropdown(<%=bean.getCode()%>)" >Aggiorna</button>
     <div id="myDropdown" class="dropdown-content">
     </div>
 
@@ -105,17 +105,13 @@ if (user == null)
            			<input type="submit" value="Rimuovi">
        			</form>
         	<br>
-        		<button id="toggleButtonDetails" onclick="toggleDetailsDropdown(<%=bean.getCode()%>)" >Dettagli</button>
+        		<button id="toggleButtonDetails" class="button" onclick="toggleDetailsDropdown(<%=bean.getCode()%>)" >Dettagli</button>
 
         	
         		</div>
    			</td>
 		</tr>
-		<tr class="product-details-row" style="display: none;">
-    <td colspan="6">
-        <div class="product-details-container" style="display: none;"></div>
-    </td>
-</tr>
+		
 		<%
 				}
 			} else {
@@ -129,7 +125,9 @@ if (user == null)
 	</table>
 	
 	<div id="detailsTable" style="display: none;">
-    <h2>Dettagli</h2>
+	<div = id= "detailsRow">
+    <h2>Dettagli</h2>	        <button id="toggleCloseDetails" onclick="cancelDetails()">Chiudi</button>
+    </div>
     <table border="1">
         <tr>
             <th>Codice</th>
@@ -181,12 +179,11 @@ if (user == null)
             <label for="image">Immagine:</label><br>
             <input id="image" type="file" name="image" accept="image/*"><br>
             
-            <button id="updateProductButton" type="button" onclick="submitUpdateForm()">Aggiorna</button> 
+            <button id="updateProductButton" class="button" type="button" onclick="submitUpdateForm()">Aggiorna</button> 
     <input type="reset" value="Reset">
     
-    <button id="toggleButtonUpdate" type="button" onclick="toggleUpdateDropdown()">Annulla</button>
+    <button id="toggleButtonUpdate" class="button" type="button" onclick="cancelUpdate()">Annulla</button>
     
-    <!-- Campo nascosto per memorizzare productId -->
     <input type="hidden" id="productIdField" name="id" value="">
             
         </form>
@@ -220,7 +217,7 @@ if (user == null)
 		<label for="image">Immagine:</label><br>
   		<input type="file" name="image" accept="image/*" required><br>
   
-		<input type="submit" value="Aggiungi"><input type="reset" value="Reset">  <button id="toggleButtonInsert" onclick="toggleInsertDropdown()">Annulla</button>
+		<input type="submit" value="Aggiungi"><input type="reset" value="Reset">  <button id="toggleButtonInsert" class="button" onclick="cancelInsert()">Annulla</button>
 		
 </form>
 	</div>

@@ -11,7 +11,7 @@ body {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  background-color: #007BFF;
+  background-color: #228CD6;
   padding: 10px;
 }
 
@@ -37,7 +37,7 @@ body {
 }
 
 #adminNav form:hover input[type="submit"] {
-  color: #007BFF;
+  color: #228CD6;
   border: 1px solid white;
   background-color: transparent;
 }
@@ -51,10 +51,36 @@ body {
   margin-top: 10px;
 }
 
+#detailsRow {
+  position: relative;
+}
+
+#toggleCloseDetails {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+  padding: 5px 10px;
+    background-color: #228CD6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+#toggleCloseDetails:hover{
+  color: #228CD6;
+  border: 1px solid white;
+  background-color: white;
+}
+
 h2 {
   color: #333;
   padding: 10px;
-  background-color: #007BFF;
+  background-color: #228CD6;
   margin: 0;
 }
 
@@ -94,7 +120,7 @@ h2 {
   padding: 10px;
   border: none;
   background-color: transparent;
-  color: #007BFF;
+  color: #228CD6;
   border-radius: 50%;
   cursor: pointer;
   margin-left: 10px;
@@ -123,7 +149,7 @@ h2 {
 
 .top-buttons__button {
   padding: 10px;
-  background-color: #007BFF;
+  background-color: #228CD6;
   color: white;
   border: none;
   border-radius: 5px;
@@ -138,7 +164,7 @@ h2 {
 input[type="submit"].top-buttons__button
  {
     padding: 10px;
-    background-color: #007BFF;
+    background-color: #228CD6;
     color: white;
     border: none;
     border-radius: 5px;
@@ -183,7 +209,7 @@ input[type="file"] {
 input[type="submit"],
 input[type="reset"] {
     padding: 10px;
-    background-color: #007BFF;
+    background-color: #228CD6;
     color: white;
     border: none;
     border-radius: 5px;
@@ -232,7 +258,7 @@ input[type="reset"]:hover {
     padding: 10px;
     border: none;
     background-color: transparent;
-    color: #007BFF;
+    color: #228CD6;
     border-radius: 50%;
     cursor: pointer;
     margin-left: 10px;
@@ -261,7 +287,7 @@ td {
 }
 
 th {
-  background-color: #007BFF;
+  background-color: #228CD6;
   color: white;
 }
 
@@ -310,9 +336,9 @@ tr:hover {
     height: 100%;
     width: auto;
 }
-#toggleButtonInsert {
+.button {
   padding: 10px;
-  background-color: #007BFF;
+  background-color: #228CD6;
   color: white;
   border: none;
   border-radius: 5px;

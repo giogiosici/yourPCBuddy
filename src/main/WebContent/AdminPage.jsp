@@ -5,6 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+	<link href="Styles/AdminPage.css" rel="stylesheet" type="text/css">
+
 <title>Admin Page</title>
 </head>
 <%
@@ -17,7 +19,7 @@ else if (user.getId() == 1) {
 }
 %>
 <body>
-
+<div id="adminNav">
 <form action="LogoutServlet" method="POST">
         <input type="submit" value="Logout">
     </form>
@@ -29,5 +31,6 @@ else if (user.getId() == 1) {
 	<form action="AdminOrderView.jsp" method="post">
 		<input type="submit" value="Ordini">
 	</form>
+	</div>
 </body>
 </html>

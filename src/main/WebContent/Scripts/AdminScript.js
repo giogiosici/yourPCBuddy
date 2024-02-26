@@ -42,7 +42,6 @@ function toggleUpdateDropdown(productId) {
         
     } else {
         // Nascondi il menu di aggiornamento
-        updateDropdown.style.display = "none";
         updateButton.removeAttribute("productId");
 
         
@@ -84,7 +83,6 @@ function populateForm(productId) {
 
 function cancelUpdate() {
     document.getElementById("updateProduct").style.display = "none"; // Nasconde il form
-    toggleDropdown(); // Chiama la funzione per chiudere il dropdown
 }
 
 function submitUpdateForm() {
@@ -165,4 +163,7 @@ function populateDetails(productId) {
             // Gestisci gli errori
         }
     });
+}
+function cancelDetails() {
+    document.getElementById("detailsTable").style.display = "none"; // Nasconde il form
 }
