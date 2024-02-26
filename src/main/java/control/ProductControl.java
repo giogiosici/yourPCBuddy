@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
@@ -26,7 +25,6 @@ import javax.sql.DataSource;
 
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 @MultipartConfig
 /**
@@ -73,9 +71,12 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		try {
 			if (action != null) {
 				if (action.equalsIgnoreCase("details")) {
+					System.out.println("entra");
 					int id = Integer.parseInt(request.getParameter("id"));
-					request.removeAttribute("product");
-					request.setAttribute("product", productDao.doRetrieveByKey(id));
+					System.out.println(productDao.doRetrieveByKey(id));
+					ProductBean product = productDao.doRetrieveByKey(id);
+					setStatus(response , responseMap , json , out , "product",product);
+					return;
 				} else if (action.equalsIgnoreCase("delete")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					productDao.doDelete(id);

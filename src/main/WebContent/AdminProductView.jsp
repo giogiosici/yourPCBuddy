@@ -27,6 +27,9 @@ if (user == null)
 <head>
 <script src="./Scripts/Search.js"></script>
 <script src="./Scripts/AdminScript.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -87,12 +90,11 @@ if (user == null)
 			<td><%=bean.getCategoria()%></td>
 			<td><img src="Images/<%=bean.getImage()%>" width="100"></td>
 			<td>
-			<div class="dropdown">
+			<div class="sideButtons">
     <button id="toggleButtonUpdate" onclick="toggleUpdateDropdown(<%=bean.getCode()%>)" >Aggiorna</button>
     <div id="myDropdown" class="dropdown-content">
-        <!-- Rimuovi la riga dell'ancora e sposta l'evento onclick direttamente sul bottone -->
     </div>
-</div>
+
 
 			
         		<br>
@@ -103,16 +105,17 @@ if (user == null)
            			<input type="submit" value="Rimuovi">
        			</form>
         	<br>
-        		<form action="product" method="post">
-           			<input type="hidden" name="driver" value="drivermanager">
-            		<input type="hidden" name="action" value="details">
-            		<input type="hidden" name="id" value="<%=bean.getCode()%>">
-           			<input type="submit" value="Dettagli">
-        		</form>
+        		<button id="toggleButtonDetails" onclick="toggleDetailsDropdown(<%=bean.getCode()%>)" >Dettagli</button>
+
         	
-        		
+        		</div>
    			</td>
 		</tr>
+		<tr class="product-details-row" style="display: none;">
+    <td colspan="6">
+        <div class="product-details-container" style="display: none;"></div>
+    </td>
+</tr>
 		<%
 				}
 			} else {
@@ -125,37 +128,32 @@ if (user == null)
 		%>
 	</table>
 	
-	
-	<%
-		if (product != null) {
-	%>
-	<h2>Dettagli</h2>
-	<table border="1">
-		<tr>
-			<th>Codice</th>
-			<th>Marca</th>
-			<th>Nome</th>
-			<th>immagine</th>
-			<th>Descrizione</th>
-			<th>Prezzo</th>
-			<th>Quantità</th>
-			<th>Categoria</th>
-		</tr>
-		<tr>
-			<td><%=product.getCode()%></td>
-			<td><%=product.getBrand()%></td>
-			<td><%=product.getName()%></td>
-			<td><img src="Images/<%=product.getImage()%>" width="100"></td>
-			<td><%=product.getDescription()%></td>
-			<td><%= String.format("%.2f", product.getPrice()) %></td>
-			<td><%=product.getQuantity()%></td>
-			<td><%=product.getCategoria()%></td>
-		</tr>
-	</table>
-	<%
-		}
-	%>
-	
+	<div id="detailsTable" style="display: none;">
+    <h2>Dettagli</h2>
+    <table border="1">
+        <tr>
+            <th>Codice</th>
+            <th>Marca</th>
+            <th>Nome</th>
+            <th>immagine</th>
+            <th>Descrizione</th>
+            <th>Prezzo</th>
+            <th>Quantità</th>
+            <th>Categoria</th>
+        </tr>
+        <tr>
+            <td id="code"></td>
+            <td id="brand"></td>
+            <td id="name"></td>
+            <td><img id="image" src="" width="100"></td>
+            <td id="description"></td>
+            <td id="price"></td>
+            <td id="quantity"></td>
+            <td id="categoria"></td>
+        </tr>
+    </table>
+</div>
+
 		<div id="updateProduct" style ="display: none; ">
 	
     <h2>Aggiornamento Prodotto</h2>

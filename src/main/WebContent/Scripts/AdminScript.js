@@ -25,7 +25,7 @@ function cancelInsert() {
     dropdown.style.display = "none";
 }
 
-//prova
+//update
 function toggleUpdateDropdown(productId) {
     var insertDropdown = document.getElementById("insertProduct");
     var updateDropdown = document.getElementById("updateProduct");
@@ -37,7 +37,7 @@ function toggleUpdateDropdown(productId) {
         insertDropdown.style.display = "none";
         toggleButtonInsert.innerHTML = "Inserisci prodotto";
         populateForm(productId); // Chiama populateForm() quando il menu di aggiornamento viene aperto
-         var updateButton = document.getElementById("updateProductButton");
+        var updateButton = document.getElementById("updateProductButton");
         updateButton.setAttribute("productId", productId);
         
     } else {
@@ -92,9 +92,77 @@ function submitUpdateForm() {
     if (productId) {
         // Imposta il valore di productId nel campo nascosto del modulo
         document.getElementById("productIdField").value = productId;
-        // Invia il modulo
-        document.getElementById("updateProductForm").submit();
+        
+        // Mostra l'alert di SweetAlert
+        Swal.fire({
+            title: 'Successo!',
+            text: 'Prodotto aggiornato con successo!',
+            icon: 'success',
+            confirmButtonText: 'Ok'
+        }).then((result) => {
+            // Questa funzione viene chiamata dopo che l'utente ha cliccato "Ok"
+            if (result.value) {
+                // Invia il modulo
+                document.getElementById("updateProductForm").submit();
+            }
+        });
     } else {
         // Gestisci l'assenza di productId
+        Swal.fire({
+            title: 'Errore!',
+            text: 'ID prodotto non trovato. Impossibile aggiornare.',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+        });
     }
+}
+
+//prova
+function toggleDetailsDropdown(productId) {
+    var detailsDropdown = document.getElementById("detailsTable");
+    var toggleButtonDetails = document.getElementById("toggleButtonDetails");
+
+    if (detailsDropdown.style.display === "none") {
+        // Mostra il menu di aggiornamento e nascondi quello di inserimento
+       	detailsDropdown.style.display = "block";        
+       populateDetails(productId); // Chiama populateForm() quando il menu di aggiornamento viene aperto
+
+    } else {
+        // Nascondi il menu di aggiornamento
+        detailsDropdown.style.display = "none";       
+    }
+}
+
+function populateDetails(productId) {
+    console.log("showtime");
+    $.ajax({
+        url: 'product',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            id: productId,
+            action: 'details'
+        },
+       success: function(response) {
+    var product = response.product;
+    if (product) {
+        $('#code').text(product.code);
+        $('#brand').text(product.brand);
+        $('#name').text(product.name);
+        $('#image').attr('src', 'Images/' + product.image);
+        $('#description').text(product.description);
+        $('#price').text(product.price.toFixed(2));
+        $('#quantity').text(product.quantity);
+        $('#categoria').text(product.categoria);
+        
+        $('#detailsTable').show();
+    } else {
+        console.log('Il prodotto è nullo.');
+    }
+},
+
+        error: function(xhr, status, error) {
+            // Gestisci gli errori
+        }
+    });
 }
