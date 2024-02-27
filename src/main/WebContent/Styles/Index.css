@@ -3,13 +3,15 @@ body, h1, h2, p, form, img {
   margin: 0;
   padding: 0;
   border: 0;
+  
+  
 }
 
 /* Global Styles */
 body {
   font-family: Arial, sans-serif;
-  background-color: #fff; /* Bianco */
-  color: #333; /* Grigio scuro */
+background-color: #d0dbdf; 
+ color: #333; /* Grigio scuro */
   line-height: 1.6;
 }
 

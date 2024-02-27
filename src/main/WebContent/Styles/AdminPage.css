@@ -1,49 +1,52 @@
-body{
-    background-image: url("../Images/SfondoAdmin.png");
-    background-size: 84% auto; /* Larghezza al 100% dell'area del body e altezza automatica */
-    position: relative;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    background-color: #d0dbdf;/**/
-
-  }
-#adminNav {
-    position: relative;
-    overflow: hidden;
-    height: 60px; /* Aggiunta l'altezza */
+*{margin: 0;
+padding: 0;
+box-sizing: border-box;
 }
 
+body {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: 1fr auto 1fr;
+  min-height: 100vh;
+  background-image: url("../Images/SfondoAdmin.png");
+  background-size: 1200px auto;
+  position: relative;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-color: #d0dbdf;
+}
+
+#adminNav {
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 2rem;
+    margin-top: -235px;
+    margin-right: -325px;
+    align-self: start;
+    justify-self: end;
+}
+
+
 #adminNav form {
-    position: absolute;
     margin-right: 10px;
 }
 
 #adminNav input[type="submit"] {
-    background-color: #228CD6;
-    border: none;
-        border-radius: 5px;
-    color: white;
-    padding: 10px 24px;
-    text-align: center;
-    text-decoration: none;
-    display: block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-
-#adminNav form:nth-child(1) {
-    top: 20px;
-    left: 20px;
-}
-
-#adminNav form:nth-child(2) {
-    top: 20px;
-    left: 120px;
-}
-
-#adminNav form:nth-child(3) {
-    top: 20px;
-    left: 220px;
+  background-color: #228CD6;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 6px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  width: 15rem;
 }
