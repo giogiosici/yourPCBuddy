@@ -17,6 +17,9 @@ public interface IProductDao {
 	public Collection<ProductBean> doRetrieveAll() throws SQLException;
 	
 	public Collection<ProductBean> doRetrieveLastProducts() throws SQLException;
+	
+	public Collection<ProductBean> doRetrieveConsigliati(ProductBean product) throws SQLException;
+
 
 }
 

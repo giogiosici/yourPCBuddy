@@ -1,103 +1,51 @@
-/* Reset CSS */
-body, h1, h2, p, form, img {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  
-  
-}
-
-/* Global Styles */
-body {
-  font-family: Arial, sans-serif;
-background-color: #d0dbdf; 
- color: #333; /* Grigio scuro */
-  line-height: 1.6;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* Header Styles */
-.header {
-  background-color: #3498db; /* Azzurro */
-  color: #fff;
-  padding: 20px;
-  text-align: center;
-}
-
-/* Navigation Bar Styles */
-#navBar {
-  background-color: #333; /* Grigio scuro */
-  overflow: hidden;
-}
-
-#navBar form {
-  float: left;
-}
-
-#navBar input[type="submit"] {
-  background-color: #3498db; /* Azzurro */
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
-  margin: 10px;
-  cursor: pointer;
-}
-
-#navBar input[type="submit"]:hover {
-  background-color: #2980b9; /* Azzurro più scuro */
-}
-
-/* Ultime Aggiunte Styles */
 .ultimeAggiunte {
+  margin-top: 50px;
   padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.IndexProduct {
+#IndexProductContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+#IndexProduct {
+  width: 250px;
+  margin: 10px;
+  text-align: center;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#IndexProduct img {
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+#IndexProduct p {
+  margin: 5px 0;
+}
+
+#IndexProduct form {
   margin-top: 10px;
 }
 
-/* Responsive Styles */
-@media screen and (max-width: 768px) {
-  #navBar form {
-    float: none;
-    display: block;
-    text-align: center;
-  }
+#IndexProduct input[type="submit"] {
+  padding: 10px;
+  background-color: #228CD6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
 
-  #navBar input[type="submit"] {
-    display: block;
-    margin: 10px auto;
-  }
-
-  /* Burger Menu Styles */
-  .burger-menu {
-    display: none;
-    cursor: pointer;
-  }
-
-  .burger-menu div {
-    width: 30px;
-    height: 3px;
-    background-color: #3498db; /* Azzurro */
-    margin: 6px 0;
-  }
-
-  /* Show burger menu when screen size is smaller */
-  .nav-links {
-    display: none;
-    text-align: center;
-  }
-
-  .nav-links a {
-    display: block;
-    padding: 10px;
-  }
-
-  .show-menu .nav-links {
-    display: block;
-  }
+#IndexProduct input[type="submit"]:hover {
+  background-color: #0069d9;
 }

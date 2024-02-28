@@ -1,0 +1,72 @@
+h1, h2 {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #228CD6;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table th {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+  background-color: #f2f2f2;
+}
+
+table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+table td img {
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+table th:first-child,
+table td:first-child {
+  width: 15%;
+}
+
+table th:nth-child(2),
+table td:nth-child(2) {
+  width: 35%;
+}
+
+table th:nth-child(3),
+table td:nth-child(3) {
+  width: 50%;
+}
+
+table th:last-child,
+table td:last-child {
+  text-align: right;
+}
+
+table tr:last-child td:last-child {
+  font-weight: bold;
+  background-color : #f2f2f2;
+}
+
+table tr:last-child td:last-child::before {
+  content: "€";
+}
+
+table tr:last-child td:last-child::after {
+  content: ",00";
+}
+
+table tr:last-child td:last-child::before,
+table tr:last-child td:last-child::after {
+  color: #228CD6;
+}
+
+table tr:last-child td:last-child {
+  color: #228CD6;
+}

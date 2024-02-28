@@ -1,0 +1,74 @@
+#dettagliProdotto {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+#dettagliProdotto .nome {
+  float: right;
+  margin-right: 10px;
+}
+
+#dettagliProdotto .prezzo {
+  float: right;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+#dettagliProdotto .prezzo::before {
+  content: "€";
+  color: #228CD6;
+}
+
+#dettagliProdotto .prezzo::after {
+  content: ",00";
+  color: #228CD6;
+}
+
+#dettagliProdotto .prezzo {
+  color: #228CD6;
+}
+
+#consigliatiProductContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 10px;
+}
+
+.consigliatiProduct {
+  text-align: center;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.consigliatiProduct img {
+  border-radius: 5px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 100%;
+}
+
+.consigliatiProduct .nome {
+  float: right;
+}
+
+.consigliatiProduct .prezzo {
+  float: right;
+  font-weight: bold;
+}
+
+.consigliatiProduct .prezzo::before {
+  content: "€";
+  color: #228CD6;
+}
+
+.consigliatiProduct .prezzo::after {
+  content: ",00";
+  color: #228CD6;
+}
+
+.consigliatiProduct .prezzo {
+  color: #228CD6;
+}

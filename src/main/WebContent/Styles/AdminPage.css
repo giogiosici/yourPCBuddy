@@ -9,7 +9,7 @@ body {
   grid-template-rows: 1fr auto 1fr;
   min-height: 100vh;
   background-image: url("../Images/SfondoAdmin.png");
-  background-size: 72rem auto;
+  background-size: 75rem auto;
   position: relative;
   background-repeat: no-repeat;
   background-attachment: fixed;

@@ -1,104 +1,207 @@
-/* Reset CSS */
-body, h1, h2, p, form, img {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-/* Global Styles */
+/* General styles */
 body {
   font-family: Arial, sans-serif;
-background-color: #d0dbdf;  
-color: #333; /* Grigio scuro */
-  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #d0dbdf;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
+/* Header styles */
 header {
-  background-color: #3498db; /* Azzurro */
-  color: #fff;
-  padding: 20px 0;
-  text-align: center;
-}
-
-.logo {
-  max-width: 80px; /* Riduci la larghezza massima del logo */
-  margin-bottom: 10px; /* Aggiungi margine inferiore per separare il logo dagli altri elementi */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #228CD6;
 }
 
 #logo {
-  flex: 1 1 30rem;
+  object-fit: cover;
 }
 
-/* Navigation Bar Styles */
+#logo img {
+  display: block;
+  margin: 0 auto;
+  width: 9rem;
+}
+
 #navBar {
-  background-color: #333; /* Grigio scuro */
-  overflow: hidden;
-  flex: 1 1 30rem;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
+  background-color: #228CD6;
 }
 
-#navBar form {
-  float: left;
-}
-
-#navBar input[type="submit"] {
-  background-color: #3498db; /* Azzurro */
-  color: #fff;
+input[type="submit"] {
+  padding: 10px;
+  background-color: #228CD6;
+  color: white;
   border: none;
-  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+input[type="submit"].top-buttons__button:hover {
+  background-color: #0069d9;
+}
+
+#navBar form.top-buttons__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 5px;
+  margin-left: 10px;
+  cursor: pointer;
+  background-color: transparent;
+  padding: 10px;
+  margin: 0 10px;
+}
+
+#navBar input[type="submit"].top-buttons__button {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid white;
+  padding: 20px 35px;
   margin: 10px;
   cursor: pointer;
 }
 
-#navBar input[type="submit"]:hover {
-  background-color: #2980b9; /* Azzurro più scuro */
+/*hover bianco*/
+#navBar input[type="submit"].top-buttons__button:hover {
+  background-color: white;
+  color: #228CD6;
+  transform: translate3d(0, 0, 0);
 }
 
-/* Responsive Styles */
-@media screen and (max-width: 768px) {
-  #navBar form {
-    float: none;
-    display: block;
-    text-align: center;
+/* Stile per i bottoni in alto */
+.top-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.top-buttons__button {
+  padding: 10px;
+  background-color: #228CD6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.top-buttons__button:hover {
+  background-color: #0069d9;
+}
+
+/* Search form styles */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 75%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  overflow: hidden;
+  background-color : #f2f2f2;
+}
+
+.search__input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  box-sizing: border-box;
+  outline: none;
+  font-size: 16px;
+  background-color: #f2f2f2;
+  padding-right: 40rem;
+}
+
+.search__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: none;
+  background-color: transparent;
+  color: #228CD6;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.search__button:hover {
+  background-color: #ddd;
+}
+
+.search__icon {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.search__close {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* Adjust layout for screens smaller than 768px */
+  header {
+    flex-direction: column;
+    align-items: center;
   }
 
-  #navBar input[type="submit"] {
-    display: block;
-    margin: 10px auto;
+  #logo {
+    margin-bottom: 10px;
   }
 
-  /* Burger Menu Styles */
-  .burger-menu {
-    display: none;
-    cursor: pointer;
+  #navBar {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
 
-  .burger-menu div {
-    width: 30px;
-    height: 3px;
-    background-color: #3498db; /* Azzurro */
-    margin: 6px 0;
+  #navBar input[type="submit"].top-buttons__button {
+    margin: 10px 0;
+    padding: 10px 20px;
   }
 
-  /* Show burger menu when screen size is smaller */
-  .nav-links {
-    display: none;
-    text-align: center;
+  .container {
+    width: 100%;
   }
 
-  .nav-links a {
-    display: block;
+  .search {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .search__input {
     padding: 10px;
+    padding-right: 2rem;
   }
 
-  .show-menu .nav-links {
-    display: block;
+  .search__button {
+    margin: 10px 0;
   }
 }
+
+@media (max-width: 480px) {
+  /* Adjust layout for screens smaller than 480px */
+  #logo img {
+    width: 6rem;
+  }
+
+  .top-buttons__button {
+    padding: 10px;
+    font-size: 14px;
+  }
+} 

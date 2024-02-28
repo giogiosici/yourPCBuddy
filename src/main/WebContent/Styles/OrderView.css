@@ -1,0 +1,92 @@
+.order {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.order h2 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #228CD6;
+}
+
+.order table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.order th {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+  background-color: #f2f2f2;
+}
+
+.order td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.order td img {
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.order th:first-child,
+.order td:first-child {
+  width: 15%;
+}
+
+.order th:nth-child(2),
+.order td:nth-child(2) {
+  width: 35%;
+}
+
+.order th:nth-child(3),
+.order td:nth-child(3) {
+  width: 15%;
+}
+
+.order th:nth-child(4),
+.order td:nth-child(4) {
+  width: 15%;
+  text-align: right;
+}
+
+.order th:last-child,
+.order td:last-child {
+  text-align: right;
+}
+
+.order tr:last-child td:last-child {
+  font-weight: bold;
+}
+
+
+
+.order tr:last-child td:last-child::before,
+.order tr:last-child td:last-child::after {
+  color: #228CD6;
+}
+
+.order .stato {
+  font-weight: bold;
+}
+
+.order input[type="submit"] {
+    padding: 10px;
+    background-color: #228CD6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    width: 40rem; 
+}

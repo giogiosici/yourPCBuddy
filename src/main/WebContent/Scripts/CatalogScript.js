@@ -57,6 +57,18 @@ function searchAndFilter() {
 
 window.onload = searchAndFilter;
 
+//searchbar da un'altra pagina
+window.onload = function() {
+    const storedSearchQuery = localStorage.getItem('searchQuery');
+    if (storedSearchQuery) {
+        const searchInput = document.getElementById('search-input');
+        searchInput.value = storedSearchQuery;
+        localStorage.removeItem('searchQuery');
+	
+    }
+    searchAndFilter();
+};
+
 /*=============== Filtri prodotti JS ===============*/
 // Funzione per filtrare i prodotti per prezzo
 

@@ -11,7 +11,7 @@
 <body>
 	<header>
 	<div id="logo">
-		<img src="./Images/PCBuddy.png" alt="logo sito">
+		<img src="./Images/logoSito2.png" alt="logo sito">
 	</div>
 		<div id="navBar">
 		<%
@@ -20,34 +20,44 @@
 		
 		if (path.contains("/index.jsp")) {
 		%>
-		<h1>yourPCBuddy</h1>
-		<p>Benvenuti su yourPCBuddy</p>
+		
+		
+<div class="container">
+    <form id="search-form" class="search" action="CatalogServlet" method="POST">
+        <input id="search-input" type="search" name="q" placeholder="Type something..." class="search__input">
+        <div class="search__button" id="search-button">
+            <i class="ri-search-2-line search__icon"></i>
+            <i class="ri-close-line search__close"></i>
+        </div>
+    </form>
+</div>
+
 
 		
 			<%
 			if (session.getAttribute("username") != null) {
 			%>
 			<form action="LogoutServlet" method="POST">
-				<input type="submit" value="Logout">
+				<input type="submit" value="Logout" class="top-buttons__button">
 			</form>
 			<form action="PersonalAreaServlet" method="POST">
-				<input type="submit" value="Area Personale">
+				<input type="submit" value="Area Personale" class="top-buttons__button">
 			</form>
 
 			<%
 			} else {
 			%>
 			<form action="LoginScreen.jsp" method="POST">
-				<input type="submit" value="Accedi o registrati">
+				<input type="submit" value="Accedi o registrati" class="top-buttons__button">
 			</form>
 			<%
 			}
 			%>
 			<form action="CartServlet" method="post">
-				<input type="submit" value="Carrello">
+				<input type="submit" value="Carrello" class="top-buttons__button">
 			</form>
 			<form action="CatalogServlet" method="post">
-				<input type="submit" value="Catalogo">
+				<input type="submit" value="Catalogo" class="top-buttons__button">
 			</form>
 		
 		<%
@@ -55,13 +65,13 @@
 		%>
 		
 			<form action="CartServlet" method="post">
-				<input type="submit" value="Carrello">
+				<input type="submit" value="Carrello" class="top-buttons__button">
 			</form>
 			<form action="CatalogServlet" method="post">
-				<input type="submit" value="Catalogo">
+				<input type="submit" value="Catalogo" class="top-buttons__button">
 			</form>
 			<form action="index.jsp" method="POST">
-				<input type="submit" value="Home">
+				<input type="submit" value="Home" class="top-buttons__button">
 			</form>
 		
 		<%
@@ -69,13 +79,13 @@
 		%>
 		
 			<form action="CartServlet" method="post">
-				<input type="submit" value="Carrello">
+				<input type="submit" value="Carrello" class="top-buttons__button">
 			</form>
 			<form action="CatalogServlet" method="post">
-				<input type="submit" value="Catalogo">
+				<input type="submit" value="Catalogo" class="top-buttons__button">
 			</form>
 			<form action="index.jsp" method="POST">
-				<input type="submit" value="Home">
+				<input type="submit" value="Home" class="top-buttons__button">
 			</form>
 		
 		<%
@@ -83,19 +93,19 @@
 		%>
 		
 			<form action="CartServlet" method="post">
-				<input type="submit" value="Carrello">
+				<input type="submit" value="Carrello" class="top-buttons__button">
 			</form>
 			<form action="LogoutServlet" method="POST">
-				<input type="submit" value="Logout">
+				<input type="submit" value="Logout" class="top-buttons__button">
 			</form>
 			<form action="index.jsp" method="POST">
-				<input type="submit" value="Home">
+				<input type="submit" value="Home" class="top-buttons__button">
 			</form>
 			<form action="PersonalAreaServlet" method="POST">
-				<input type="submit" value="Area Personale">
+				<input type="submit" value="Area Personale" class="top-buttons__button">
 			</form>
 			<form action="CatalogServlet" method="post">
-				<input type="submit" value="Catalogo">
+				<input type="submit" value="Catalogo" class="top-buttons__button">
 			</form>
 		
 		<%
@@ -103,19 +113,19 @@
 		%>
 		
 			<form action="CartServlet" method="post">
-				<input type="submit" value="Carrello">
+				<input type="submit" value="Carrello" class="top-buttons__button">
 			</form>
 			<form action="LogoutServlet" method="POST">
-				<input type="submit" value="Logout">
+				<input type="submit" value="Logout" class="top-buttons__button">
 			</form>
 			<form action="index.jsp" method="POST">
-				<input type="submit" value="Home">
+				<input type="submit" value="Home" class="top-buttons__button">
 			</form>
 			<form action="OrderServlet" method="POST">
-				<input type="submit" name="action" value="Storico ordini">
+				<input type="submit" name="action" value="Storico ordini" class="top-buttons__button">
 			</form>
 			<form action="CatalogServlet" method="post">
-				<input type="submit" value="Catalogo">
+				<input type="submit" value="Catalogo" class="top-buttons__button">
 			</form>
 		
 		<%
@@ -123,28 +133,28 @@
 		%>
 		
 			<form action="index.jsp" method="POST">
-				<input type="submit" value="Home">
+				<input type="submit" value="Home" class="top-buttons__button">
 			</form>
 			<%
 			if (session.getAttribute("username") != null) {
 			%>
 			<form action="LogoutServlet" method="POST">
-				<input type="submit" value="Logout">
+				<input type="submit" value="Logout" class="top-buttons__button">
 			</form>
 			<form action="PersonalAreaServlet" method="POST">
-				<input type="submit" value="Area Personale">
+				<input type="submit" value="Area Personale" class="top-buttons__button">
 			</form>
 			<%
 			} else {
 			%>
 			<form action="LoginScreen.jsp" method="POST">
-				<input type="submit" value="Accedi o registrati">
+				<input type="submit" value="Accedi o registrati" class="top-buttons__button">
 			</form>
 			<%
 			}
 			%>
 			<form action="CartServlet" method="post">
-				<input type="submit" value="Carrello">
+				<input type="submit" value="Carrello" class="top-buttons__button">
 			</form>
 		
 		<%
@@ -152,28 +162,28 @@
 		%>
 		
 			<form action="index.jsp" method="POST">
-				<input type="submit" value="Home">
+				<input type="submit" value="Home" class="top-buttons__button">
 			</form>
 			<%
 			if (session.getAttribute("username") != null) {
 			%>
 			<form action="LogoutServlet" method="POST">
-				<input type="submit" value="Logout">
+				<input type="submit" value="Logout" class="top-buttons__button">
 			</form>
 			<form action="PersonalAreaServlet" method="POST">
-				<input type="submit" value="Area Personale">
+				<input type="submit" value="Area Personale" class="top-buttons__button">
 			</form>
 			<%
 			} else {
 			%>
 			<form action="LoginScreen.jsp" method="POST">
-				<input type="submit" value="Accedi o registrati">
+				<input type="submit" value="Accedi o registrati" class="top-buttons__button">
 			</form>
 			<%
 			}
 			%>
 			<form action="CatalogServlet" method="post">
-				<input type="submit" value="Catalogo">
+				<input type="submit" value="Catalogo" class="top-buttons__button">
 			</form>
 		
 			
@@ -182,16 +192,16 @@
 			%>
 			
 	<form action="CartServlet" method="post">
-		<input type="submit" value="Carrello">
+		<input type="submit" value="Carrello" class="top-buttons__button">
 	</form>
 	<form action="LogoutServlet" method="POST">
-        <input type="submit" value="Logout">
+        <input type="submit" value="Logout" class="top-buttons__button">
     </form>
    	<form action="index.jsp" method="POST">
-        <input type="submit" value="Home">
+        <input type="submit" value="Home" class="top-buttons__button">
     </form>
     <form action="CatalogServlet" method="post">
-				<input type="submit" value="Catalogo">
+				<input type="submit" value="Catalogo" class="top-buttons__button">
 			</form>
 		
 
@@ -200,32 +210,32 @@
 			%>
 			
 			<form action="index.jsp" method="POST">
-				<input type="submit" value="Home">
+				<input type="submit" value="Home" class="top-buttons__button">
 			</form>
 			<%
 			if (session.getAttribute("username") != null) {
 			%>
 			<form action="LogoutServlet" method="POST">
-				<input type="submit" value="Logout">
+				<input type="submit" value="Logout" class="top-buttons__button">
 			</form>
 			<form action="PersonalAreaServlet" method="POST">
-				<input type="submit" value="Area Personale">
+				<input type="submit" value="Area Personale" class="top-buttons__button">
 			</form>
 
 			<%
 			} else {
 			%>
 			<form action="LoginScreen.jsp" method="POST">
-				<input type="submit" value="Accedi o registrati">
+				<input type="submit" value="Accedi o registrati" class="top-buttons__button">
 			</form>
 			<%
 			}
 			%>
 			<form action="CartServlet" method="post">
-				<input type="submit" value="Carrello">
+				<input type="submit" value="Carrello" class="top-buttons__button">
 			</form>
 			<form action="CatalogServlet" method="post">
-				<input type="submit" value="Catalogo">
+				<input type="submit" value="Catalogo" class="top-buttons__button">
 			</form>
 		
 

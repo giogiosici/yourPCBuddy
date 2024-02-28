@@ -35,3 +35,29 @@ $(document).ready(function() {
 	});
 });
 
+//barra di ricerca
+
+document.addEventListener('DOMContentLoaded', function() {
+	localStorage.removeItem('searchQuery');
+    const searchForm = document.getElementById('search-form');
+    searchForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Evita il comportamento predefinito del modulo
+
+        // Recupera il valore di ricerca inserito dall'utente
+        const searchInput = document.getElementById('search-input');
+        const searchQuery = searchInput.value.trim();
+
+        // Verifica se il valore di ricerca non è vuoto
+        if (searchQuery !== '') {
+            // Salva il valore di ricerca in localStorage
+            localStorage.setItem('searchQuery', searchQuery);
+
+            // Invia il modulo
+            this.submit();
+        }
+    });
+});
+
+
+
+

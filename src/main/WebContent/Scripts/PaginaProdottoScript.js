@@ -1,3 +1,7 @@
+function redirectToProduct(productId) {
+	window.location.href = 'PaginaProdotto.jsp?productId=' + productId;
+}
+
 $(document).ready(function() {
 	
 	$('.DetailsProduct').submit(function(e) {

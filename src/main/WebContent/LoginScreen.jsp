@@ -5,6 +5,8 @@
 <head>
 <% String errorMessage = (String) request.getAttribute("errorMessage"); %>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link href="Styles/LoginScreen.css" rel="stylesheet" type="text/css">
+
 <meta charset="ISO-8859-1">
 <title>Login Page</title>
 <jsp:include page="Header.jsp" flush="true"/>
@@ -13,8 +15,8 @@
 <body>
 
 <main>
-
-<form action="Login" method="POST">
+<div id="Login">
+<form action="Login" method="POST" >
 		<label for="username">Username:</label>
 		<input type="text" id="username" name="username" required><br><br>
 
@@ -24,7 +26,7 @@
   </form>
   
   <p>Non sei registrato? Registrati <a href="RegisterPage.jsp">qui</a></p>
-
+</div>
 </main>
 </body>
 <script>

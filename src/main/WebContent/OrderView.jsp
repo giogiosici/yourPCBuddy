@@ -13,6 +13,8 @@ User user = (User) request.getSession().getAttribute("user");
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="./Scripts/OrderScripts.js"></script>
 <meta charset="ISO-8859-1" >
+<link href="Styles/OrderView.css" rel="stylesheet" type="text/css">
+
 <title>Checkout</title>
 <jsp:include page="Header.jsp" flush="true"/>
 
@@ -36,7 +38,7 @@ User user = (User) request.getSession().getAttribute("user");
             <tr>
                 <td><img src="./Images/<%= beanOrder.getImage() %>" alt="Immagine" width="100" /></td>
                 <td><%=beanOrder.getName()%></td>
-                <td><%= String.format(Locale.US, "%.2f", beanOrder.getPrice()) %></td>
+                <td><%= String.format(Locale.US, "%.2f", beanOrder.getPrice()) %> &euro;</td>
                 <td>
     				<%=beanOrder.getQuantity()%>
                 </td>
@@ -67,10 +69,11 @@ User user = (User) request.getSession().getAttribute("user");
         </td>
         </tr>
 </table>
-</div>
-	<form action="OrderServlet" method="POST">
+<form action="OrderServlet" method="POST">
 	<input type="hidden" name="action" value="Acquista">
-        <input type="submit" value="Acquista">
+        <input type="submit" value="Acquista" class="checkout">
     </form>
+</div>
+	
 </body>
 </html>

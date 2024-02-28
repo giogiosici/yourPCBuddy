@@ -237,4 +237,49 @@ public class ProductDaoDataSource implements IProductDao {
 		}
 		return products;
 	}
+	
+	public synchronized Collection<ProductBean> doRetrieveConsigliati(ProductBean product) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<ProductBean> products = new LinkedList<ProductBean>();
+
+		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE Categoria = ? OR Marca = ? AND Nome != ? ORDER BY RAND() LIMIT 5 ";
+
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, product.getCategoria());
+			preparedStatement.setString(2, product.getBrand());
+			preparedStatement.setString(3, product.getName());
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				ProductBean bean = new ProductBean();
+
+				bean.setCode(rs.getInt("ID"));
+				bean.setName(rs.getString("Nome"));
+				bean.setDescription(rs.getString("Descrizione"));
+				bean.setPrice(rs.getDouble("Prezzo"));
+				bean.setQuantity(rs.getInt("QuantitaDisponibile"));
+				bean.setCategoria(rs.getString("Categoria"));
+				bean.setImage(rs.getString("Immagine"));
+				bean.setBrand(rs.getString("Marca"));
+				products.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return products;
+	}
 }
+

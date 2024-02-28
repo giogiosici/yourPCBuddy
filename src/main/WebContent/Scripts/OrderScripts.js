@@ -1,3 +1,7 @@
+function redirectToProduct(productId) {
+	window.location.href = 'PaginaProdotto.jsp?productId=' + productId;
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     // Controlla se l'utente ha un indirizzo
     var userHasAddress = document.getElementById("indirizzo").innerHTML;

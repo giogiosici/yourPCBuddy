@@ -1,0 +1,117 @@
+.PA {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.PA h2 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #228CD6;
+}
+
+.PA table {
+  width: 65rem;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.PA th {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+  background-color: #f2f2f2;
+  width: 25%;
+}
+
+.PA td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+  width: 25%;
+}
+
+.PA td button {
+  padding: 10px;
+  background-color: #228CD6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  width : 100%;
+}
+
+.PA td button:hover {
+  background-color: #0069d9;
+}
+
+.PA #emailDropdown {
+  margin-top: 10px;
+}
+
+.PA #addressDropdown {
+  margin-top: 10px;
+}
+
+.PA #emailForm input[type="email"] {
+  width: 95%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.PA #addressForm input[type="text"]{
+  width: 95%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.PA #addressForm input[type="submit"] {
+  padding: 10px;
+  background-color: #228CD6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.PA #addressForm input[type="submit"]:hover {
+  background-color: #0069d9;
+}
+
+.PA #addressForm input[type="button"] {
+  padding: 10px;
+  background-color: #f2f2f2;
+  color: #228CD6;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+  width: 48%;
+}
+
+.PA #addressForm input[type="button"]:hover {
+  background-color: #e6e6e6;
+}
+
+.PA a {
+  color: #228CD6;
+  text-decoration: none;
+}
+
+.PA a:hover {
+  text-decoration: underline;
+}

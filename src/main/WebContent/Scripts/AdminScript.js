@@ -117,22 +117,37 @@ function submitUpdateForm() {
 
 //prova
 function toggleDetailsDropdown(productId) {
-    var detailsDropdown = document.getElementById("detailsTable");
-    var toggleButtonDetails = document.getElementById("toggleButtonDetails");
+    var toggleButton = document.querySelector('#toggleButtonDetails[data-product-id="' + productId + '"]');
+    // Trova il parentElement (la riga) del bottone
+    var productRow = toggleButton.parentElement.parentElement.parentElement;
+    // Trova la tabella dei dettagli
+    var detailsTable = document.getElementById('detailsTable');
 
-    if (detailsDropdown.style.display === "none") {
+    if (detailsTable.style.display === "none" || detailsTable.parentElement !== productRow.nextSibling) {
+        // Nascondi eventuali altre tabelle dei dettagli visualizzate
+        var displayedDetailsTables = document.querySelectorAll('.details-table');
+        displayedDetailsTables.forEach(function(table) {
+            table.style.display = 'none';
+        });
+
+        // Rimuovi la tabella dei dettagli dalla sua posizione attuale
+        if (detailsTable.parentElement) {
+            detailsTable.parentElement.removeChild(detailsTable);
+        }
+        
+        // Inserisci la tabella dei dettagli sotto la riga del prodotto
+        productRow.parentNode.insertBefore(detailsTable, productRow.nextSibling);
         // Mostra il menu di aggiornamento e nascondi quello di inserimento
-       	detailsDropdown.style.display = "block";        
+       	detailsTable.style.display = "block";        
        populateDetails(productId); // Chiama populateForm() quando il menu di aggiornamento viene aperto
 
     } else {
         // Nascondi il menu di aggiornamento
-        detailsDropdown.style.display = "none";       
+        detailsTable.style.display = "none";       
     }
 }
 
 function populateDetails(productId) {
-    console.log("showtime");
     $.ajax({
         url: 'product',
         type: 'POST',
@@ -167,3 +182,25 @@ function populateDetails(productId) {
 function cancelDetails() {
     document.getElementById("detailsTable").style.display = "none"; // Nasconde il form
 }
+
+// Codice per gestire la richiesta AJAX e mostrare l'alert con il messaggio di errore
+function handleError() {
+    // Esegui una richiesta AJAX per ottenere l'errore dal backend
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "product", true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 500) {
+            var errorMessage = xhr.responseText;
+            // Mostra un alert con il messaggio di errore
+            alert(errorMessage);
+        }
+    };
+    xhr.send();
+}
+
+document.getElementById("insertProduct").addEventListener("submit", function (event) {
+    // Interrompi l'invio del form
+    event.preventDefault();
+    // Chiamata alla funzione per gestire l'errore
+    handleError();
+});

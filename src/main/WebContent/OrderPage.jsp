@@ -7,6 +7,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="Styles/OrderPage.css" rel="stylesheet" type="text/css">
+
     <meta charset="UTF-8">
     <title>Elenco Ordini</title>
     <jsp:include page="Header.jsp"/>

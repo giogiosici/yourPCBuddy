@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.servlet.jsp.ErrorData;
 import javax.sql.DataSource;
 
 
@@ -62,18 +63,19 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 			productDao = new ProductDaoDataSource(ds);
 			HashMap<String , ProductBean> responseMap = new HashMap<>();
+			HashMap<String , String> responseString = new HashMap<>();
+
 			Gson json = new Gson();
 			PrintWriter out = response.getWriter();
 			
+			String nameError="";
+			
 		String action = request.getParameter("action");
-		System.out.println("action " + action);
-		System.out.println("id: " + request.getParameter("id"));
+		
 		try {
 			if (action != null) {
 				if (action.equalsIgnoreCase("details")) {
-					System.out.println("entra");
 					int id = Integer.parseInt(request.getParameter("id"));
-					System.out.println(productDao.doRetrieveByKey(id));
 					ProductBean product = productDao.doRetrieveByKey(id);
 					setStatus(response , responseMap , json , out , "product",product);
 					return;
@@ -94,11 +96,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					    request.setAttribute("existingProduct", null);
 				    
 				} else if (action.equalsIgnoreCase("update")) {
-					System.out.println("entro");
 					int id = Integer.parseInt(request.getParameter("id"));
 					ProductBean existingProduct = productDao.doRetrieveByKey(id);
-					System.out.println("id prodotto: " + id);
-					System.out.println(existingProduct);
+					
 					double price;
 					int quantity;
 					int oldQuantity = existingProduct.getQuantity();
@@ -152,13 +152,16 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 					productDao.doUpdate(bean);
 					
 				} else if (action.equalsIgnoreCase("insert")) {
+					
+					
 					String name = request.getParameter("name");
 					String description = request.getParameter("description");
 					double price = Double.parseDouble(request.getParameter("price"));
 					int quantity = Integer.parseInt(request.getParameter("quantity"));
 					String Categoria = request.getParameter("Categoria");
 					String brand = request.getParameter("Marca"); 
-					
+					nameError="Duplicate entry '" + name + "' for key 'product.Nome'";
+
 					//upload immagine
 					Part imagePart = request.getPart("image");
 			        String image = getFileName(imagePart); // Ottieni il nome dell'immagine
@@ -196,6 +199,15 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			}			
 		} catch (SQLException e) {
 			System.out.println("Error:" + e.getMessage());
+			if(e.getMessage().equals(nameError)) {
+				// Invia l'errore al frontend tramite una richiesta AJAX
+		        String errorMessage = e.getMessage();
+		        // Codice per inviare l'errore al frontend, potrebbe variare a seconda del framework o della libreria utilizzata per gestire le richieste HTTP
+		        // Ad esempio, se stai utilizzando Spring Framework:
+		        // Utilizza HttpServletResponse per inviare l'errore al frontend
+		        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		        response.getWriter().write(errorMessage);
+			}
 		}
 
 		
@@ -224,4 +236,11 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		out.flush();
 	}
 
+	private static void setStatus(HttpServletResponse response, HashMap<String, String> responseMap, Gson json, PrintWriter out, String stato,String error) {
+		responseMap.put(stato, error);
+		String jsonResponse = json.toJson(responseMap);
+		response.setContentType("application/json");
+		out.write(jsonResponse);
+		out.flush();
+	}
 }

@@ -20,6 +20,8 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="./Scripts/CartScript.js"></script>
+<link href="Styles/Carrello.css" rel="stylesheet" type="text/css">
+
 <meta charset="UTF-8">
 <title>Carrello</title>
 <jsp:include page="Header.jsp" flush="true"/>
@@ -48,10 +50,11 @@
             <tr>
                 <td><img src="./Images/<%= beancart.getImage() %>" alt="Immagine" width="100" /></td>
                 <td><%=beancart.getName()%></td>
-                <td><%= String.format(Locale.US, "%.2f", beancart.getPrice()) %></td>
+                <td><%= String.format(Locale.US, "%.2f", beancart.getPrice()) %> &euro;</td>
                 <td>
     				<%=beancart.getQuantity()%>
                 </td>
+                
                 <td>
                     <form action="CartServlet" method="POST" class="removeOneFromCartForm">
                         <input type="hidden" name="action" value="deleteC">

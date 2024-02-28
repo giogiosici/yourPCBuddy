@@ -28,7 +28,7 @@ if (user == null)
 <script src="./Scripts/Search.js"></script>
 <script src="./Scripts/AdminScript.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -65,7 +65,7 @@ if (user == null)
             </form>
         </div>
         <button id="toggleButtonInsert" class="button" onclick="toggleInsertDropdown()">Inserisci prodotto</button>
-        
+
 	<table border="1">
 		<tr>
 			<th>Codice</th>
@@ -83,6 +83,7 @@ if (user == null)
 					String imagePath = "Images\\" + bean.getImage();
 				
 		%>
+		
 		<tr class="product-row">
 			<td><%=bean.getCode()%></td>
 			<td class="product-name"><%=bean.getName()%></td>
@@ -105,7 +106,7 @@ if (user == null)
            			<input type="submit" value="Rimuovi">
        			</form>
         	<br>
-        		<button id="toggleButtonDetails" class="button" onclick="toggleDetailsDropdown(<%=bean.getCode()%>)" >Dettagli</button>
+        		<button id="toggleButtonDetails" class="button" data-product-id="<%=bean.getCode()%>" onclick="toggleDetailsDropdown(<%=bean.getCode()%>)" >Dettagli</button>
 
         	
         		</div>
@@ -125,7 +126,7 @@ if (user == null)
 	</table>
 	
 	<div id="detailsTable" style="display: none;">
-	<div = id= "detailsRow">
+	<div id= "detailsRow">
     <h2>Dettagli</h2>	        <button id="toggleCloseDetails" onclick="cancelDetails()">Chiudi</button>
     </div>
     <table border="1">
@@ -217,7 +218,7 @@ if (user == null)
 		<label for="image">Immagine:</label><br>
   		<input type="file" name="image" accept="image/*" required><br>
   
-		<input type="submit" value="Aggiungi"><input type="reset" value="Reset">  <button id="toggleButtonInsert" class="button" onclick="cancelInsert()">Annulla</button>
+		<input id="insertProductButton" type="submit" value="Aggiungi"><input type="reset" value="Reset">  <button id="toggleButtonInsert" class="button" onclick="cancelInsert()">Annulla</button>
 		
 </form>
 	</div>

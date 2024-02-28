@@ -8,6 +8,8 @@
 <head>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="./Scripts/PAScripts.js"></script>
+<link href="Styles/PersonalArea.css" rel="stylesheet" type="text/css">
+
 <meta charset="ISO-8859-1">
 <title>Area Personale</title>
 <jsp:include page="Header.jsp" flush="true"/>
