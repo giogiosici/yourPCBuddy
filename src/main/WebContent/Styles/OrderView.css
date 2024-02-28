@@ -1,3 +1,7 @@
+th,td,span {
+	color : #228CD6;
+}
+
 .order {
   display: flex;
   flex-direction: column;

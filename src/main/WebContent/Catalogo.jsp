@@ -40,12 +40,12 @@ Collection<ProductBean> AllProducts = (Collection<ProductBean>) session.getAttri
 	<div class="price-input-container">
 		<div class="price-input">
 			<div class="price-field">
-				<span>Minimum Price</span> <input type="number" class="min-input"
+				<span>Da</span> <input type="number" class="min-input"
 					value="100" onchange="sliderCatalogo()" min="0" max="5000">
 			</div>
 			<!-- price-field 1 -->
 			<div class="price-field">
-				<span>Maximum Price</span> <input type="number" class="max-input"
+				<span>A</span> <input type="number" class="max-input"
 					value="2000" onchange="sliderCatalogo()" min="0" max="5000">
 			</div>
 			<!-- price-field 2 -->
@@ -71,7 +71,7 @@ Collection<ProductBean> AllProducts = (Collection<ProductBean>) session.getAttri
 	
 	<div class="checkbox">
 		<form>
-		<h4>categorie</h4>
+		<h4>Categorie</h4>
     <% 
         if (AllProducts != null && !AllProducts.isEmpty()) { 
             Set<String> uniqueCategories = new HashSet<>();
@@ -89,7 +89,7 @@ Collection<ProductBean> AllProducts = (Collection<ProductBean>) session.getAttri
     <%
             }
             %>
-            <h4>marche</h4>
+            <h4>Marche</h4>
             <%
             for (String brand : uniqueBrands) {
     %>

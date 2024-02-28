@@ -1,3 +1,8 @@
+th, td{
+	  color: #228CD6;
+	
+}
+
 .cart {
   display: flex;
   flex-direction: column;

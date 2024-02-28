@@ -1,53 +1,84 @@
+h2{
+	text-align-last: center;
+}
+
 #dettagliProdotto {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  min-height : 30vh;
+  
+}
+
+#dettagliProdotto img {
+  margin-right: 20px;
+  margin-left: 10px;
+  border: 1px solid #f2f2f2;
+  background-color: #d0dbdf;
+  padding: 0.7rem;
+  border-radius: 15px;
 }
 
 #dettagliProdotto .nome {
-  float: right;
-  margin-right: 10px;
+  margin-left: auto;
+  margin-right: 0;
 }
 
 #dettagliProdotto .prezzo {
-  float: right;
-  font-weight: bold;
-  margin-right: 10px;
+  margin-left: auto;
+  margin-right: 0;
 }
 
-#dettagliProdotto .prezzo::before {
-  content: "€";
-  color: #228CD6;
-}
 
-#dettagliProdotto .prezzo::after {
-  content: ",00";
-  color: #228CD6;
-}
 
-#dettagliProdotto .prezzo {
-  color: #228CD6;
+#descrizione {
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 20px;
 }
 
 #consigliatiProductContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 30px;
 }
 
-.consigliatiProduct {
+#consigliatiProduct {
+  width: 250px;
+  margin: 10px;
   text-align: center;
-  background-color: #fff;
+  background-color: #f2f2f2;
   border-radius: 5px;
   padding: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.consigliatiProduct img {
+#consigliatiProduct img {
   border-radius: 5px;
   margin-bottom: 10px;
+}
+
+#consigliatiProduct p {
+  margin: 5px 0;
+}
+
+#consigliatiProduct form {
+  margin-top: 10px;
+}
+
+#consigliatiProduct input[type="submit"] {
+  padding: 10px;
+  background-color: #228CD6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
   margin-right: 10px;
-  width: 100%;
 }
 
 .consigliatiProduct .nome {
@@ -71,4 +102,8 @@
 
 .consigliatiProduct .prezzo {
   color: #228CD6;
+}
+
+#aggiungiAlCarrello {
+  margin-top: 20px;
 }

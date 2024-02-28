@@ -1,7 +1,10 @@
+th,td,span {
+	color : #228CD6;
+}
+
 h1, h2 {
-  margin-top: 50px;
+  margin-top: 25px;
   margin-bottom: 20px;
-  font-size: 2rem;
   color: #228CD6;
 }
 

@@ -9,11 +9,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="Styles/AdminProduct.css" rel="stylesheet" type="text/css">
+
     <meta charset="UTF-8">
     <title>Ordini</title>
 </head>
 <body>
-<div id=navbar>
+<div id="adminNav">
 <form action="LogoutServlet" method="POST">
         <input type="submit" value="Logout">
     </form>
@@ -30,43 +32,69 @@
     orderDao = new OrderDaoDataSource(ds);
     List<Order> orders = orderDao.DoRetrieveAllOrder();
     %>
-
+	
+	<div id="filtri">
+			<h5>Filtri</h5>
+			<div class="user-search">
+				<label>Id: </label> <input type="text" id="searchInput"
+					placeholder="inserire l'id utente..." onkeyup="filterRows()">
+			</div>
+			<div>
+				<label>da </label> <input type="date" id="startDateInput"
+					onchange="filterRows()" /> <label>a </label> <input type="date"
+					id="endDateInput" onchange="filterRows()" />	
+			</div>
+		</div>
+	<div id="adminContent">
     <h2>Ordini</h2>
 
     <%
     if (orders != null && !orders.isEmpty()) {
         for (Order order : orders) {
     %>
-    <h3>Ordine <%= order.getCode() %></h3>
-    <h4>Utente: <%=order.getUserId() %></h4>
-    
-    <p>Data e ora: <%= order.getDateTime() %></p>
     
     
-    <!-- Mostra i dettagli dei prodotti per questo ordine -->
-    <ul>
-        <%
+    
+	
+
+	<table border="1">
+	<h3>Ordine N°: <%= order.getCode() %></h3>
+    
+    
+    <h4>Data e ora: <%= order.getDateTime() %><h4>
+		<tr>
+			<th>Id Utente</th>
+			<th>Immagine</th>
+			<th>Nome </th>
+			<th>Quantità</th>
+			<th>Prezzo Totale</th>
+			
+		</tr>
+		<%
         List<ProductBean> products = order.getProducts();
         if (products != null && !products.isEmpty()) {
             for (ProductBean product : products) {
         %>
-            <li><img src="./Images/<%=product.getImage() %>" width="80" height="80"> 
-            <%= product.getName() %> - Quantità: <%= product.getQuantity() %> - 
-        	<p>Totale: <%= String.format("%.2f", order.getTotalPrice()) %></p>
-        	</li>
-        <%
+		
+		<tr class="order-row">
+			<td><%=order.getUserId() %></td>
+			<td><img src="Images/<%=product.getImage()%>" width="100"></td>
+			<td class="product-name"><%=product.getName()%></td>
+			<td><%=product.getQuantity()%></td>
+			<td><%=String.format("%.2f", order.getTotalPrice())%> &euro;</td>
+			</tr>
+			
+    <%
             }
         }
         %>
-    </ul>
-
+    
     <%
         }
-    } else {
-    %>
-        <p>Nessun ordine disponibile</p>
-    <%
     }
     %>
+    
+    </table>
+    </div>
 </body>
 </html>

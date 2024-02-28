@@ -3,6 +3,15 @@ body{
 		
 }
 
+h4{
+	font-size : 18px;
+}
+
+h4, label, h2 {
+	color : #228CD6;
+	font-weight : bold;
+}
+
 #filtri {
   display: flex;
   flex : 1 1 10rem;
@@ -36,22 +45,30 @@ body{
 }
 
 .schedaProdotto {
-  flex: 1 1 250px;
-  margin: 10px;
-  text-align: center;
+    /* flex: 1 1 200px; */
+    margin: 10px;
+    /* text-align: center; */
+    width: 200px;
+    /* margin: 10px; */
+    text-align: center;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .product-name {
   margin: 10px 0;
   font-size: 18px;
   font-weight: bold;
+  color : #228CD6;
 }
 
 .product-price {
   margin: 10px 0;
   font-size: 16px;
   font-weight: bold;
-  color: green;
+  color: #228CD6;
 }
 
 
@@ -78,7 +95,8 @@ body{
 .price-field span { 
 	margin-right: 10px; 
 	margin-top: 6px; 
-	font-size: 17px; 
+	font-size: 16px; 
+	font-weight : bold;
 } 
 
 .price-field input { 
@@ -89,13 +107,14 @@ body{
     border-radius: 9px;
     text-align: center;
     border: 0px;
-    background: #e4e4e4; 
+    background: #e4e4e4;
+    color : #228CD6;
 } 
 
 .price-input { 
 	width: 100%;
     font-size: 19px;
-    color: #555; 
+    color: #228CD6; 
 } 
 
 /* Remove Arrows/Spinners */
