@@ -4,7 +4,7 @@ function redirectToProduct(productId) {
 
 document.addEventListener("DOMContentLoaded", function () {
     // Controlla se l'utente ha un indirizzo
-    var userHasAddress = document.getElementById("indirizzo").innerHTML;
+    var userHasAddress = document.getElementById("stato").innerHTML;
     
     // Se l'utente non ha un indirizzo, mostra l'alert
     if (userHasAddress.trim() === "null") {

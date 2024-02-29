@@ -6,6 +6,12 @@ body {
   background-color: #f2f2f2;
 }
 
+#allTableOrder th{
+	font-weight: bold;
+	color : #228CD6;
+	font-size: 10px;
+}
+
 /* Admin navigation styles */
 #adminNav {
   display: flex;

@@ -6,10 +6,22 @@
 <%@ page import="model.OrderDaoDataSource"%>
 <%@ page import="model.Order"%>
 <%@ page import="model.ProductBean" %>
+<%@ page import="model.User" %>
+
+<%
+
+
+User user = (User) session.getAttribute("user");
+int flag = 0;
+if (user == null)
+	response.sendRedirect("LoginScreen.jsp");
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
 	<link href="Styles/AdminProduct.css" rel="stylesheet" type="text/css">
+<script src="./Scripts/AdminOrderScript.js"></script>
 
     <meta charset="UTF-8">
     <title>Ordini</title>
@@ -58,10 +70,11 @@
 	
 
 	<table border="1">
+	<thead>
 	<h3>Ordine N°: <%= order.getCode() %></h3>
     
-    
-    <h4>Data e ora: <%= order.getDateTime() %><h4>
+    <h4>Data e ora: <%= order.getDateTime() %>
+    </h4>
 		<tr>
 			<th>Id Utente</th>
 			<th>Immagine</th>
@@ -70,13 +83,15 @@
 			<th>Prezzo Totale</th>
 			
 		</tr>
+		</thead>
+		<tbody id="container">
 		<%
         List<ProductBean> products = order.getProducts();
         if (products != null && !products.isEmpty()) {
             for (ProductBean product : products) {
         %>
 		
-		<tr class="order-row">
+		<tr class="order-row" data-utente = <%=order.getUserId() %> data-giorno=<%= order.getDateTime() %>>
 			<td><%=order.getUserId() %></td>
 			<td><img src="Images/<%=product.getImage()%>" width="100"></td>
 			<td class="product-name"><%=product.getName()%></td>

@@ -70,16 +70,16 @@ public class RegisterServlet extends HttpServlet {
 				   request.getRequestDispatcher("RegisterPage.jsp?error=email_exists").forward(request, response);
 					    return; // Termina l'esecuzione della servlet
 				}
+				else {
+					userDao.doSaveUser(new User(nome,cognome,username,password,email));
+					request.getRequestDispatcher("RegisterPage.jsp?error=registration").forward(request, response);
+				    return; // Termina l'esecuzione della servlet
+			}
+				
 			} catch (SQLException | ServletException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			try {
-				if(userDao.doSaveUser(new User(nome,cognome,username,password,email)))
-			        response.sendRedirect("RegSucc.jsp");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 	}
 }

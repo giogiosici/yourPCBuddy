@@ -2,9 +2,8 @@ function filterRows() {
     let input = document.getElementById("searchInput").value.toLowerCase();
     let startDateString = document.getElementById("startDateInput").value;
     let endDateString = document.getElementById("endDateInput").value;
-    let statoFilter = document.getElementById("statoOrdine").value;
     let rows = document.querySelectorAll("#container tr");
-
+	
     let startDate = new Date(startDateString);
     let endDate = new Date(endDateString);
     let formattedStartDate = formatDate(startDate);
@@ -12,8 +11,9 @@ function filterRows() {
 
     for (const row of rows) {
         let userId = row.getAttribute("data-utente");
-        let giorno = formatDate(row.getAttribute("data-giorno"));
-        let stato = row.getAttribute("stato");
+        console.log(userId);
+        let giorno = row.getAttribute("data-giorno").split(" ")[0];
+        console.log(giorno);
         let showRow = true;
 
         if (input && userId !== input) {
@@ -25,9 +25,7 @@ function filterRows() {
         if (endDateString && giorno > formattedEndDate) {
             showRow = false;
         }
-        if (statoFilter !== "-scegliere stato-" && statoFilter !== stato) {
-            showRow = false;
-        }
+        
         row.style.display = showRow ? "" : "none";
     }
 }
@@ -36,7 +34,6 @@ function filterRows() {
 /*** FORMATTAZIONE DATA PER CONFRONTO ***/
 function formatDate(dataString) {
 	let date = new Date(dataString);
-	
 	if (!(date instanceof Date)) 
         return 'Formato data non valido';
     
@@ -44,5 +41,5 @@ function formatDate(dataString) {
 	let month = String(date.getMonth() + 1).padStart(2, '0');
 	let year = date.getFullYear();
 
-	return `${year}/${month}/${day}`;
+	return `${year}-${month}-${day}`;
 }

@@ -5,6 +5,7 @@
 <head>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="./Scripts/RegisterScripts.js"></script>
+<link href="Styles/LoginScreen.css" rel="stylesheet" type="text/css">
 
 <meta charset="ISO-8859-1">
 <title>Registrati</title>
@@ -12,8 +13,8 @@
 
 </head>
 <body>
-
-	
+<main>
+	<div id="Registrazione">
 	<form action="RegisterServlet" method="POST" onsubmit="return validateRegistration()">
 		<label for="nome">Nome:</label>
 		<input type="text" id="nome" name="nome"><br><br>
@@ -35,6 +36,8 @@
 		<input type="submit" value="Registrati">	
 		 	
   </form>
+  </div>
+  </main>
   <script>
   var error = "<%= request.getParameter("error") %>";
 
@@ -58,8 +61,13 @@
 	    Swal.fire({
 	        title: 'Registrazione effettuata con successo',
 	        text: 'Verrai reindirizzato alla pagina di Login',
-	        icon: 'error',
+	        icon: 'success',
 	        confirmButtonText: 'OK'
+	    }).then((result) => {
+	        if (result.isConfirmed) {
+	            // Reindirizza l'utente alla pagina di login
+	            window.location.href = 'LoginScreen.jsp';
+	        }
 	    });
 	}
 </script>

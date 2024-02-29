@@ -3,7 +3,6 @@ function redirectToProduct(productId) {
 }
 
 $(document).ready(function() {
-	console.log("catalogo");
 	$('.CatalogProduct').submit(function(e) {
 		e.preventDefault(); // Previene l'invio predefinito del form
 
