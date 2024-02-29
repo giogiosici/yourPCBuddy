@@ -1,10 +1,12 @@
 package model;
 
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Cart {
+public class Cart implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	
 	double totalPrice=0;
 	private int quantity;
