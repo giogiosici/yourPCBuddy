@@ -4,7 +4,7 @@
     User user = (User) request.getAttribute("user");
 %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="./Scripts/PAScripts.js"></script>
@@ -93,5 +93,7 @@
         </tr>
     </table>
 </div>
+<jsp:include page="Footer.jsp" flush="true"></jsp:include>
+
 </body>
 </html>

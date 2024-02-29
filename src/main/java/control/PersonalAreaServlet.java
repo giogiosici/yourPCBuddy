@@ -2,6 +2,8 @@ package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -109,14 +111,13 @@ public class PersonalAreaServlet extends HttpServlet {
 		    // Ora puoi inoltrare la richiesta alla tua pagina JSP per visualizzare i dati dell'utente
 		    request.getRequestDispatcher("PAView.jsp").forward(request, response);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+            logger.log(Level.ALL, ERROR ,e);
+
 		}
 		
-		
-		
-		
-		
 	}
+	private static final Logger logger = Logger.getLogger(CatalogServlet.class.getName());
+    private static final String ERROR = "Errore";
+
 
 }

@@ -8,7 +8,7 @@ Cart cart = (Cart) request.getSession().getAttribute("cart");
 User user = (User) request.getSession().getAttribute("user");
 %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="./Scripts/OrderScripts.js"></script>
@@ -74,6 +74,6 @@ User user = (User) request.getSession().getAttribute("user");
         <input type="submit" value="Acquista" class="checkout">
     </form>
 </div>
-	
+<jsp:include page="Footer.jsp" flush="true"></jsp:include>
 </body>
 </html>

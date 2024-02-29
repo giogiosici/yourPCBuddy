@@ -18,7 +18,8 @@ if (user == null)
 	
 %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
+
 <head>
 	<link href="Styles/AdminProduct.css" rel="stylesheet" type="text/css">
 <script src="./Scripts/AdminOrderScript.js"></script>
@@ -48,12 +49,12 @@ if (user == null)
 	<div id="filtri">
 			<h5>Filtri</h5>
 			<div class="user-search">
-				<label>Id: </label> <input type="text" id="searchInput"
+				<span>Id: </span> <input type="text" id="searchInput"
 					placeholder="inserire l'id utente..." onkeyup="filterRows()">
 			</div>
 			<div>
-				<label>da </label> <input type="date" id="startDateInput"
-					onchange="filterRows()" /> <label>a </label> <input type="date"
+				<span>Da </span> <input type="date" id="startDateInput"
+					onchange="filterRows()" /> <span>a </span> <input type="date"
 					id="endDateInput" onchange="filterRows()" />	
 			</div>
 		</div>

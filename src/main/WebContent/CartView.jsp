@@ -15,7 +15,7 @@
 %>
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.ProductBean, model.Cart"%>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -132,5 +132,7 @@
     <p>Non sono presenti elementi nel carrello</p>
 <% } %>
 </div>
+<jsp:include page="Footer.jsp" flush="true"></jsp:include>
+
 </body>
 </html>

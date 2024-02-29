@@ -1,7 +1,7 @@
 	
   function validateRegistration() {
     
-    	var emailInput = document.getElementById("email").value;//validazione email
+    	let emailInput = document.getElementById("email").value;//validazione email
         if (emailInput.indexOf('@') === -1) {
         	Swal.fire({
     	        title: 'Errore',
@@ -11,7 +11,7 @@
     	    });
             return false; // Blocca l'invio del form se la validazione fallisce
         }
-        var domain = emailInput.split('@')[1]; // Ottieni il dominio dell'email dopo la '@'
+        let domain = emailInput.split('@')[1]; // Ottieni il dominio dell'email dopo la '@'
 
         if (domain.endsWith('.com') || domain.endsWith('.it')) {
             // Consente l'invio del form se la validazione è passata
@@ -24,8 +24,8 @@
     	    });
             return false; // Blocca l'invio del form se la validazione fallisce
         }
-        var password1 = document.getElementById("password").value; // Controllo password
-        var password2 = document.getElementById("password2").value;
+        let password1 = document.getElementById("password").value; // Controllo password
+        let password2 = document.getElementById("password2").value;
 
         if (password1 === password2) {
             // Le password sono uguali

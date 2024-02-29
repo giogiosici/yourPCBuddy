@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.servlet.RequestDispatcher;
@@ -134,10 +136,12 @@ public class OrderServlet extends HttpServlet {
 		
 		
 		} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+            logger.log(Level.ALL, ERROR ,e);
+
 		}	
 	}
-	
+	private static final Logger logger = Logger.getLogger(OrderServlet.class.getName());
+    private static final String ERROR = "Errore";
+
 }
 

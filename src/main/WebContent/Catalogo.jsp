@@ -3,7 +3,7 @@
 <%@ page import="model.ProductBean"%>
 <%@ page import="java.util.*"%>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -143,6 +143,8 @@ Collection<ProductBean> AllProducts = (Collection<ProductBean>) session.getAttri
 		%>
 	</div>
 	</div>
+	<jsp:include page="Footer.jsp" flush="true"></jsp:include>
+	
 </body>
 <script>
   document.addEventListener("DOMContentLoaded", function () {

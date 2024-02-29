@@ -1,8 +1,8 @@
 function toggleInsertDropdown() {
-    var insertDropdown = document.getElementById("insertProduct");
-    var updateDropdown = document.getElementById("updateProduct");
-    var toggleButtonInsert = document.getElementById("toggleButtonInsert");
-    var toggleButtonUpdate = document.getElementById("toggleButtonUpdate");
+    let insertDropdown = document.getElementById("insertProduct");
+    let updateDropdown = document.getElementById("updateProduct");
+    let toggleButtonInsert = document.getElementById("toggleButtonInsert");
+    let toggleButtonUpdate = document.getElementById("toggleButtonUpdate");
 
     if (insertDropdown.style.display === "none") {
         // Mostra il menu di inserimento e nascondi quello di aggiornamento
@@ -19,7 +19,7 @@ function toggleInsertDropdown() {
 
 
 function cancelInsert() {
-    var dropdown = document.getElementById("insertProduct");
+    let dropdown = document.getElementById("insertProduct");
 
     // Nascondi il dropdown
     dropdown.style.display = "none";
@@ -27,9 +27,9 @@ function cancelInsert() {
 
 //update
 function toggleUpdateDropdown(productId) {
-    var insertDropdown = document.getElementById("insertProduct");
-    var updateDropdown = document.getElementById("updateProduct");
-    var toggleButtonInsert = document.getElementById("toggleButtonInsert");
+    let insertDropdown = document.getElementById("insertProduct");
+    let updateDropdown = document.getElementById("updateProduct");
+    let toggleButtonInsert = document.getElementById("toggleButtonInsert");
 
     if (updateDropdown.style.display === "none") {
         // Mostra il menu di aggiornamento e nascondi quello di inserimento
@@ -37,7 +37,7 @@ function toggleUpdateDropdown(productId) {
         insertDropdown.style.display = "none";
         toggleButtonInsert.innerHTML = "Inserisci prodotto";
         populateForm(productId); // Chiama populateForm() quando il menu di aggiornamento viene aperto
-        var updateButton = document.getElementById("updateProductButton");
+        let updateButton = document.getElementById("updateProductButton");
         updateButton.setAttribute("productId", productId);
         
     } else {
@@ -61,7 +61,7 @@ function populateForm(productId) {
         },
         success: function(response) {
             // Popola il form con i dati ottenuti dalla chiamata AJAX
-            var existingProduct = response.existingProduct;
+            let existingProduct = response.existingProduct;
 	
             $('#updateProduct input[name="id"]').val(existingProduct.id);
             $('#updateProduct input[name="name"]').attr('placeholder', existingProduct.name);
@@ -86,7 +86,7 @@ function cancelUpdate() {
 }
 
 function submitUpdateForm() {
-    var productId = document.getElementById("updateProductButton").getAttribute("productId");
+    let productId = document.getElementById("updateProductButton").getAttribute("productId");
     if (productId) {
         // Imposta il valore di productId nel campo nascosto del modulo
         document.getElementById("productIdField").value = productId;
@@ -117,15 +117,15 @@ function submitUpdateForm() {
 
 //prova
 function toggleDetailsDropdown(productId) {
-    var toggleButton = document.querySelector('#toggleButtonDetails[data-product-id="' + productId + '"]');
+    let toggleButton = document.querySelector('#toggleButtonDetails[data-product-id="' + productId + '"]');
     // Trova il parentElement (la riga) del bottone
-    var productRow = toggleButton.parentElement.parentElement.parentElement;
+    let productRow = toggleButton.parentElement.parentElement.parentElement;
     // Trova la tabella dei dettagli
-    var detailsTable = document.getElementById('detailsTable');
+    let detailsTable = document.getElementById('detailsTable');
 
     if (detailsTable.style.display === "none" || detailsTable.parentElement !== productRow.nextSibling) {
         // Nascondi eventuali altre tabelle dei dettagli visualizzate
-        var displayedDetailsTables = document.querySelectorAll('.details-table');
+        let displayedDetailsTables = document.querySelectorAll('.details-table');
         displayedDetailsTables.forEach(function(table) {
             table.style.display = 'none';
         });
@@ -157,7 +157,7 @@ function populateDetails(productId) {
             action: 'details'
         },
        success: function(response) {
-    var product = response.product;
+    let product = response.product;
     if (product) {
         $('#code').text(product.code);
         $('#brand').text(product.brand);
@@ -186,11 +186,11 @@ function cancelDetails() {
 // Codice per gestire la richiesta AJAX e mostrare l'alert con il messaggio di errore
 function handleError() {
     // Esegui una richiesta AJAX per ottenere l'errore dal backend
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.open("POST", "product", true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 500) {
-            var errorMessage = xhr.responseText;
+            let errorMessage = xhr.responseText;
             // Mostra un alert con il messaggio di errore
             alert(errorMessage);
         }

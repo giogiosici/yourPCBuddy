@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.sql.Connection;
 
 import javax.servlet.RequestDispatcher;
@@ -106,7 +108,7 @@ public class Login extends HttpServlet {
                 }	
             }
             catch (SQLException e) {
-                e.printStackTrace();
+	            logger.log(Level.ALL, ERROR ,e);
             } finally {
                 try {
                     if (logincheck != null) {
@@ -119,12 +121,13 @@ public class Login extends HttpServlet {
                         connection.close();
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+    	            logger.log(Level.ALL, ERROR ,e);
                 }
             }
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/LoginScreen.jsp");
     		dispatcher.forward(request, response);
         }
 	
-
+	private static final Logger logger = Logger.getLogger(Login.class.getName());
+    private static final String ERROR = "Errore";
 }

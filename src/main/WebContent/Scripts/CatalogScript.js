@@ -6,16 +6,16 @@ $(document).ready(function() {
 	$('.CatalogProduct').submit(function(e) {
 		e.preventDefault(); // Previene l'invio predefinito del form
 
-		var formData = $(this).serialize(); // Ottiene i dati del form serializzati
+		let formData = $(this).serialize(); // Ottiene i dati del form serializzati
 
 		// Trova il campo "quantity" associato a questo form
-		var quantityField = $('#quantity_' + $(this).find('input[name="id"]').val());
+		let quantityField = $('#quantity_' + $(this).find('input[name="id"]').val());
 
 		// Ottieni il valore corrente del campo "quantity" e convertilo in un numero intero
-		var currentQuantity = parseInt(quantityField.val());
+		let currentQuantity = parseInt(quantityField.val());
 
 		// Incrementa il valore di "quantity" di 1
-		var newQuantity = currentQuantity + 1;
+		let newQuantity = currentQuantity + 1;
 
 		// Imposta il nuovo valore di "quantity" nel campo
 		quantityField.val(newQuantity);
@@ -39,12 +39,12 @@ $(document).ready(function() {
 
 // Includi la funzione di ricerca JavaScript qui
 function searchAndFilter() {
-	var searchQuery = document.getElementById('search-bar').querySelector('input[name="q"]').value.toLowerCase();
+	let searchQuery = document.getElementById('search-bar').querySelector('input[name="q"]').value.toLowerCase();
 
-	var products = document.querySelectorAll('.schedaProdotto');
+	let products = document.querySelectorAll('.schedaProdotto');
 
 	products.forEach(function(product) {
-		var productName = product.querySelector('.product-name').innerText.toLowerCase();
+		let productName = product.querySelector('.product-name').innerText.toLowerCase();
 
 		if (productName.includes(searchQuery)) {
 			product.style.display = 'block';
@@ -182,14 +182,14 @@ function sliderCatalogo() {
 
 function sliderPrice() {
   // Ottenere tutte le schede prodotto
-  var products = document.getElementsByClassName('schedaProdotto');
+  let products = document.getElementsByClassName('schedaProdotto');
 
   // Filtrare i prodotti in base al range di prezzo
-  for (var i = 0; i < products.length; i++) {
-    var product = products[i];
-    var price = parseFloat(product.querySelector('.product-price').innerText.replace(',', '.'));
+  for (let i = 0; i < products.length; i++) {
+    let product = products[i];
+    let price = parseFloat(product.querySelector('.product-price').innerText.replace(',', '.'));
 
-    var pricePass = isPriceInRange(price);
+    let pricePass = isPriceInRange(price);
 
     // Visualizzare o nascondere il prodotto in base ai filtri
     if (pricePass && isCheckboxFiltered(product)) {
@@ -202,8 +202,8 @@ function sliderPrice() {
 
 function isPriceInRange(price) {
   // Ottenere i valori del range di prezzo
-  var minPrice = parseFloat(document.querySelector('.min-input').value);
-  var maxPrice = parseFloat(document.querySelector('.max-input').value);
+  let minPrice = parseFloat(document.querySelector('.min-input').value);
+  let maxPrice = parseFloat(document.querySelector('.max-input').value);
 
   // Verificare se il prezzo è compreso nel range
   return price >= minPrice && price <= maxPrice;

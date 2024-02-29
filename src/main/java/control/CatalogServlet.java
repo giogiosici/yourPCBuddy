@@ -3,6 +3,8 @@ package control;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -53,10 +55,11 @@ public class CatalogServlet extends HttpServlet {
 				
 			} catch (SQLException e) {
 				
-				e.printStackTrace();
+	            logger.log(Level.ALL, ERROR ,e);
 			}
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Catalogo.jsp");
 			dispatcher.forward(request,response);
 	}
-	
+	private static final Logger logger = Logger.getLogger(CatalogServlet.class.getName());
+    private static final String ERROR = "Errore";
 }

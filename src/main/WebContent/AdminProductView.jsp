@@ -21,7 +21,7 @@ if (user == null)
 %>
 
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <%@ page contentType="text/html; charset=UTF-8" import="java.util.*,model.ProductBean"%>
 
 <head>

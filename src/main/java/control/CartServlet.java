@@ -1,7 +1,8 @@
 package control;
 
 import java.util.*;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,7 +44,7 @@ public class CartServlet extends HttpServlet {
         	DriverManagerConnectionPool connectionPool = DriverManagerConnectionPool.getInstance();
         	connection = connectionPool.getConnection();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.log(Level.ALL, ERROR ,e);
         }
 
 	}
@@ -97,7 +98,7 @@ public class CartServlet extends HttpServlet {
 				request.getSession().setAttribute("cart", cart);
 
 			} catch (SQLException e) {
-				e.printStackTrace(); 
+	            logger.log(Level.ALL, ERROR ,e);
 			}
 
 			}
@@ -131,7 +132,7 @@ public class CartServlet extends HttpServlet {
 					}
 			}
 		} catch (SQLException e) {
-			System.out.println("Error:" + e.getMessage());
+            logger.log(Level.ALL, ERROR ,e);
 		}
 
 		request.getSession().setAttribute("cart", cart);
@@ -142,5 +143,9 @@ public class CartServlet extends HttpServlet {
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/CartView.jsp");
 		dispatcher.forward(request, response);
 	}
+	
+	private static final Logger logger = Logger.getLogger(CartServlet.class.getName());
+    private static final String ERROR = "Errore";
 
 }
+

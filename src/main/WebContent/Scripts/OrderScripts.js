@@ -4,7 +4,7 @@ function redirectToProduct(productId) {
 
 document.addEventListener("DOMContentLoaded", function () {
     // Controlla se l'utente ha un indirizzo
-    var userHasAddress = document.getElementById("stato").innerHTML;
+    let userHasAddress = document.getElementById("stato").innerHTML;
     
     // Se l'utente non ha un indirizzo, mostra l'alert
     if (userHasAddress.trim() === "null") {
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
             showConfirmButton: true
         }).then(function () {
             // Reindirizza alla pagina PersonalAreaServlet con un metodo POST
-            var form = document.createElement("form");
+            let form = document.createElement("form");
             form.method = "POST";
             form.action = "PersonalAreaServlet";
             document.body.appendChild(form);

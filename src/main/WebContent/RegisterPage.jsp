@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="./Scripts/RegisterScripts.js"></script>
@@ -71,5 +71,7 @@
 	    });
 	}
 </script>
+<jsp:include page="Footer.jsp" flush="true"></jsp:include>
+
 </body>
 </html>

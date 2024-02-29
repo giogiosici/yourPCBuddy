@@ -1,13 +1,13 @@
 function searchAndFilter() {
         // Otteniamo il testo di ricerca dalla casella di ricerca
-        var searchQuery = document.getElementById('search-bar').querySelector('input[name="q"]').value.toLowerCase();
+        let searchQuery = document.getElementById('search-bar').querySelector('input[name="q"]').value.toLowerCase();
 
         // Ottieni tutti gli elementi della tabella dei prodotti
-        var products = document.querySelectorAll('.product-row');
+        let products = document.querySelectorAll('.product-row');
 
         // Itera su ciascun elemento e nascondi o mostra in base alla ricerca
         products.forEach(function (product) {
-            var productName = product.querySelector('.product-name').innerText.toLowerCase();
+            let productName = product.querySelector('.product-name').innerText.toLowerCase();
 
             if (productName.includes(searchQuery)) {
                 // Se il nome del prodotto contiene la query di ricerca, mostra l'elemento

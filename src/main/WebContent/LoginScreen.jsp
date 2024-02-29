@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 <% String errorMessage = (String) request.getAttribute("errorMessage"); %>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -29,6 +29,8 @@
 </div>
 </main>
 </body>
+<jsp:include page="Footer.jsp" flush="true"></jsp:include>
+
 <script>
 // Esegui lo script JavaScript per mostrare l'alert con SweetAlert2
 <% String errorScript = (String) request.getAttribute("errorScript"); %>

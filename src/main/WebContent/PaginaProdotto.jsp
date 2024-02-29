@@ -6,7 +6,7 @@
 <%@ page import="model.ProductDaoDataSource" %>
 <%@ page import="javax.sql.DataSource" %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 <meta charset="UTF-8">
 <title>Dettagli prodotto</title>
@@ -78,6 +78,8 @@
     }%>
 </div></div>
 </div>
+<jsp:include page="Footer.jsp" flush="true"></jsp:include>
+
 </body>
 <script src="./Scripts/PaginaProdottoScript.js"></script>
 </html>

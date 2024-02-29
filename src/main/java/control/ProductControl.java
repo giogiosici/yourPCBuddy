@@ -12,6 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -198,7 +200,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 				}
 			}			
 		} catch (SQLException e) {
-			System.out.println("Error:" + e.getMessage());
+            logger.log(Level.ALL, ERROR ,e);
 			if(e.getMessage().equals(nameError)) {
 				// Invia l'errore al frontend tramite una richiesta AJAX
 		        String errorMessage = e.getMessage();
@@ -243,4 +245,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		out.write(jsonResponse);
 		out.flush();
 	}
+	private static final Logger logger = Logger.getLogger(CatalogServlet.class.getName());
+    private static final String ERROR = "Errore";
+
 }

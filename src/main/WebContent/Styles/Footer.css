@@ -1,0 +1,25 @@
+
+footer{
+background: #228cd6;
+    min-height: 10vh;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 3rem 5%;
+    color: white;
+    }
+footer ul{
+	    flex: 1 1 40rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+ul{
+	list-style: none;
+}
+
+footer h4{
+	flex: 2 1 40rem;
+    font-size: calc(1.5rem + 1vw)
+}

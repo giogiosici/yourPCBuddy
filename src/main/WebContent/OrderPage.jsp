@@ -5,7 +5,7 @@
    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 <link href="Styles/OrderPage.css" rel="stylesheet" type="text/css">
 
@@ -47,5 +47,7 @@
 				  </tr>
         </table>
     </c:forEach>
+    <jsp:include page="Footer.jsp" flush="true"></jsp:include>
+    
 </body>
 </html>

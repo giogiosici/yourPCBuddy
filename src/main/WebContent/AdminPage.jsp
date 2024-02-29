@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ page import="model.User" %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 <meta charset="UTF-8">
 	<link href="Styles/AdminPage.css" rel="stylesheet" type="text/css">

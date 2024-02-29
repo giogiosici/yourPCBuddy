@@ -7,7 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="./Scripts/IndexScript.js"></script>
@@ -55,6 +55,8 @@
 	</div>
 
 </div>
+<jsp:include page="Footer.jsp" flush="true"></jsp:include>
 
 </body>
+
 </html>

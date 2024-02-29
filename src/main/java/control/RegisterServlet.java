@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,7 +38,7 @@ public class RegisterServlet extends HttpServlet {
         	DriverManagerConnectionPool connectionPool = DriverManagerConnectionPool.getInstance();
         	connection = connectionPool.getConnection();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.log(Level.ALL, ERROR ,e);
         }
 
 	}
@@ -78,8 +80,11 @@ public class RegisterServlet extends HttpServlet {
 				
 			} catch (SQLException | ServletException | IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+	            logger.log(Level.ALL, ERROR ,e);
 			}
 			
 	}
+	private static final Logger logger = Logger.getLogger(CatalogServlet.class.getName());
+    private static final String ERROR = "Errore";
+
 }
